@@ -20,5 +20,5 @@ variable "database-properties" {
 
 variable "bastion-properties" {
   description = "bastion properties"
-  type = any
+  type        = any
 }

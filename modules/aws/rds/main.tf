@@ -15,7 +15,7 @@ resource "aws_security_group" "db-sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] 
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -48,20 +48,20 @@ resource "aws_db_instance" "db" {
 }
 
 resource "aws_security_group" "bastion-host-sg" {
-  name = "bastion-host-sg"
+  name   = "bastion-host-sg"
   vpc_id = var.vpc-id
 
   ingress {
-    from_port = "22"
-    to_port = "22"
-    protocol = "tcp"
+    from_port   = "22"
+    to_port     = "22"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = -1
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -71,16 +71,16 @@ resource "aws_security_group" "bastion-host-sg" {
 }
 
 resource "aws_key_pair" "bastion-host-key-pair" {
-  key_name = "bastion-host-key-pair"
+  key_name   = "bastion-host-key-pair"
   public_key = file(var.bastion-properties.bastion-host-public-key)
 }
 
 resource "aws_instance" "bastion-host" {
-  count = var.bastion-properties.count
-  ami = data.aws_ami.linux-ami.id
+  count         = var.bastion-properties.count
+  ami           = data.aws_ami.linux-ami.id
   instance_type = var.bastion-properties.instance-type
 
-  key_name = aws_key_pair.bastion-host-key-pair.id
+  key_name  = aws_key_pair.bastion-host-key-pair.id
   subnet_id = var.vpc-public-subnets[0].id
 
   vpc_security_group_ids = [
