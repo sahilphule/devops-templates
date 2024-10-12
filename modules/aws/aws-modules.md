@@ -221,4 +221,3 @@ Let's start with the EKS Module
 14. Click [code](https://github.com/sahilphule/terraform/blob/master/modules/aws/eks/variables.tf) for reference.
 15. We have completed defining the **EKS Module**.
 
----
