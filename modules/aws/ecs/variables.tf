@@ -18,10 +18,10 @@ variable "vpc-private-subnets" {
   type        = list(any)
 }
 
-# variable "ecr-repo-url" {
-#   description = "ecr repo url"
-#   type        = string
-# }
+// variable "ecr-repo-url" {
+//   description = "ecr repo url"
+//   type        = string
+// }
 
 variable "repo-url" {
   description = "docker hub repo url"

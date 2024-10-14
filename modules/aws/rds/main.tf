@@ -2,7 +2,7 @@ resource "aws_db_subnet_group" "vpc-db-subnet-group" {
   name        = "db subnet group"
   description = "db subnet group for rean"
   subnet_ids = [
-    # for subnet in var.vpc-public-subnets : subnet.id
+    // for subnet in var.vpc-public-subnets : subnet.id
     for subnet in var.vpc-private-subnets : subnet.id
   ]
 }

@@ -30,7 +30,7 @@ resource "aws_lb" "load-balancer" {
 
   subnets = [
     for subnet in var.vpc-public-subnets : subnet.id
-    # for subnet in var.vpc-private-subnets : subnet.id
+    // for subnet in var.vpc-private-subnets : subnet.id
   ]
 }
 

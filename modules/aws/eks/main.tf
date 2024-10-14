@@ -15,7 +15,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   vpc_config {
     subnet_ids = [
       for subnet in var.vpc-public-subnets : subnet.id
-      # for subnet in var.vpc-private-subnets : subnet.id
+      // for subnet in var.vpc-private-subnets : subnet.id
     ]
   }
 
@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "eks-cluster" {
 
 resource "aws_iam_role" "eks-node-role" {
   name = var.eks-properties.eks-node-role-name
-  # assume_role_policy = data.aws_iam_policy_document.eks-node-assume-role-policy.json
+  // assume_role_policy = data.aws_iam_policy_document.eks-node-assume-role-policy.json
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -76,7 +76,7 @@ resource "aws_eks_node_group" "eks-node-group" {
   instance_types = var.eks-properties.eks-instance-types
   subnet_ids = [
     for subnet in var.vpc-public-subnets : subnet.id
-    # for subnet in var.vpc-private-subnets : subnet.id
+    // for subnet in var.vpc-private-subnets : subnet.id
   ]
 
   depends_on = [
