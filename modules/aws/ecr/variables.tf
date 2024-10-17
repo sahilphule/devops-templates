@@ -1,4 +1,4 @@
-variable "ecr-repo-name" {
+variable "ecr-repository-name" {
   description = "ecr repository name"
   type        = string
 }

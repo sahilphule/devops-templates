@@ -34,21 +34,21 @@ resource "aws_lb" "load-balancer" {
   ]
 }
 
-resource "aws_lb_target_group" "target-group" {
-  name        = var.load-balancer-properties.target-group-name
+resource "aws_lb_target_group" "load-balancer-tg" {
+  name        = var.load-balancer-properties.load-balancer-tg-name
   port        = var.load-balancer-properties.port
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = var.vpc-id
 }
 
-resource "aws_lb_listener" "listener" {
+resource "aws_lb_listener" "load-balancer-listener" {
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.target-group.arn
+    target_group_arn = aws_lb_target_group.load-balancer-tg.arn
   }
 
   load_balancer_arn = aws_lb.load-balancer.arn
-  port              = "80"
+  port              = 80
   protocol          = "HTTP"
 }

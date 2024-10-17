@@ -7,7 +7,7 @@ resource "aws_iam_role" "ecs-task-execution-role" {
   name               = var.ecs-properties.ecs-task-execution-role-name
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy" {
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-AmazonECSTaskExecutionRolePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   role       = aws_iam_role.ecs-task-execution-role.name
 }

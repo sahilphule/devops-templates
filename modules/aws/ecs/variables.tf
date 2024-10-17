@@ -1,8 +1,3 @@
-variable "availability-zones" {
-  description = "ap-south-1 AZs"
-  type        = list(string)
-}
-
 variable "vpc-id" {
   description = "vpc id"
   type        = string
@@ -18,15 +13,10 @@ variable "vpc-private-subnets" {
   type        = list(any)
 }
 
-// variable "ecr-repo-url" {
-//   description = "ecr repo url"
+// variable "ecr-repository-url" {
+//   description = "ecr repository url"
 //   type        = string
 // }
-
-variable "repo-url" {
-  description = "docker hub repo url"
-  type        = string
-}
 
 variable "ecs-properties" {
   description = "ecs properties"

@@ -36,15 +36,15 @@ resource "aws_db_instance" "db" {
     aws_security_group.db-sg.id
   ]
 
-  identifier          = var.database-properties.identifier
-  allocated_storage   = var.database-properties.allocated-storage
-  engine              = var.database-properties.engine
-  engine_version      = var.database-properties.engine-version
-  instance_class      = var.database-properties.instance-class
+  identifier          = var.database-properties.db-identifier
+  allocated_storage   = var.database-properties.db-allocated-storage
+  engine              = var.database-properties.db-engine
+  engine_version      = var.database-properties.db-engine-version
+  instance_class      = var.database-properties.db-instance-class
   username            = var.database-properties.db-username
   password            = var.database-properties.db-password
-  publicly_accessible = var.database-properties.publicly-accessible
-  skip_final_snapshot = var.database-properties.skip-final-snapshot
+  publicly_accessible = var.database-properties.db-publicly-accessible
+  skip_final_snapshot = var.database-properties.db-skip-final-snapshot
 }
 
 resource "aws_security_group" "bastion-host-sg" {
@@ -76,10 +76,8 @@ resource "aws_key_pair" "bastion-host-key-pair" {
 }
 
 resource "aws_instance" "bastion-host" {
-  count         = var.bastion-properties.count
   ami           = data.aws_ami.linux-ami.id
-  instance_type = var.bastion-properties.instance-type
-
+  instance_type = var.bastion-properties.bastion-host-instance-type
   key_name  = aws_key_pair.bastion-host-key-pair.id
   subnet_id = var.vpc-public-subnets[0].id
 

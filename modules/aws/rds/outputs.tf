@@ -5,5 +5,5 @@ output "DB_HOST" {
 
 output "bastion-host-ip" {
   description = "bastion host ip address"
-  value       = aws_instance.bastion-host[0].public_ip
+  value       = aws_instance.bastion-host.public_ip
 }
