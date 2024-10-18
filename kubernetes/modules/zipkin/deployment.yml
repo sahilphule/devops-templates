@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin-deployment
+  namespace: user-analytics
+  labels:
+    deployment: zipkin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: zipkin
+  template:
+    metadata:
+      labels:
+        pod: zipkin
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: zipkin-container
+        image: openzipkin/zipkin
+        ports:
+        - containerPort: 9411

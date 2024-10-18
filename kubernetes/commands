@@ -1,0 +1,43 @@
+kubectl apply -f "file-name"
+kubectl delete "*"
+
+kubectl get all -A
+kubectl get all
+kubectl get "*"
+kubectl logs "pod-name"
+kubectl describe "pod-name"
+kubectl rollout restart "deployment/deployment-name"
+
+kubectl create configmap "config-name" --from-file="file-path"
+kubectl get configmaps
+kubectl get secrets
+
+kubens "namespace"
+kubectl create namespace "namespace-name"
+kubectl port-forward service/"service-name" "desired-port":"service-port"
+
+kubectl exec -it "pod-name" -- bash
+$pod = $(kubectl get pod -n "namespace-name" -l "label" -o jsonpath="{.items[0].metadata.name}")
+kubectl cp "src-path" "namespace-name"/${pod}:"dest-path"
+
+kubectl taint nodes --all node.cloudprovider.kubernetes.io/uninitialized-
+
+docker context user default
+kubectl config current-context
+
+minikube start --driver=docker
+minikube docker-env | Invoke-Expression
+minikube stop
+
+minikube ssh
+minikube cp "src-path" "dest-path"
+minikube mount "src-path":"dest-path"
+minikube tunnel
+minikube service "service-name" -n "namespace-name"
+minikube dashboard
+minikube addons enable ingress
+
+echo "text" | base64
+echo "encoded-text" | base64 --decode
+
+kompose convert

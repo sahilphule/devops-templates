@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  namespace: follow-up
+  labels:
+    deployment: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: mongo
+  template:
+    metadata:
+      labels:
+        pod: mongo
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: mongo
+        image: mongo
+        ports:
+        - containerPort: 27017
+        envFrom:
+        - configMapRef:
+            name: follow-up-configmap
+        - secretRef:
+            name: follow-up-secrets
+        volumeMounts:
+        - name: mongo-volume
+          mountPath: /data/db
+      volumes:
+      - name: mongo-volume
+        persistentVolumeClaim:
+          claimName: mongo-pvc
