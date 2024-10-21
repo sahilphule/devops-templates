@@ -1,17 +1,27 @@
 import pulumi_aws as aws
 
-linux_ami = aws.ec2.get_ami(
-    most_recent = True,
-    owners = ["137112412989"],
-
-    filters = [
+eks_cluster_role_policy_document = {
+    'Version': '2012-10-17',
+    'Statement': [
         {
-            "name": "name",
-            "values": ["al2023-ami-2023.5.20240819.0-kernel-6.1-x86_64"]
-        },
-        {
-            "name": "virtualization-type",
-            "values": ["hvm"]
+            'Action': 'sts:AssumeRole',
+            'Principal': {
+                'Service': 'eks.amazonaws.com'
+            },
+            'Effect': 'Allow'
         }
     ]
-)
+}
+
+eks_node_group_role_policy_document = {
+    'Version': '2012-10-17',
+    'Statement': [
+        {
+            'Action': 'sts:AssumeRole',
+            'Principal': {
+                'Service': 'ec2.amazonaws.com'
+            },
+            'Effect': 'Allow',
+        }
+    ]
+}
