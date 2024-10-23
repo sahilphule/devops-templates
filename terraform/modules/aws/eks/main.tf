@@ -64,9 +64,9 @@ resource "aws_eks_node_group" "eks-node-group" {
   node_role_arn   = aws_iam_role.eks-node-role.arn
 
   scaling_config {
-    desired_size = 2
-    max_size     = 2
-    min_size     = 2
+    desired_size = 1
+    max_size     = 1
+    min_size     = 1
   }
 
   update_config {
