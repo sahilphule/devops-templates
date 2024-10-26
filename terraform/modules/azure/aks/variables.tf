@@ -1,6 +1,6 @@
 variable "aks-properties" {
   description = "aks properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "resource-group-properties" {
@@ -8,7 +8,7 @@ variable "resource-group-properties" {
   type        = map(any)
 }
 
-variable "vnet-public-subnet-id" {
-  description = "vnet pubic subnet id"
-  type        = any
+variable "vnet-name" {
+  description = "virtual network name"
+  type        = string
 }

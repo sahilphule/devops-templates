@@ -1,9 +1,9 @@
-output "vnet-public-subnet-id" {
-  description = "vnet public subnet id"
-  value       = azurerm_subnet.vnet-public-subnet.id
+output "vnet-id" {
+  description = "vnet id"
+  value       = azurerm_virtual_network.vnet.id
 }
 
-output "vnet-db-subnet-id" {
-  description = "vnet db subnet id"
-  value       = azurerm_subnet.vnet-db-subnet.id
+output "vnet-name" {
+  description = "vnet name"
+  value       = azurerm_virtual_network.vnet.name
 }

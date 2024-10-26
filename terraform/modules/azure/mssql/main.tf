@@ -1,17 +1,29 @@
-resource "azurerm_mssql_server" "mssql_server" {
-  resource_group_name = var.resource-group-properties.name
-  location            = var.resource-group-properties.location
+resource "azurerm_subnet" "mssql-subnet" {
+  resource_group_name = var.resource-group-properties.rg-name
+
+  name                 = var.mssql-properties.mssql-subnet-name
+  virtual_network_name = var.vnet-name
+  address_prefixes     = var.mssql-properties.mssql-subnet-address-prefixes
+}
+
+resource "azurerm_mssql_server" "mssql-server" {
+  resource_group_name = var.resource-group-properties.rg-name
+  location            = var.resource-group-properties.rg-location
 
   name                          = var.mssql-properties.mssql-server-name
   version                       = var.mssql-properties.mssql-server-version
   administrator_login           = var.mssql-properties.mssql-server-login
   administrator_login_password  = var.mssql-properties.mssql-server-login-password
   public_network_access_enabled = false
+
+  depends_on = [
+    azurerm_subnet.mssql-subnet
+  ]
 }
 
-resource "azurerm_mssql_database" "mssql_database" {
+resource "azurerm_mssql_database" "mssql-database" {
   name        = var.mssql-properties.mssql-database-name
-  server_id   = azurerm_mssql_server.mssql_server.id
+  server_id   = azurerm_mssql_server.mssql-server.id
   max_size_gb = 1
 
   depends_on = [
@@ -19,17 +31,47 @@ resource "azurerm_mssql_database" "mssql_database" {
   ]
 }
 
-resource "azurerm_private_endpoint" "vpc-db-subnet-endpoint" {
+resource "azurerm_private_endpoint" "mssql-subnet-private-endpoint" {
   resource_group_name = var.resource-group-properties.rg-name
   location            = var.resource-group-properties.rg-location
 
-  name      = var.mssql-properties.vpc-db-subnet-endpoint-name
-  subnet_id = var.vnet-db-subnet-id
+  name      = var.mssql-properties.mssql-subnet-private-endpoint-name
+  subnet_id = azurerm_subnet.mssql-subnet.id
 
   private_service_connection {
-    name                           = "vnet-db-private-connection"
-    private_connection_resource_id = azurerm_mssql_server.mssql_server.id
+    name                           = "mssql-subnet-private-connection"
+    private_connection_resource_id = azurerm_mssql_server.mssql-server.id
     subresource_names              = ["sqlServer"]
     is_manual_connection           = false
   }
 }
+
+# resource "azurerm_subnet" "AzureBastionSubnet" {
+#   resource_group_name = var.resource-group-properties.rg-name
+
+#   name                 = var.mssql-properties.mssql-bastion-host-subnet-name
+#   virtual_network_name = var.vnet-id
+#   address_prefixes     = var.mssql-properties.mssql-bastion-host-address-prefixes
+# }
+
+# resource "azurerm_public_ip" "mssql-bastion-host-public-ip" {
+#   resource_group_name = var.resource-group-properties.rg-name
+#   location            = var.resource-group-properties.rg-location
+
+#   name              = "mssql-bastion-host-public-ip"
+#   allocation_method = "Static"
+#   sku               = "Standard"
+# }
+
+# resource "azurerm_bastion_host" "mssql-bastion-host" {
+#   resource_group_name = var.resource-group-properties.rg-name
+#   location            = var.resource-group-properties.rg-location
+
+#   name = var.mssql-properties.mssql-bastion-host-name
+
+#   ip_configuration {
+#     name                 = "configuration"
+#     subnet_id            = azurerm_subnet.AzureBastionSubnet.id
+#     public_ip_address_id = azurerm_public_ip.mssql-bastion-host-public-ip.id
+#   }
+# }

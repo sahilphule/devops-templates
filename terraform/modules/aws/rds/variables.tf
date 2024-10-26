@@ -1,3 +1,13 @@
+variable "database-properties" {
+  description = "database properties"
+  type        = map(any)
+}
+
+variable "bastion-properties" {
+  description = "bastion properties"
+  type        = any
+}
+
 variable "vpc-id" {
   description = "vpc id"
   type        = string
@@ -11,14 +21,4 @@ variable "vpc-public-subnets" {
 variable "vpc-private-subnets" {
   description = "db private subnet group id"
   type        = list(any)
-}
-
-variable "database-properties" {
-  description = "database properties"
-  type        = map(any)
-}
-
-variable "bastion-properties" {
-  description = "bastion properties"
-  type        = any
 }

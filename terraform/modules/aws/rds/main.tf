@@ -2,7 +2,6 @@ resource "aws_db_subnet_group" "vpc-db-subnet-group" {
   name        = "db subnet group"
   description = "db subnet group for rean"
   subnet_ids = [
-    // for subnet in var.vpc-public-subnets : subnet.id
     for subnet in var.vpc-private-subnets : subnet.id
   ]
 }
@@ -78,8 +77,8 @@ resource "aws_key_pair" "bastion-host-key-pair" {
 resource "aws_instance" "bastion-host" {
   ami           = data.aws_ami.linux-ami.id
   instance_type = var.bastion-properties.bastion-host-instance-type
-  key_name  = aws_key_pair.bastion-host-key-pair.id
-  subnet_id = var.vpc-public-subnets[0].id
+  key_name      = aws_key_pair.bastion-host-key-pair.id
+  subnet_id     = var.vpc-public-subnets[0].id
 
   vpc_security_group_ids = [
     aws_security_group.bastion-host-sg.id

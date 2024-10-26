@@ -1,6 +1,6 @@
 variable "mssql-properties" {
   description = "mssql properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "resource-group-properties" {
@@ -8,7 +8,12 @@ variable "resource-group-properties" {
   type        = map(any)
 }
 
-variable "vnet-db-subnet-id" {
-  description = "vnet db subnet id"
+variable "vnet-name" {
+  description = "virtual network name"
+  type        = string
+}
+
+variable "vnet-public-subnet-id" {
+  description = "virtual network public subnet id"
   type        = any
 }
