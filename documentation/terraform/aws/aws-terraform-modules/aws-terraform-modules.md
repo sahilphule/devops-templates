@@ -2,6 +2,22 @@
 
 Create the **aws-modules** directory.
 
+The folder structure for the above created directory is as follows:
+
+```
+aws-modules
+├───cloudwatch
+├───ecr
+├───ecs
+├───eks
+├───load-balancer
+├───rds
+├───s3
+└───vpc
+```
+
+---
+
 ## VPC Module
 Let's start with the VPC module.
 1. Create *vpc* folder inside the above-created directory.

@@ -2,16 +2,28 @@
 
 Create the **azure-modules** directory.
 
+The folder structure for the above-created directory is as follows:
+
+```
+azure-modules
+├───aks
+├───container-apps
+├───mssql
+├───mysql-flexible
+├───resource-group
+└───virtual-network
+```
+
 ---
 
 ## Resource Group Module
-Let's start with Resource Group Module.
-1. Create *resource-group* folder inside the above-created directory.
+Let's start with the Resource Group Module.
+1. Create a *resource-group* folder inside the above-created directory.
 2. Inside *resource-group* folder, create *main.tf* file.
 3. Define the following resources:
     - azurerm_resource_group
 4. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/resource-group/main.tf) for reference.
-5. The definition of *main.tf* file has beed completed.
+5. The definition of *main.tf* file has been completed.
 6. Now we will create *variables.tf* file for declaring variables.
 7. Inside it, declare the following variables:
     - resource-group-properties
@@ -21,8 +33,8 @@ Let's start with Resource Group Module.
 ---
 
 ## VNet Module
-Now, let's create Virtual Network module.
-1. Create *vnet* folder inside the above-created directory.
+Now, let's create a Virtual Network module.
+1. Create a *vnet* folder inside the above-created directory.
 2. Inside *vnet* folder, create *main.tf* file.
 3. Define the following resources:
     - azurerm_virtual_network
@@ -44,7 +56,7 @@ Now, let's create Virtual Network module.
 ---
 
 ## MySQL Flexible Module
-For database, we will use Azure MySQL Flexible.
+For the database, we will use Azure MySQL Flexible.
 1. Create *mysql-flexible* folder inside the *azure-modules* directory.
 2. Inside *mysql-flexible* folder, create *main.tf* file and define the following resources:
     - azurerm_subnet
@@ -55,22 +67,21 @@ For database, we will use Azure MySQL Flexible.
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/main.tf) for reference.
 4. The definition of *main.tf* file is complete.
 5. Now we will create *variables.tf* file.
-6. Inside *variables.tf* file, declare the following variables:
-    - mysql-properties
+6. Inside the *variables.tf* file, declare the following variables:
+    - mysql-flexible-properties
     - resource-group-properties
     - vnet-id
     - vnet-name
 7. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/variables.tf) for reference.
 8. Variables have been declared, now we will define the outputs.
     - DB_HOST
-    - bastion-host-ip
 9. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/outputs.tf) for reference.
 10. We have completed defining the **MySQL Flexible Module**.
 
 ---
 
 ## Container Apps Module
-Let's start with Container Apps Module.
+Let's start with the Container Apps Module.
 1. Create *container-apps* folder in the above-created *azure-modules* directory.
 2. Inside it, create *main.tf* file and define the following resources;
     - azurerm_subnet
@@ -91,7 +102,7 @@ Let's start with Container Apps Module.
 ## AKS Module
 Let's start with the AKS Module.
 1. Create the *aks* folder in the *azure-modules* directory.
-2. Inside it, create *main.tf* file and define the following resources:
+2. Inside it, create a *main.tf* file and define the following resources:
     - azurerm_subnet
     - azurerm_kubernetes_cluster
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/aks/main.tf) for reference.

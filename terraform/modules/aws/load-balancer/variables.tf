@@ -5,7 +5,7 @@ variable "load-balancer-properties" {
 
 variable "vpc-id" {
   description = "vpc id"
-  type        = string
+  type        = any
 }
 
 variable "vpc-public-subnets" {

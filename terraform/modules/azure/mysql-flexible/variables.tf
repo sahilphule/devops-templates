@@ -1,4 +1,4 @@
-variable "mysql-properties" {
+variable "mysql-flexible-properties" {
   description = "azure mysql properties"
   type        = any
 }
