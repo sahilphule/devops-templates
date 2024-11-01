@@ -1,0 +1,24 @@
+git status
+git add *
+git commit -m "message"
+git push -u origin "branch-name"
+git rm "filename"
+git rm --cached "filename"
+ 
+// delete branch locally
+git branch -d localBranchName
+
+// delete branch remotely
+git push origin --delete remoteBranchName
+
+git init
+git remote add origin "repo-url"
+git remote remove origin
+
+git branch "branchname"
+git checkout "branchname"
+
+git config credential.username "username"
+git config -l
+git config --global user.name "username"
+git config --global user.email "email"

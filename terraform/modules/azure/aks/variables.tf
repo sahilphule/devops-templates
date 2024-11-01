@@ -8,7 +8,7 @@ variable "resource-group-properties" {
   type        = map(any)
 }
 
-variable "vnet-name" {
-  description = "virtual network name"
-  type        = string
+variable "vnet-public-subnet-id" {
+  description = "virtual network public subnet id"
+  type        = any
 }

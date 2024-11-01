@@ -1,12 +1,3 @@
-resource "azurerm_subnet" "container-app-vnet-public-subnet" {
-  resource_group_name = var.resource-group-properties.rg-name
-
-  name                 = var.container-app-properties.container-app-vnet-subnet-name
-  virtual_network_name = var.vnet-name
-  address_prefixes     = var.container-app-properties.container-app-vnet-subnet-address-prefixes
-  service_endpoints    = ["Microsoft.Sql"]
-}
-
 resource "azurerm_log_analytics_workspace" "container-app-log-analytics-workspace" {
   resource_group_name = var.resource-group-properties.rg-name
   location            = var.resource-group-properties.rg-location
@@ -22,7 +13,7 @@ resource "azurerm_container_app_environment" "container-app-environment" {
 
   name                       = var.container-app-properties.container-app-environment-name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.container-app-log-analytics-workspace.id
-  infrastructure_subnet_id   = azurerm_subnet.container-app-vnet-public-subnet.id
+  infrastructure_subnet_id   = var.vnet-public-subnet-id
 }
 
 resource "azurerm_container_app" "container-app" {
@@ -57,7 +48,7 @@ resource "azurerm_container_app" "container-app" {
     external_enabled           = true
     target_port                = 80
     # exposed_port               = 7272
-    transport                  = "auto"
+    transport = "auto"
 
     traffic_weight {
       percentage = 100

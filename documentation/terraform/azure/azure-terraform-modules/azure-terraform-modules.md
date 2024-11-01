@@ -6,12 +6,36 @@ The folder structure for the above-created directory is as follows:
 
 ```
 azure-modules
+├───acr
+│       main.tf
+│       variables.tf
+│
 ├───aks
+│       main.tf
+│       variables.tf
+│
 ├───container-apps
+│       main.tf
+│       outputs.tf
+│       variables.tf
+│
 ├───mssql
+│       main.tf
+│       variables.tf
+│
 ├───mysql-flexible
+│       main.tf
+│       outputs.tf
+│       variables.tf
+│
 ├───resource-group
+│       main.tf
+│       variables.tf
+│
 └───virtual-network
+        main.tf
+        outputs.tf
+        variables.tf
 ```
 
 ---

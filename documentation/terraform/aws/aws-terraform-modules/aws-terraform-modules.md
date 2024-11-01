@@ -6,14 +6,41 @@ The folder structure for the above created directory is as follows:
 
 ```
 aws-modules
-├───cloudwatch
 ├───ecr
+│       main.tf
+│       outputs.tf
+│       variables.tf
+│
 ├───ecs
+│       data.tf
+│       main.tf
+│       variables.tf
+│
 ├───eks
+│       data.tf
+│       main.tf
+│       variables.tf
+│
 ├───load-balancer
+│       main.tf
+│       outputs.tf
+│       variables.tf
+│
 ├───rds
+│       data.tf
+│       main.tf
+│       outputs.tf
+│       variables.tf
+│
 ├───s3
+│       main.tf
+│       output.tf
+│       variables.tf
+│
 └───vpc
+        main.tf
+        outputs.tf
+        variables.tf
 ```
 
 ---

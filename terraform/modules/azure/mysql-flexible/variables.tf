@@ -8,12 +8,12 @@ variable "resource-group-properties" {
   type        = map(any)
 }
 
-variable "vnet-id" {
-  description = "virtual network id"
-  type        = any
-}
-
 variable "vnet-name" {
   description = "virtual network name"
   type        = string
+}
+
+variable "vnet-id" {
+  description = "virtual network id"
+  type        = any
 }

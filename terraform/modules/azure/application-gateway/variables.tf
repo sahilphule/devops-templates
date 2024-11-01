@@ -1,6 +1,6 @@
-variable "container-app-properties" {
-  description = "container app properties"
-  type        = any
+variable "application-gateway-properties" {
+  description = "application gateway properties"
+  type        = map(any)
 }
 
 variable "resource-group-properties" {

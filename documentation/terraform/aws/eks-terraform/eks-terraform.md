@@ -1,237 +1,72 @@
-# Terraform EKS Deployment
+# EKS Provisioning using Terraform
 
 ### Prerequisites
 1. AWS Account with an IAM User with administrative permissions.
 2. Terraform installed.
-3. Kubectl & Kubens installed.
+3. Kubectl installed.
 
 ---
 
-## Using Terraform Modules to Provision AWS Infrastructure
+## Steps
 
-1. Create the Terraform project.
-2. Download the [modules](https://github.com/sahilphule/terraform/tree/master) folder and copy it inside the above-created terraform project.
-3. Create a *provider.tf* file inside the created terraform project.
+1. Create the **eks-terraform** directory.
+2. Folders structure for the above-created directory:
+```
+eks-terraform
+│───.terraform.lock.hcl
+│───locals.tf
+│───main.tf
+│───outputs.tf
+│───providers.tf
+│───terraform.tfstate
+│───terraform.tfstate.backup
+└───.terraform
+```
+
+> We need to only create *providers.tf*, *main.tf*, *outputs.tf*, & *locals.tf* file. Other files are generated while initiating terraform.
+
+3. Create a *providers.tf* file inside the above-created directory.
 4. Inside the *provider.tf* file, define the following:
     - terraform
       - required_providers
     - provider
       - aws
-5. The reference code is attached below.
-
-```js
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.64"
-    }
-  }
-}
-
-provider "aws" {
-  region = local.aws_region
-  // shared_config_files = ["~/.aws/config"]
-  shared_credentials_files = ["~/.aws/credentials"]
-}
-```
-
-6. The definition of *provider.tf* file is complete.
-7. Create the *main.tf* file.
-8. Inside *main.tf* file, call the following modules:
+5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/providers.tf) for reference.
+6. The definition of *providers.tf* file is complete.
+7. Now, create the *main.tf* file.
+8. Inside *main.tf* file, we will use the following predefined modules:
     - vpc
     - rds
     - eks
-9. The reference code is attached below.
-
-```js
-module "vpc" {
-  source = "github.com/sahilphule/templates/terraform/modules/aws/vpc"
-
-  vpc-properties = local.vpc-properties
-}
-
-module "rds" {
-  source = "github.com/sahilphule/templates/terraform/modules/aws/rds"
-
-  vpc-id              = local.vpc-id
-  vpc-public-subnets  = local.vpc-public-subnets
-  vpc-private-subnets = local.vpc-private-subnets
-  database-properties = local.database-properties
-  bastion-properties  = local.bastion-properties
-
-  depends_on = [
-    module.vpc
-  ]
-}
-
-module "eks" {
-  source = "github.com/sahilphule/templates/terraform/modules/aws/eks"
-
-  vpc-public-subnets  = local.vpc-public-subnets
-  vpc-private-subnets = local.vpc-private-subnets
-
-  eks-properties = local.eks-properties
-
-  depends_on = [
-    module.rds
-  ]
-}
-```
-
-10. *main.tf* file definition is completed.
-11. Now we will create *locals.tf* file.
-12. Define the following variables:
-    - aws_region  
-    - vpc-properties
-        - availability-zones
-        - vpc-cidr-block
-        - vpc-subnet-count
-        - vpc-public-subnet-cidr-blocks
-        - vpc-private-subnet-cidr-blocks
-        - vpc-tag-value
-        - vpc-public-subnet-tag-value
-        - vpc-private-subnet-tag-value
-        - vpc-igw-tag-value
-    - vpc-id
-    - vpc-public-subnets
-    - vpc-private-subnets
-    - database-properties
-        - identifier
-        - allocated-storage
-        - engine
-        - engine-version
-        - instance-class
-        - skip-final-snapshot
-        - publicly-accessible
-        - db-username
-        - db-password
-        - db-sg-tag-value
-        - db-tag-value
-    - bastion-properties
-        - count
-        - instance-type
-        - bastion-host-public-key
-        - bastion-host-sg-tag-value
-        - bastion-host-tag-value
-    - eks-properties
-        - eks-cluster-role-name
-        - eks-cluster-name
-        - eks-node-role-name
-        - eks-node-group-name
-        - eks-instance-types
-        - eks-service-port
-13. The reference code is attached below.
-
-```js
-locals {
-
-  aws_region = "ap-south-1"
-
-  // vpc variables
-  vpc-properties = {
-    availability-zones = [
-      "ap-south-1a",
-      "ap-south-1b",
-      "ap-south-1c"
-    ]
-    vpc-cidr-block = "10.0.0.0/16"
-    vpc-subnet-count = {
-      "public"  = 2,
-      "private" = 2
-    }
-    vpc-public-subnet-cidr-blocks = [
-      "10.0.1.0/24",
-      "10.0.2.0/24",
-      "10.0.3.0/24",
-      "10.0.4.0/24"
-    ]
-    vpc-private-subnet-cidr-blocks = [
-      "10.0.101.0/24",
-      "10.0.102.0/24",
-      "10.0.103.0/24",
-      "10.0.104.0/24"
-    ]
-
-    vpc-tag-value                = "eks-vpc"
-    vpc-public-subnet-tag-value  = "eks-public-vpc-subnet"
-    vpc-private-subnet-tag-value = "eks-private-vpc-subnet"
-    vpc-igw-tag-value            = "eks-igw"
-  }
-
-  vpc-id              = module.vpc.vpc-id
-  vpc-public-subnets  = module.vpc.vpc-public-subnets
-  vpc-private-subnets = module.vpc.vpc-private-subnets
-
-  // rds variables
-  database-properties = {
-    db-identifier          = "eks-db"
-    db-allocated-storage   = 20
-    db-engine              = "mysql"
-    db-engine-version      = "8.0.35"
-    db-instance-class      = "db.t3.micro"
-    db-skip-final-snapshot = true
-    db-publicly-accessible = false
-
-    db-username = ""
-    db-password = ""
-
-    db-sg-tag-value = "eks-db-sg"
-  }
-
-  bastion-properties = {
-    bastion-host-instance-type = "t2.micro"
-    bastion-host-public-key    = ""
-
-    bastion-host-sg-tag-value = "eks-bastion-host"
-    bastion-host-tag-value    = "eks-bastion-host"
-  }
-
-  // eks variables
-  eks-properties = {
-    eks-cluster-role-name = "eks-cluster-role"
-    eks-cluster-name      = "eks-cluster"
-    eks-node-role-name    = "eks-node-group-role"
-    eks-node-group-name   = "eks-node-group"
-    eks-instance-types = [
-      "t2.medium"
-    ]
-  }
-}
-```
-
-14. The definition of *locals.tf* file is complete.
-15. Now we will create *outputs.tf* file.
-16. Define the following outputs:
+9. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/main.tf) for reference.
+10. The definition of *main.tf* file is complete.
+11. Now we will create *outputs.tf* file.
+12. Inside it, define the following outputs.
     - DB_HOST
     - bastion-host-ip
-17. The reference code is attached below.
+13. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/outputs.tf) for reference.
+14. The definition of *outputs.tf* file is complete.
+15. Now we will create *locals.tf* file.
+16. Inside it, define the followiing variables:
+    - vpc-properties
+    - database-properties
+    - bastion-properties
+    - eks-properties
+17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/sample.locals) for reference.
+18. The definition of *locals.tf* file is complete.
 
-```js
-output "DB_HOST" {
-  description = "db host address"
-  value       = module.rds.DB_HOST
-}
+> Make sure you give the appropriate values to the varibles defined in *locals.tf* file.
 
-output "bastion-host-ip" {
-  description = "bastion host ip address"
-  value       = module.rds.bastion-host-ip
-}
-```
-
-18. The definition of *outputs.tf* file is complete.
-
----
 ---
 
 ## Provisioning the Infrastructure
-Now we will provision the infrastructure by applying the above-created configuration files.
+Now we will provision the AWS infrastructure by applying the above-created configuration files.
 
 > Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
 
 ### Steps:
 1. Open the PowerShell.
-2. Change the directory to the above-created Terraform Project.
+2. Change the directory to the above-created **eks-terraform** directory using `cd` command.
 3. Run the `terraform init` command to initialize the *terraform*.  
 4. Run the `terraform fmt --recursive` command to format the syntax of the files.
 5. Run the `terraform validate` command to validate the configuration files.
@@ -242,10 +77,7 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ## Screenshots of Provisioned Infrastructure
 
@@ -261,36 +93,22 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ### EKS Cluster Image
-![eks cluster image](./images/cluster.png)
+![eks-cluster image](./images/cluster.png)
 
 ---
 
 ### EKS Node Group Image
-![eks node group image](./images/node-group.png)
+![eks-node-group image](./images/node-group.png)
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ### EKS Nodes Image
-![eks nodes image](./images/nodes.png)
+![eks-nodes image](./images/nodes.png)
 
 ---
 
@@ -303,6 +121,8 @@ Now we will provision the infrastructure by applying the above-created configura
 3. Now apply the Kubernetes manifest files of the application.
 4. To list them all, run `kubectl get all`.
 
+<div style="page-break-after: always;"></div>
+
 ### Powershell Image
 ![powershell](./images/powershell.png)
 
@@ -313,7 +133,9 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-## Connect to the RDS database through Bastion Host
+<div style="page-break-after: always;"></div>
+
+## Connection to the RDS database through Bastion Host using MySQL Workbench
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
@@ -325,34 +147,28 @@ Now we will provision the infrastructure by applying the above-created configura
 9. Click *OK* and open the connection.
 10. Now you can run mysql commands to access databases, and verify the successful connection of *eks-nodes*.
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+---
 
-### MySQL Workbench Connection Page
+## Screenshots of MySQL Workbench
+
+---
+
+### Connection Page
 ![connection image](./images/workbench.png)
 
 ---
 
-### MySQL Workbench Commands Page
+<div style="page-break-after: always;"></div>
+
+### Commands Page
 ![commands page image](./images/commands.png)
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-
 ## Destroy the provisioned infrastructure
 
 1. Firstly, delete all the Kubernetes Deployments.
-2. To destroy infrastructure, change directory to the above created Terraform Project.
+2. To destroy infrastructure, change directory to the above-created **eks-terraform** directory using `cd` command.
 3. Run `terraform destroy` & if prompted, type `yes`.
 4. Infrastructure will be destroyed.
 
