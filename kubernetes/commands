@@ -4,6 +4,7 @@ kubectl delete "*"
 kubectl get all -A
 kubectl get all
 kubectl get "*"
+kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="node-name"
 kubectl logs "pod-name"
 kubectl describe "pod-name"
 kubectl rollout restart "deployment/deployment-name"

@@ -52,7 +52,7 @@ eks-terraform
     - database-properties
     - bastion-properties
     - eks-properties
-17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/sample.locals) for reference.
+17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/sample-locals.tf) for reference.
 18. The definition of *locals.tf* file is complete.
 
 > Make sure you give the appropriate values to the varibles defined in *locals.tf* file.

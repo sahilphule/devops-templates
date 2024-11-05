@@ -20,19 +20,19 @@ resource "azurerm_subnet" "vnet-mysql-flexible-subnet" {
   }
 }
 
-resource "azurerm_private_dns_zone" "vnet-mysql-flexible-dns-zone" {
-  resource_group_name = var.resource-group-properties.rg-name
+# resource "azurerm_private_dns_zone" "vnet-mysql-flexible-dns-zone" {
+#   resource_group_name = var.resource-group-properties.rg-name
 
-  name = var.mysql-flexible-properties.vnet-mysql-flexible-dns-zone-name
-}
+#   name = var.mysql-flexible-properties.vnet-mysql-flexible-dns-zone-name
+# }
 
-resource "azurerm_private_dns_zone_virtual_network_link" "mysql-flexible-dns-zone-virtual-network-link" {
-  resource_group_name = var.resource-group-properties.rg-name
+# resource "azurerm_private_dns_zone_virtual_network_link" "mysql-flexible-dns-zone-virtual-network-link" {
+#   resource_group_name = var.resource-group-properties.rg-name
 
-  name                  = var.mysql-flexible-properties.vnet-mysql-flexible-dns-zone-virtual-network-link-name
-  private_dns_zone_name = azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone.name
-  virtual_network_id    = var.vnet-id
-}
+#   name                  = var.mysql-flexible-properties.vnet-mysql-flexible-dns-zone-virtual-network-link-name
+#   private_dns_zone_name = azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone.name
+#   virtual_network_id    = var.vnet-id
+# }
 
 resource "azurerm_mysql_flexible_server" "mysql-flexible-server" {
   resource_group_name = var.resource-group-properties.rg-name
@@ -45,19 +45,36 @@ resource "azurerm_mysql_flexible_server" "mysql-flexible-server" {
   sku_name               = var.mysql-flexible-properties.mysql-flexible-sku-name
   backup_retention_days  = 7
   delegated_subnet_id    = azurerm_subnet.vnet-mysql-flexible-subnet.id
-  private_dns_zone_id    = azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone.id
-  zone                   = 1
+  # private_dns_zone_id    = azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone.id
+  zone = 1
 
   storage {
     iops    = 360
     size_gb = 20
   }
 
+  # timeouts {
+  #   create = "60m"
+  # }
+
   depends_on = [
     azurerm_subnet.vnet-mysql-flexible-subnet,
-    azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone
+    # azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone
   ]
 }
+
+# resource "azurerm_mysql_flexible_database" "mysql-flexible-database" {
+#   resource_group_name = var.resource-group-properties.rg-name
+
+#   name        = "reancare"
+#   server_name = azurerm_mysql_flexible_server.mysql-flexible-server.name
+#   charset     = "utf8"
+#   collation   = "utf8_unicode_ci"
+
+#   # timeouts {
+#   #   create = "60m" 
+#   # }
+# }
 
 # resource "azurerm_mysql_flexible_server_firewall_rule" "mysql-flexible-server-firewall-rule" {
 #   resource_group_name = var.resource-group-properties.rg-name
@@ -79,4 +96,19 @@ resource "azurerm_mysql_flexible_server" "mysql-flexible-server" {
 #   depends_on = [
 #     azurerm_mysql_flexible_server.mysql-flexible-server
 #   ]
+# }
+
+# resource "azurerm_private_endpoint" "vnet-mysql-flexible-private-endpoint" {
+#   resource_group_name = var.resource-group-properties.rg-name
+#   location = var.resource-group-properties.rg-location
+
+#   name = ""
+#   subnet_id = azurerm_subnet.vnet-mysql-flexible-subnet.id
+
+#   private_service_connection {
+#     name = ""
+#     private_connection_resource_id = azurerm_mysql_flexible_server.mysql-flexible-server.id
+#     is_manual_connection = false
+#     subresource_names = []
+#   }
 # }

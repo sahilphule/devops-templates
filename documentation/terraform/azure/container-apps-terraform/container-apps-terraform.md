@@ -29,7 +29,7 @@ container-apps-terraform
         - required_providers
     - provider
         - azurerm
-5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/providers.tf) for reference.
+5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/sample-providers.tf) for reference.
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
@@ -37,12 +37,12 @@ container-apps-terraform
     - virtual-network
     - acr
     - mysql-flexible
-    - container-app
+    - container-apps
 9. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/main.tf) for reference.
 10. The definition of *main.tf* file is complete.
 11. Now we will create *outputs.tf* file.
 12. Inside it, define the following outputs.
-    - container-app-url
+    - container-apps-url
     - DB_HOST
 13. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/outputs.tf) for reference.
 14. The definition of *outputs.tf* file is complete.
@@ -52,8 +52,8 @@ container-apps-terraform
     - virtual-network-properties
     - acr-properties
     - mysql-flexible-properties
-    - container-app-properties
-17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/sample.locals) for reference.
+    - container-apps-properties
+17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/sample-locals.tf) for reference.
 18. The definition of *locals.tf* file is complete.
 
 > Make sure you give the appropriate values to the varibles defined in *locals.tf* file.
@@ -96,7 +96,7 @@ Now we will provision the Azure infrastructure by applying the above-created con
 ![mysql-flexible image]()
 
 ### Container Apps Image
-![contaienr-apps image]()
+![container-apps image]()
 
 ---
 

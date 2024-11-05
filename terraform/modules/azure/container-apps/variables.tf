@@ -5,10 +5,20 @@ variable "container-app-properties" {
 
 variable "resource-group-properties" {
   description = "resource group properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "vnet-public-subnet-id" {
   description = "virtual network public subnet id"
   type        = any
+}
+
+variable "acr-id" {
+  description = "acr id"
+  type        = any
+}
+
+variable "acr-name" {
+  description = "acr name"
+  type        = string
 }

@@ -8,6 +8,7 @@ The folder structure for the above-created directory is as follows:
 azure-modules
 ├───acr
 │       main.tf
+│       outputs.tf
 │       variables.tf
 │
 ├───aks
@@ -17,10 +18,6 @@ azure-modules
 ├───container-apps
 │       main.tf
 │       outputs.tf
-│       variables.tf
-│
-├───mssql
-│       main.tf
 │       variables.tf
 │
 ├───mysql-flexible
@@ -79,6 +76,26 @@ Now, let's create a Virtual Network module.
 
 ---
 
+## ACR Module
+We will use Azure Container Registry for storing container image.
+1. Create *acr* folder inside the above-created *azure-modules* directory.
+2. Inside *acr* folder, create *main.tf* file and define the following resources:
+    - azurerm_container_registry
+3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/acr/main.tf) for reference.
+4. The definition of *main.tf* file is complete.
+5. Now we will create *variables.tf* file.
+6. Inside it, declare the following variables:
+    - acr-properties
+    - resource-group-properties
+7. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/acr/variables.tf) for reference.
+8. Variables have been declared.
+9. Now create the *outputs.tf* file and define the following outputs:
+    - acr-id
+    - acr-name
+    - acr-login-server
+10. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/acr/outputs.tf) for reference.
+11. We have completed defining the **ACR Module**.
+
 ## MySQL Flexible Module
 For the database, we will use Azure MySQL Flexible.
 1. Create *mysql-flexible* folder inside the *azure-modules* directory.
@@ -90,14 +107,14 @@ For the database, we will use Azure MySQL Flexible.
     - azurerm_mysql_flexible_database
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/main.tf) for reference.
 4. The definition of *main.tf* file is complete.
-5. Now we will create *variables.tf* file.
-6. Inside the *variables.tf* file, declare the following variables:
+5. Now we will create *variables.tf* file and declare the following variables:
     - mysql-flexible-properties
     - resource-group-properties
     - vnet-id
     - vnet-name
-7. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/variables.tf) for reference.
-8. Variables have been declared, now we will define the outputs.
+6. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/variables.tf) for reference.
+7. Variables have been declared.
+8. Now create the *outputs.tf* file and define the following outputs:
     - DB_HOST
 9. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/outputs.tf) for reference.
 10. We have completed defining the **MySQL Flexible Module**.
@@ -108,18 +125,26 @@ For the database, we will use Azure MySQL Flexible.
 Let's start with the Container Apps Module.
 1. Create *container-apps* folder in the above-created *azure-modules* directory.
 2. Inside it, create *main.tf* file and define the following resources;
-    - azurerm_subnet
+    - azurerm_container-registry_scope_map
+    - azurerm_container_registry_token
+    - azurerm_container_registry_token_password
     - azurerm_log_analytics_workspace
     - azurerm_container_app_environment
     - azurerm_container_app
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/container-apps/main.tf) for reference.
 4. The definition of *main.tf* file for *Container Apps* is complete.
 5. Now create *variables.tf* file and declare the following variables:
-    - container-app-properties
+    - container-apps-properties
     - resource-group-properties
-    - vnet-name
+    - vnet-public-subnet-id
+    - acr-id
+    - acr-name
 6. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/container-apps/variables.tf) for reference.
-7. The definition of **Container Apps Module** is complete.
+7. Variables have been declared.
+8. Now create the *outputs.tf* file and define the following outputs:
+    - container-apps-url
+9. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/container-apps/outputs.tf) for reference.
+10. The definition of **Container Apps Module** is complete.
 
 ---
 
