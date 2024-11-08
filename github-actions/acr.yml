@@ -1,4 +1,4 @@
-name: Image Build and Push to ACR
+name: Build and push docker image to ACR
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
@@ -6,15 +6,16 @@ env:
   ACR_IMAGE_TAG: ${{ github.sha }}
 
 on:
-  push:
-    branches:
-    - master
-    # paths:
-    # - app/*
+  # push:
+  #   branches:
+  #   - master
+  #   # paths:
+  #   # - app/*
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Image Build and Push to ACR
+    name: Build and push docker image to ACR
     runs-on: ubuntu-latest
 
     steps:

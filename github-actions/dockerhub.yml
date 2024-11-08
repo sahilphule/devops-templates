@@ -1,19 +1,20 @@
-name: Image build and push to DockerHub
+name: Build and push docker image to DockerHub
 
 env:
   DOCKERHUB_IMAGE_NAME: <image-name>
   DOCKERHUB_IMAGE_TAG: ${{ github.sha }}
 
 on:
-  push:
-    branches:
-    - master
-    # paths:
-    # - app/*
+  # push:
+  #   branches:
+  #   - master
+  #   # paths:
+  #   # - app/*
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Image build and push to DockerHub
+    name: Build and push docker image to DockerHub
     runs-on: ubuntu-latest
 
     steps:

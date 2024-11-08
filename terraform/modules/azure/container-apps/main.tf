@@ -11,32 +11,32 @@
 #   principal_id = azurerm_user_assigned_identity.user-assigned-identity.principal_id
 # }
 
-data "azurerm_container_registry_scope_map" "container-app-acr-scope-map-pull-repo" {
-  resource_group_name = var.resource-group-properties.rg-name
+# data "azurerm_container_registry_scope_map" "container-app-acr-scope-map-pull-repo" {
+#   resource_group_name = var.resource-group-properties.rg-name
 
-  name                    = var.container-app-properties.ca-acr-scope-map-pull-repo-name
-  container_registry_name = var.acr-name
-}
+#   name                    = var.container-app-properties.ca-acr-scope-map-pull-repo-name
+#   container_registry_name = var.acr-name
+# }
 
-resource "azurerm_container_registry_token" "container-app-acr-pull-token" {
-  resource_group_name = var.resource-group-properties.rg-name
+# resource "azurerm_container_registry_token" "container-app-acr-pull-token" {
+#   resource_group_name = var.resource-group-properties.rg-name
 
-  name                    = var.container-app-properties.ca-acr-pull-token-name
-  container_registry_name = var.acr-name
-  scope_map_id            = data.azurerm_container_registry_scope_map.container-app-acr-scope-map-pull-repo.id
-}
+#   name                    = var.container-app-properties.ca-acr-pull-token-name
+#   container_registry_name = var.acr-name
+#   scope_map_id            = data.azurerm_container_registry_scope_map.container-app-acr-scope-map-pull-repo.id
+# }
 
-resource "azurerm_container_registry_token_password" "container-app-acr-pull-token-password" {
-  container_registry_token_id = azurerm_container_registry_token.container-app-acr-pull-token.id
+# resource "azurerm_container_registry_token_password" "container-app-acr-pull-token-password" {
+#   container_registry_token_id = azurerm_container_registry_token.container-app-acr-pull-token.id
 
-  password1 {
-    expiry = timeadd(timestamp(), "24h")
-  }
+#   password1 {
+#     expiry = timeadd(timestamp(), "24h")
+#   }
 
-  lifecycle {
-    ignore_changes = [password1]
-  }
-}
+#   lifecycle {
+#     ignore_changes = [password1]
+#   }
+# }
 
 resource "azurerm_log_analytics_workspace" "container-app-log-analytics-workspace" {
   resource_group_name = var.resource-group-properties.rg-name
@@ -70,15 +70,23 @@ resource "azurerm_container_app" "container-app" {
 
   registry {
     server = var.container-app-properties.ca-registry-server
+    username = var.acr-admin-username
+    password_secret_name = "acr-admin-password"
+
     # identity = azurerm_user_assigned_identity.user-assigned-identity.id
-    username             = azurerm_container_registry_token.container-app-acr-pull-token.name
-    password_secret_name = "acr-pull-token-password"
+    # username             = azurerm_container_registry_token.container-app-acr-pull-token.name
+    # password_secret_name = "acr-pull-token-password"
   }
 
   secret {
-    name  = "acr-pull-token-password"
-    value = azurerm_container_registry_token_password.container-app-acr-pull-token-password.password1[0].value
+    name = "acr-admin-password"
+    value = var.acr-admin-password
   }
+
+  # secret {
+  #   name  = "acr-pull-token-password"
+  #   value = azurerm_container_registry_token_password.container-app-acr-pull-token-password.password1[0].value
+  # }
 
   template {
     container {

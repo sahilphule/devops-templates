@@ -1,26 +1,28 @@
-name: CI/CD for AKS with ACR
+name: CD to AKS
 
 env:
-  RESOURCE_GROUP_NAME: <resource-group-name>
   ACR_LOGIN_SERVER: <acr-login-server>
   ACR_IMAGE_NAME: <acr-image-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
+  
+  RESOURCE_GROUP_NAME: <resource-group-name>
   AKS_CLUSTER_NAME: <aks-cluster-name>
 
 on:
-  push:
-    branches:
-    - master
-    # paths:
-    # - app/*
+  # push:
+  #   branches:
+  #   - master
+  #   # paths:
+  #   # - app/*
+  workflow_dispatch:
 
 jobs:
   build:
-    name: CI/CD for AKS with ACR
+    name: CD to AKS
     runs-on: ubuntu-latest
 
     steps:
-    - name: Azure Login
+    - name: Azure login
       uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -28,13 +30,13 @@ jobs:
         # tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Set AKS Cluster Context
+    - name: Set context to AKS cluster
       uses: azure/aks-set-context@v4
       with:
         resource-group: ${{ env.RESOURCE_GROUP_NAME }}
         cluster-name: ${{ env.AKS_CLUSTER_NAME }}
 
-    - name: Create k8s Secret
+    - name: Create k8s secret
       uses: azure/k8s-create-secret@v4
       with:
         secret-name: k8s-secret
@@ -43,7 +45,7 @@ jobs:
         container-registry-username: ${{ secrets.ACR_USERNAME }}
         container-registry-password: ${{ secrets.ACR_PASSWORD }}
 
-    - name: Deploy to AKS Cluster
+    - name: Deploy to AKS cluster
       uses: azure/k8s-deploy@v5
       with:
         # namespace: ''

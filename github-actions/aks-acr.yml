@@ -8,11 +8,12 @@ env:
   AKS_CLUSTER_NAME: <aks-cluster-name>
 
 on:
-  push:
-    branches:
-    - master
-    # paths:
-    # - app/*
+  # push:
+  #   branches:
+  #   - master
+  #   # paths:
+  #   # - app/*
+  workflow_dispatch:
 
 jobs:
   build:
