@@ -29,7 +29,7 @@ container-apps-terraform
         - required_providers
     - provider
         - azurerm
-5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/sample-providers.tf) for reference.
+5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/providers.tf) for reference.
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
@@ -53,7 +53,7 @@ container-apps-terraform
     - acr-properties
     - mysql-flexible-properties
     - container-apps-properties
-17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/sample-locals.tf) for reference.
+17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/container-apps/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
 
 > Make sure you give the appropriate values to the varibles defined in *locals.tf* file.

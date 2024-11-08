@@ -13,7 +13,7 @@ variable "vnet-public-subnet-id" {
   type        = any
 }
 
-variable "acr-id" {
-  description = "acr id"
-  type        = any
-}
+# variable "acr-id" {
+#   description = "acr id"
+#   type        = any
+# }

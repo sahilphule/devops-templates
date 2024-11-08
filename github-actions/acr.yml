@@ -1,0 +1,36 @@
+name: Image Build and Push to ACR
+
+env:
+  ACR_LOGIN_SERVER: <acr-login-server>
+  ACR_IMAGE_NAME: <acr-image-name>
+  ACR_IMAGE_TAG: ${{ github.sha }}
+
+on:
+  push:
+    branches:
+    - master
+    # paths:
+    # - app/*
+
+jobs:
+  build:
+    name: Image Build and Push to ACR
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+
+    - name: Login to ACR
+      uses: azure/docker-login@v2
+      with:
+        login-server: ${{ env.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and push the image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}

@@ -58,7 +58,7 @@ ecs-terraform
     - bastion-properties
     - load-balancer-properties
     - ecs-properties
-18. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/ecs/sample-locals.tf) for reference.
+18. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/ecs/sample-locals.txt) for reference.
 19. The definition of *locals.tf* file is complete.
 
 > Make sure you give the appropriate values to the varibles defined in *locals.tf* file.

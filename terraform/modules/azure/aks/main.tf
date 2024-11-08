@@ -37,15 +37,15 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
     vnet_subnet_id = var.vnet-public-subnet-id
   }
 
-  # identity {
-  #   type = "UserAssigned"
-  #   identity_ids = [azurerm_user_assigned_identity.user-assigned-identity.id]
-  # }
-
-  service_principal {
-    client_id     = var.aks-properties.aks-service-principal-client-id
-    client_secret = var.aks-properties.aks-service-principal-client-secret
+  identity {
+    type = "SystemAssigned"
+    # identity_ids = [azurerm_user_assigned_identity.user-assigned-identity.id]
   }
+
+  # service_principal {
+  #   client_id     = var.aks-properties.aks-service-principal-client-id
+  #   client_secret = var.aks-properties.aks-service-principal-client-secret
+  # }
 
   network_profile {
     load_balancer_sku = "standard"
