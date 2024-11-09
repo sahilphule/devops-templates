@@ -8,9 +8,8 @@
 ---
 
 ## Steps
-
 1. Create the **eks-terraform** directory.
-2. Folders structure for the above-created directory:
+2. Folders structure for the above-created directory is as follows:
 ```
 eks-terraform
 │───.terraform.lock.hcl
@@ -26,7 +25,7 @@ eks-terraform
 > We need to only create *providers.tf*, *main.tf*, *outputs.tf*, & *locals.tf* file. Other files are generated while initiating terraform.
 
 3. Create a *providers.tf* file inside the above-created directory.
-4. Inside the *provider.tf* file, define the following:
+4. Inside it, define the following:
     - terraform
       - required_providers
     - provider
@@ -62,17 +61,17 @@ eks-terraform
 ## Provisioning the Infrastructure
 Now we will provision the AWS infrastructure by applying the above-created configuration files.
 
-> Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
+> Ensure AWS CLI is configured with appropriate AWS user credentials with enough permissions.
 
 ### Steps:
 1. Open the PowerShell.
-2. Change the directory to the above-created **eks-terraform** directory using `cd` command.
-3. Run the `terraform init` command to initialize the *terraform*.  
-4. Run the `terraform fmt --recursive` command to format the syntax of the files.
-5. Run the `terraform validate` command to validate the configuration files.
-6. Run the `terraform plan` command to plan the resources to be created.
-7. Run the `terraform apply` command and if prompted, type `yes` to provision the infrastructure.
-8. Run the `terraform output` command to get the values of defined variables in *outputs.tf* file.
+2. Change the directory to the above-created **eks-terraform** directory using **`cd`** command.
+3. Run the **`terraform init`** command to initialize the *terraform*.
+4. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+5. Run the **`terraform validate`** command to validate the configuration files.
+6. Run the **`terraform plan`** command to plan the resources to be created.
+7. Run the **`terraform apply`** command and if prompted, type **`yes`** to provision the infrastructure.
+8. Run the **`terraform output`** command to get the values of defined variables in *outputs.tf* file.
 9. Head to the AWS Console, and verify the created resources.
 
 ---
@@ -112,37 +111,28 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 ---
 
-## Connect to EKS Cluster from Powershell
+## Connect to the EKS Cluster from Powershell
 
 1. Open a new Powershell window.
-2. Run the following command to configure local kubectl with eks cluster  
-    `aws eks --region "region-name" update-kubeconfig --name "cluster-name"`  
+2. Run the following command to configure local kubectl with eks cluster:
+    - **`aws eks --region "region-name" update-kubeconfig --name "cluster-name"`**  
     Substitute *region-name* and *cluster-name* with the values defined in the above-created locals.tf file.
-3. Now apply the Kubernetes manifest files of the application.
-4. To list them all, run `kubectl get all`.
-
-<div style="page-break-after: always;"></div>
-
-### Powershell Image
-![powershell](./images/powershell.png)
-
+3. Now apply the Kubernetes manifest files of the application using the following command:
+    - **`kubectl apply -f "file-path"`**  
+    Substitute *file-path* with the kubernetes manifest file path.
+4. To list them all, run **`kubectl get all`**.
 5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
 
-### Browser Service Access
-![browser](./images/browser.png)
-
 ---
-
-<div style="page-break-after: always;"></div>
 
 ## Connection to the RDS database through Bastion Host using MySQL Workbench
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
-4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from `terraform output`.
+4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from the **`terraform output`** command.
 5. In SSH Username, enter *ec2-user*.
 6. In SSH Key File, select *bastion-key.pem* file passed in above *locals.tf* file from your local computer.
-7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from `terraform output`.
+7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from the **`terraform output`** command.
 8. In the Password section, select *Store in Vault*, and enter the password passed in above-created *locals.tf* file.
 9. Click *OK* and open the connection.
 10. Now you can run mysql commands to access databases, and verify the successful connection of *eks-nodes*.
@@ -167,9 +157,11 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 ## Destroy the provisioned infrastructure
 
-1. Firstly, delete all the Kubernetes Deployments.
-2. To destroy infrastructure, change directory to the above-created **eks-terraform** directory using `cd` command.
-3. Run `terraform destroy` & if prompted, type `yes`.
+1. Firstly, delete all the Kubernetes Deployments using:
+    - **`kubectl delete -f "file-path"`**  
+    Substitute *file-path* with the kubernetes manifest file path.
+2. To destroy infrastructure, change directory to the above-created **eks-terraform** directory using **`cd`** command.
+3. Run **`terraform destroy`** & if prompted, type **`yes`**.
 4. Infrastructure will be destroyed.
 
 ---

@@ -2,6 +2,7 @@ name: CD to AKS
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
+  ACR_IMAGE_FOLDER_NAME: <acr-image-folder-name>
   ACR_IMAGE_NAME: <acr-image-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
   
@@ -39,7 +40,7 @@ jobs:
     - name: Create k8s secret
       uses: azure/k8s-create-secret@v4
       with:
-        secret-name: k8s-secret
+        secret-name: acr-secrets
         # namespace: ''
         container-registry-url: ${{ env.ACR_LOGIN_SERVER }}
         container-registry-username: ${{ secrets.ACR_USERNAME }}
@@ -52,6 +53,6 @@ jobs:
         manifests: |
           <deployment.yml file location>
         images: |
-          ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
+          ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_FOLDER_NAME }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
         imagepullsecrets: |
-          k8s-secret
+          acr-secrets

@@ -2,6 +2,7 @@ name: CD to Container Apps
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
+  ACR_IMAGE_FOLDER_NAME: <acr-image-folder-name>
   ACR_IMAGE_NAME: <acr-image-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
   
@@ -37,4 +38,4 @@ jobs:
         resourceGroup: ${{ env.RESOURCE_GROUP_NAME }}
         containerAppEnvironment: ${{ env.CONTAINER_APP_ENVIRONMENT_NAME }}
         containerAppName: ${{ env.CONTAINER_APP_NAME }}
-        imageToDeploy: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
+        imageToDeploy: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_FOLDER_NAME }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}

@@ -1,4 +1,4 @@
-# Terraform ECS Deployment
+# ECS Provisioning using Terraform
 
 ### Prerequisites
 1. AWS Account with an IAM User with administrative permissions.
@@ -8,7 +8,7 @@
 
 ## Steps
 1. Create the **ecs-terraform** directory.
-2. Folders structure for the above-created directory:
+2. Folders structure for the above-created directory is as follows:
 ```
 ecs-terraform
 │───.terraform.lock.hcl
@@ -21,7 +21,7 @@ ecs-terraform
 └───.terraform
 ```
 
-> We need to only create *providers.tf*, *main.tf*, *outputs.tf*, & *locals.tf* files. Other files are generated while initiating terraform.
+> We need to only create *providers.tf*, *main.tf*, *outputs.tf*, & *locals.tf* file. Other files are generated while initiating terraform.
 
 3. Create a *providers.tf* file inside the above-created directory.
 4. Inside it, define the following:
@@ -66,20 +66,20 @@ ecs-terraform
 ---
 
 ## Provisioning the Infrastructure
-Now we will provision the infrastructure by applying the above-created configuration files.
+Now we will provision the AWS infrastructure by applying the above-created configuration files.
 
-> Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
+> Ensure AWS CLI is configured with appropriate AWS user credentials with enough permissions.
 
 ### Steps:
 1. Open the PowerShell.
-2. Change the directory to the above-created **ecs-terraform** directory using `cd` command.
-3. Run the `terraform init` command to initialize the *terraform*.  
-4. Run the `terraform fmt --recursive` command to format the syntax of the files.
-5. Run the `terraform validate` command to validate the configuration files.
-6. Run the `terraform plan` command to plan the resources to be created.
-7. Run the `terraform apply` command and if prompted, type `yes` to provision the infrastructure.
-8. Run the `terraform output` command to get the values of defined variables in *outputs.tf* file.
-9. Head to the AWS console, and verify the created resources.
+2. Change the directory to the above-created **ecs-terraform** directory using **`cd`** command.
+3. Run the **`terraform init`** command to initialize the *terraform*.
+4. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+5. Run the **`terraform validate`** command to validate the configuration files.
+6. Run the **`terraform plan`** command to plan the resources to be created.
+7. Run the **`terraform apply`** command and if prompted, type **`yes`** to provision the infrastructure.
+8. Run the **`terraform output`** command to get the values of defined variables in *outputs.tf* file.
+9. Head to the AWS Console, and verify the created resources.
 10. Then,
     - Head towards EC2 dashboard.
     - Select *Load Balancers*, and select the created load balancer.
@@ -127,10 +127,10 @@ Now we will provision the infrastructure by applying the above-created configura
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
-4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from `terraform output`.
+4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from the **`terraform output`** command.
 5. In SSH Username, enter *ec2-user*.
 6. In SSH Key File, select *bastion-key.pem* file passed in above *locals.tf* file from your local computer.
-7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from `terraform output`.
+7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from the **`terraform output`** command.
 8. In the Password section, select *Store in Vault*, and enter the password passed in above-created *locals.tf* file.
 9. Click *OK* and open the connection.
 10. Now you can run mysql commands to access databases, and verify the successful connection of *ecs-container*.
@@ -157,8 +157,8 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ## Destroy the provisioned infrastructure
 
-1. To destroy infrastructure, change directory to the above-created **ecs-terraform** directory using `cd` command.
-2. Run `terraform destroy` & if prompted, type `yes`.
+1. To destroy infrastructure, change directory to the above-created **ecs-terraform** directory using **`cd`** command.
+2. Run **`terraform destroy`** & if prompted, type **`yes`**.
 3. Infrastructure will be destroyed.
 
 ---

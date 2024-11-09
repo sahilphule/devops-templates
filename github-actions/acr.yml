@@ -2,6 +2,7 @@ name: Build and push docker image to ACR
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
+  ACR_IMAGE_FOLDER_NAME: <acr-image-folder-name>
   ACR_IMAGE_NAME: <acr-image-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
 
@@ -34,4 +35,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
+        tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_FOLDER_NAME }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}

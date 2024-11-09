@@ -5,7 +5,7 @@
 #   name = var.container-app-properties.ca-user-assigned-identity-name
 # }
 
-# resource "azurerm_role_assignment" "ca-acr-pull" {
+# resource "azurerm_role_assignment" "container-app-acr-pull" {
 #   scope = var.acr-id
 #   role_definition_name = "AcrPull"
 #   principal_id = azurerm_user_assigned_identity.user-assigned-identity.principal_id
