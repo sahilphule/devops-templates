@@ -1,14 +1,14 @@
-name: CD to Container Apps
+name: Continuous Deployment to Container Apps
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
-  ACR_IMAGE_FOLDER_NAME: <acr-image-folder-name>
-  ACR_IMAGE_NAME: <acr-image-name>
+  ACR_NAMESPACE: <acr-namespace>
+  ACR_REPOSITORY_NAME: <acr-repository-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
   
   RESOURCE_GROUP_NAME: <resource-group-name>
   CONTAINER_APP_ENVIRONMENT_NAME: <container-apps-environment-name>
-  CONTAINER_APP_NAME: <container-apps-name>
+  CONTAINER_APP_NAME: <container-app-name>
 
 on:
   # push:
@@ -20,7 +20,7 @@ on:
 
 jobs:
   build:
-    name: CD to Container Apps
+    name: Continuous Deployment to Container Apps
     runs-on: ubuntu-latest
 
     steps:
@@ -38,4 +38,4 @@ jobs:
         resourceGroup: ${{ env.RESOURCE_GROUP_NAME }}
         containerAppEnvironment: ${{ env.CONTAINER_APP_ENVIRONMENT_NAME }}
         containerAppName: ${{ env.CONTAINER_APP_NAME }}
-        imageToDeploy: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_FOLDER_NAME }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
+        imageToDeploy: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_NAMESPACE }}/${{ env.ACR_REPOSITORY_NAME }}:${{ env.ACR_IMAGE_TAG }}

@@ -1,11 +1,11 @@
-name: CD to AKS
+name: Continuous Deployment to AKS
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
-  ACR_IMAGE_FOLDER_NAME: <acr-image-folder-name>
-  ACR_IMAGE_NAME: <acr-image-name>
+  ACR_NAMESPACE: <acr-namespace>
+  ACR_REPOSITORY_NAME: <acr-repository-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
-  
+
   RESOURCE_GROUP_NAME: <resource-group-name>
   AKS_CLUSTER_NAME: <aks-cluster-name>
 
@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    name: CD to AKS
+    name: Continuous Deployment to AKS
     runs-on: ubuntu-latest
 
     steps:
@@ -51,8 +51,8 @@ jobs:
       with:
         # namespace: ''
         manifests: |
-          <deployment.yml file location>
+          ./kubernetes/app/deployment.yml
         images: |
-          ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_FOLDER_NAME }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
+          ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_NAMESPACE }}/${{ env.ACR_REPOSITORY_NAME }}:${{ env.ACR_IMAGE_TAG }}
         imagepullsecrets: |
           acr-secrets

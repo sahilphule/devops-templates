@@ -1,9 +1,9 @@
-name: Build and push docker image to ACR
+name: Continuous Integration with ACR
 
 env:
   ACR_LOGIN_SERVER: <acr-login-server>
-  ACR_IMAGE_FOLDER_NAME: <acr-image-folder-name>
-  ACR_IMAGE_NAME: <acr-image-name>
+  ACR_NAMESPACE: <acr-namespace>
+  ACR_REPOSITORY_NAME: <acr-repository-name>
   ACR_IMAGE_TAG: ${{ github.sha }}
 
 on:
@@ -13,10 +13,10 @@ on:
   #   # paths:
   #   # - app/*
   workflow_dispatch:
-
+  
 jobs:
   build:
-    name: Build and push docker image to ACR
+    name: Build and push the docker image to ACR
     runs-on: ubuntu-latest
 
     steps:
@@ -35,4 +35,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_IMAGE_FOLDER_NAME }}/${{ env.ACR_IMAGE_NAME }}:${{ env.ACR_IMAGE_TAG }}
+        tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.ACR_NAMESPACE }}/${{ env.ACR_REPOSITORY_NAME }}:${{ env.ACR_IMAGE_TAG }}

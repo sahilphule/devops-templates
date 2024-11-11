@@ -1,0 +1,59 @@
+name: Continuous Deployment to ECS
+
+env:
+  AWS_REGION: <aws-region>
+  ECR_REGISTRY_URI: <ecr-registry-uri>  
+  ECR_REPOSITORY_NAME: <ecr-repository-name>
+  ECR_IMAGE_TAG: ${{ github.sha }}
+
+  ECS_CLUSTER_NAME: <ecs-cluster-name>
+  ECS_SERVICE_NAME: <ecs-service-name>
+  ECS_TASK_DEFINITION_FAMILY_NAME: <ecs-task-family-name>
+  ECS_TASK_DEFINITION: task-definition.json
+  ECS_CONTAINER_NAME: <ecs-container-name>
+
+on:
+  # push:
+  #   branches:
+  #   - master
+  #   # paths:
+  #   # - app/*
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Continuous Deployment to ECS
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ env.AWS_REGION }}
+        # role-to-assume: ROLE_TO_ASSUME
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Download task definition
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION_FAMILY_NAME }} \
+        --query taskDefinition > task-definition.json
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: ${{env.ECS_CONTAINER_NAME }}
+        image: ${{ env.ECR_REGISTRY_URI }}/${{ env.ECR_REPOSITORY_NAME }}:${{ env.ECR_IMAGE_TAG }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        cluster: ${{ env.ECS_CLUSTER_NAME }}
+        service: ${{ env.ECS_SERVICE_NAME }}
+        wait-for-service-stability: true
