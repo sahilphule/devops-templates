@@ -10,13 +10,13 @@
 1. Create a Pulumi Project directory.
 2. Open the PowerShell.
 3. Change the directory to the above-created Pulumi Project.
-4. Run the `pulumi new aws-python` command to initialize the *pulumi*.
+4. Run the **`pulumi new aws-python`** command to initialize the *pulumi*.
 5. Provide the appropriate values to prompts such as *project-name*, *project-description*, *stack-name*, *toolchain*, *region-name*, etc.
 6. This will generate some Pulumi files in this directory.
 7. Now we will install predefined Pulumi modules.
-8. Activate the `venv` by running `venv\Scripts\activate`.
-9. Run `pip install git+https://github.com/sahilphule/pulumi.git` to install the modules.
-10. Deactivate the `venv` by running `deactivate`.
+8. Activate the **`venv`** by running **`venv\Scripts\activate`**.
+9. Run **`pip install git+https://github.com/sahilphule/pulumi.git`** to install the modules.
+10. Deactivate the **`venv`** by running **`deactivate`**.
 11. Now open the directory in the preferred IDE.
 12. Create *commons* folder
 13. Inside the folder create *__init__.py* file.
@@ -203,6 +203,8 @@ bucket_object = aws.s3.BucketObject(
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Provisioning the Infrastructure
 Now we will provision the infrastructure by applying the above-created configuration files.
 
@@ -211,31 +213,11 @@ Now we will provision the infrastructure by applying the above-created configura
 ### Steps:
 1. Open the PowerShell.
 2. Change the directory to the above-created Pulumi Project.
-3. Run the `pulumi up` command and if prompted, select `yes` to provision the infrastructure onto the AWS Cloud.
+3. Run the **`pulumi up`** command and if prompted, select **`yes`** to provision the infrastructure onto the AWS Cloud.
 4. Head to the AWS Console, and verify the created resources.
-5. Access the service onto the browser using the load balancer url received by running `pulumi stack output url`.
+5. Access the service onto the browser using the load balancer url received by running **`pulumi stack output url`**.
 
 ---
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## Screenshots of Provisioned Infrastructure
 ---
@@ -245,69 +227,45 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### S3 Image
 ![s3 image](./images/s3.png)
 
 ---
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ### RDS Image
 ![rds image](./images/rds.png)
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### LB Image
 ![lb image](./images/lb.png)
 
 ---
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ### ECS Image
 ![ecs image](./images/ecs.png)
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Connect to the RDS database through Bastion Host
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
-4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from `pulumi stack output bastion-host-ip` command.
+4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from **`pulumi stack output bastion-host-ip`** command.
 5. In SSH Username, enter *ec2-user*.
 6. In SSH Key File, select *bastion-key.pem* file passed in above *values.py* file from your local computer.
-7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from `pulumi stack output DB_HOST`.
+7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from **`pulumi stack output DB_HOST`**.
 8. In the Password section, select *Store in Vault*, and enter the password passed in above-created *values.py* file.
 9. Click *OK* and open the connection.
 10. Now you can run MySQL commands to access databases and verify the successful connection of *ecs-service*.
 
 ---
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## Screenshots of MySQL Workbench
 
@@ -318,17 +276,17 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### Commands Page
 ![commands page image](./images/commands.png)
 
 ---
 
-<br>
-
 ## Destroy the provisioned infrastructure
 
 1. To destroy infrastructure, change the directory to the above-created Pulumi Project.
-2. Run `pulumi destroy` & if prompted, select `yes`.
+2. Run **`pulumi destroy`** & if prompted, select **`yes`**.
 3. Infrastructure will be destroyed.
 
 ---

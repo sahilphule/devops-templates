@@ -11,13 +11,13 @@
 1. Create a Pulumi Project directory.
 2. Open the PowerShell.
 3. Change the directory to the above-created Pulumi Project.
-4. Run the `pulumi new aws-python` command to initialize the *pulumi*.
+4. Run the **`pulumi new aws-python`** command to initialize the *pulumi*.
 5. Provide the appropriate values to prompts such as *project-name*, *project-description*, *stack-name*, *toolchain*, *region-name*, etc.
 6. This will generate some Pulumi files in this directory.
 7. Now we will install predefined Pulumi modules.
-8. Activate the `venv` by running `venv\Scripts\activate`.
-9. Run `pip install git+https://github.com/sahilphule/pulumi.git` to install the modules.
-10. Deactivate the `venv` by running `deactivate`.
+8. Activate the **`venv`** by running **`venv\Scripts\activate`**.
+9. Run **`pip install git+https://github.com/sahilphule/pulumi.git`** to install the modules.
+10. Deactivate the **`venv`** by running **`deactivate`**.
 11. Now open the directory in the preferred IDE.
 12. Create *commons* folder
 13. Inside the folder create *__init__.py* file.
@@ -129,11 +129,7 @@ EKS = eks(values, VPC)
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ## Provisioning the Infrastructure
 Now we will provision the infrastructure by applying the above-created configuration files.
@@ -143,7 +139,7 @@ Now we will provision the infrastructure by applying the above-created configura
 ### Steps:
 1. Open the PowerShell.
 2. Change the directory to the above-created Pulumi Project.
-3. Run the `pulumi up` command and if prompted, select `yes` to provision the infrastructure onto the AWS Cloud.
+3. Run the **`pulumi up`** command and if prompted, select **`yes`** to provision the infrastructure onto the AWS Cloud.
 4. Head to the AWS Console, and verify the created resources.
 
 ---
@@ -156,19 +152,7 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ### RDS Image
 ![rds image](./images/rds.png)
@@ -180,16 +164,7 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ### EKS Node Group Image
 ![eks node group image](./images/eks-node-group.png)
@@ -198,48 +173,23 @@ Now we will provision the infrastructure by applying the above-created configura
 ![eks nodes image](./images/eks-nodes.png)
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ## Connect to EKS Cluster from Powershell
 
 1. Open a new Powershell window.
 2. Run the following command to configure local kubectl with eks cluster  
-    `aws eks --region "region-name" update-kubeconfig --name "cluster-name"`  
+    **`aws eks --region "region-name" update-kubeconfig --name "cluster-name"`**  
     Substitute *region-name* and *cluster-name* with the values defined in the above-created locals.tf file.
 3. Now apply the Kubernetes manifest files of the application.
-4. To list them all, run `kubectl get all`.
+4. To list them all, run **`kubectl get all`**.
 
 ### Powershell Image
 ![powershell](./images/powershell.png)
 
 5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
+<div style="page-break-after: always;"></div>
 
 ### Browser Service Access
 ![browser](./images/browser.png)
@@ -250,24 +200,17 @@ Now we will provision the infrastructure by applying the above-created configura
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
-4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from `pulumi stack output bastion-host-ip` command.
+4. In SSH Hostname, enter *bastion-host-ip:22* where bastion-host-ip is received from **`pulumi stack output bastion-host-ip`** command.
 5. In SSH Username, enter *ec2-user*.
 6. In SSH Key File, select *bastion-key.pem* file passed in above *values.py* file from your local computer.
-7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from `pulumi stack output DB_HOST`.
+7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from **`pulumi stack output DB_HOST`**.
 8. In the Password section, select *Store in Vault*, and enter the password passed in above-created *values.py* file.
 9. Click *OK* and open the connection.
 10. Now you can run MySQL commands to access databases and verify the successful connection of *eks-nodes*.
 
 ---
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ## Screenshots of MySQL Workbench
 
@@ -283,14 +226,13 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<br>
-<br>
+<div style="page-break-after: always;"></div>
 
 ## Destroy the provisioned infrastructure
 
 1. First, delete all the Kubernetes Deployments.
 2. To destroy infrastructure, change the directory to the above-created Pulumi Project.
-3. Run `pulumi destroy` & if prompted, select `yes`.
+3. Run **`pulumi destroy`** & if prompted, select **`yes`**.
 4. Infrastructure will be destroyed.
 
 ---

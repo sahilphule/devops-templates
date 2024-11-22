@@ -21,5 +21,12 @@ docker context create ecs "context-name"
 docker context create ecs-local context "context-name"
 docker context use "context-name"
 
+docker context create "context-name" --docker host=ssh://ec2-user@"instance-ip"
+
 docker system df
 docker system prune -a
+
+Set-Service ssh-agent -StartupType "Automatic"
+Start-Service ssh-agent
+ssh-add -l
+ssh-add "key.pem file path"

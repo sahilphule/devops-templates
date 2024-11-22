@@ -26,7 +26,7 @@ In short, a Dev Container allows you to set up a development environment and too
 
 ### There are multiple ways to start the *dev-container*, choose according to your setup requirements
 1. [Start new *dev-container* and start coding](#start-new-dev-container).
-2. [Open existing project directory inside a *dev-container*](#open-existing-project-directory-inside-a-dev-container).
+2. [Open existing project directory inside a *dev-container*](#open-the-existing-project-directory-inside-a-dev-container).
 3. [Start new *dev-container* with cloning remote Git repository inside it](#start-new-dev-container-with-cloning-remote-git-repository-inside-it).
 
 ---
