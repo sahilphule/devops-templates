@@ -5,15 +5,15 @@
 
 ---
 
-Click [GitHub](https://github.com/inflection-sahil/reancare/blob/master/.github/workflows/eks-ci-cd.yml) for EKS CI/CD Code.
+Click [GitHub](https://github.com/inflection-sahil/reancare/blob/master/.github/workflows/eks-ci-cd.yml) for EKS CI/CD Workflow.
 
 ## Steps:
-1. Create a github repository.
-2. Add your project files and folders in the repository.
+1. Create a GitHub repository.
+2. Add your project files and folders to the repository.
 2. Create *.github* folder in project directory.
-3. Inside it, create */workflows* directory.
+3. Inside it, create a */workflows* folder.
 4. Create *eks-ci-cd.yml* file and store it in above-created *.github/workflows* directory.
-5. Define the *name* and following map of *env variables*:
+5. Define the **`name`** and following map of **`env`** variables:
     - AWS_REGION
     - ROLE_TO_ASSUME
     - ECR_REGISTRY_URI
@@ -21,7 +21,7 @@ Click [GitHub](https://github.com/inflection-sahil/reancare/blob/master/.github/
     - ECR_IMAGE_TAG
     - EKS_CLUSTER_NAME
 6. Define the **`on`** to set which events can cause the workflow to run.
-7. Define the following **`actions`** for build & push i.e **Continuous Integration (CI)**:
+7. Define the following **`actions`** to build & push i.e **Continuous Integration (CI)**:
     - Checkout the repo
         - actions/checkout@v4
     - Configure the AWS credentials
@@ -31,7 +31,7 @@ Click [GitHub](https://github.com/inflection-sahil/reancare/blob/master/.github/
     - Build and push the image
         - docker/build-push-action@v5
 8. Run the following to deploy the pod i.e **Continuous Deployment (CD)**:
-    - Update kube config
+    - Update the kube config
         - aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
     - Deploy to EKS
         - sed -i.bak "s|DOCKER_IMAGE|${{ env.ECR_REGISTRY_URI }}/${{ env.ECR_REPOSITORY_NAME }}: ${{ env.ECR_IMAGE_TAG }}|g" ./kubernetes/app/deployment.yml && \

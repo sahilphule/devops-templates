@@ -1,3 +1,13 @@
+helm create "helm-name"
+helm install "custom-name" "helm-name"
+helm list -a
+helm upgrade "custom-name" "helm-name"
+helm rollback "custom-name" "revision-name"
+helm install "custom-name" --debug --dry-run "helm-name"
+helm template "helm-name"
+helm lint "helm-name"
+helm uninstall "custom-name"
+
 kubectl apply -f "file-name"
 kubectl delete "*"
 
@@ -16,6 +26,10 @@ kubectl get secrets
 kubens "namespace"
 kubectl create namespace "namespace-name"
 kubectl port-forward service/"service-name" "desired-port":"service-port"
+
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://"service-name:port"; done"
+kubectl get hpa "hpa-name" --watch
 
 kubectl exec -it "pod-name" -- bash
 $pod = $(kubectl get pod -n "namespace-name" -l "label" -o jsonpath="{.items[0].metadata.name}")
@@ -37,6 +51,9 @@ minikube tunnel
 minikube service "service-name" -n "namespace-name"
 minikube dashboard
 minikube addons enable ingress
+
+minikube start — vm-driver=virtualbox
+eval $(minikube docker-env)
 
 echo "text" | base64
 echo "encoded-text" | base64 --decode
