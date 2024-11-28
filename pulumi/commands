@@ -19,3 +19,5 @@ pulumi stack
 pulumi stack rm "stack-name"
 
 pulumi about
+
+pulumi stack --show-urns

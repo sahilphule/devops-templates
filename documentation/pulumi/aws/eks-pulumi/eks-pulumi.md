@@ -25,90 +25,18 @@
     - from inflection_zone_pulumi.modules.aws.vpc import vpc
     - from inflection_zone_pulumi.modules.aws.rds import rds
     - from inflection_zone_pulumi.modules.aws.eks import eks
-15. The reference code is attached below.
-```py
-from inflection_zone_pulumi.modules.aws.vpc import vpc
-from inflection_zone_pulumi.modules.aws.rds import rds
-from inflection_zone_pulumi.modules.aws.eks import eks
-```
+15. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/eks/commons/__init__.py) for reference.
 16. Definition of *__init__.py* is complete.
-17. Now create the *values.py* file in the root folder of the created project directory.
+17. Now create the *values.py* file in the root folder of the above-created project directory.
 18. Define the following values:
     - vpc_properties
-        - vpc-name
-        - vpc-igw-name
-        - vpc-public-rt-name
-        - vpc-private-rt-name
-        - vpc-public-subnet-name
-        - vpc-private-subnet-name
     - rds_properties
-        - db-subnet-group-name
-        - db-sg-name
-        - db-identifier
-        - db-allocated-storage
-        - db-engine
-        - db-engine-version
-        - db-instance-class
-        - db-username
-        - db-password
-        - db-publicly-accessible
-        - db-skip-final-snapshot
     - bastion_properties
-        - bastion-host-sg-name
-        - bastion-host-key-public-file
-        - bastion-host-instance-type
-        - bastion-host-name
     - eks_properties
-        - eks-cluster-role-name
-        - eks-cluster-sg-name
-        - eks-cluster-name
-        - eks-node-group-role-name
-        - eks-node-group-name
-        - eks-instance-types
-19. The reference code is attached below.
-```py
-vpc_properties = {
-    "vpc-name": "eks-vpc",
-    "vpc-igw-name": "eks-vpc-igw",
-    "vpc-public-rt-name": "eks-vpc-public-rt",
-    "vpc-private-rt-name": "eks-vpc-private-rt",
-    "vpc-public-subnet-name": "eks-vpc-public-subnet",
-    "vpc-private-subnet-name": "eks-vpc-private-subnet"
-}
-
-rds_properties = {
-    "db-subnet-group-name": "eks-db-subnet-group",
-    "db-sg-name": "eks-db-sg",
-    "db-identifier": "eks-db",
-    "db-allocated-storage": 10,
-    "db-engine": "mysql",
-    "db-engine-version": "8.0",
-    "db-instance-class": "db.t3.micro",
-    "db-username": "",
-    "db-password": "",
-    "db-publicly-accessible": False,
-    "db-skip-final-snapshot": True,
-}
-
-bastion_properties = {
-    "bastion-host-sg-name": "eks-db-bastion-host-sg",
-    "bastion-host-key-public-file": "",
-    "bastion-host-instance-type": "t2.micro",
-    "bastion-host-name": "eks-db-bastion-host"    
-}
-
-eks_properties = {
-    "eks-cluster-role-name": "eks-cluster-role",
-    "eks-cluster-sg-name": "eks-cluster-sg",
-    "eks-cluster-name": "eks-cluster",
-    "eks-node-group-role-name": "eks-node-group-role",
-    "eks-node-group-name": "eks-node-group",
-    "eks-instance-types": ["t2.medium"]
-}
-```
+19. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/eks/sample.values.py) for reference.
 20. The definition of *values.py* is complete.
 21. Now navigate to the *__main__.py* file present in the root folder of the above-created project directory.
-22. Clear the code if present.
+22. Clear the sample code if present.
 23. Import the following:
     - from commons import vpc, rds, eks
     - values
@@ -116,25 +44,15 @@ eks_properties = {
     - VPC
     - RDS
     - EKS
-25. The reference code is attached below.
-```py
-from commons import vpc, rds, eks
-import values
-
-VPC = vpc(values)
-RDS = rds(values, VPC)
-EKS = eks(values, VPC)
-```
+25. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/eks/__main__.py) for reference.
 26. Definition of *__main__.py* is complete.
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ## Provisioning the Infrastructure
 Now we will provision the infrastructure by applying the above-created configuration files.
 
-> Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
+> Ensure AWS CLI is configured with appropriate IAM user credentials and enough permissions.
 
 ### Steps:
 1. Open the PowerShell.
@@ -181,18 +99,8 @@ Now we will provision the infrastructure by applying the above-created configura
 2. Run the following command to configure local kubectl with eks cluster  
     **`aws eks --region "region-name" update-kubeconfig --name "cluster-name"`**  
     Substitute *region-name* and *cluster-name* with the values defined in the above-created locals.tf file.
-3. Now apply the Kubernetes manifest files of the application.
+3. Now, apply the Kubernetes manifest files for the application.
 4. To list them all, run **`kubectl get all`**.
-
-### Powershell Image
-![powershell](./images/powershell.png)
-
-5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
-
-<div style="page-break-after: always;"></div>
-
-### Browser Service Access
-![browser](./images/browser.png)
 
 ---
 

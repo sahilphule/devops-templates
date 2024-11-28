@@ -26,147 +26,21 @@
     - from inflection_zone_pulumi.modules.aws.rds import rds
     - from inflection_zone_pulumi.modules.aws.load_balancer import load_balancer
     - from inflection_zone_pulumi.modules.aws.ecs import ecs
-15. The reference code is attached below.
-```py
-from inflection_zone_pulumi.modules.aws.vpc import vpc
-from inflection_zone_pulumi.modules.aws.s3 import s3
-from inflection_zone_pulumi.modules.aws.rds import rds
-from inflection_zone_pulumi.modules.aws.load_balancer import load_balancer
-from inflection_zone_pulumi.modules.aws.ecs import ecs
-```
+15. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/ecs/commons/__init__.py) for reference.
 16. Definition of *__init__.py* is complete.
-17. Now create the *values.py* file in the root folder of the created project directory.
+17. Now create the *values.py* file in the root folder of the above-created project directory.
 18. Define the following values:
     - vpc_properties
-        - vpc-name
-        - vpc-igw-name
-        - vpc-public-rt-name
-        - vpc-private-rt-name
-        - vpc-public-subnet-name
-        - vpc-private-subnet-name
     - s3_properties
-        - s3-bucket-name
-        - s3-bucket-versioning
-        - s3-env-file-path
     - rds_properties
-        - db-subnet-group-name
-        - db-sg-name
-        - db-identifier
-        - db-allocated-storage
-        - db-engine
-        - db-engine-version
-        - db-instance-class
-        - db-username
-        - db-password
-        - db-publicly-accessible
-        - db-skip-final-snapshot
     - bastion_properties
-        - bastion-host-sg-name
-        - bastion-host-key-public-file
-        - bastion-host-instance-type
-        - bastion-host-name
     - ecs_properties
-        - ecs-cluster-name
-        - ecs-task-execution-role-name
-        - ecs-task-family-name
-        - ecs-container-name
-        - ecs-container-image-name
-        - ecs-container-port
-        - s3-config-bucket
-        - s3-config-path
-        - ecs-service-name
-        - ecs-service-desired-count
     - ecs_container_definition
     - load_balancer_properties
-        - load-balancer-sg-name
-        - load-balancer-tg-name
-        - port
-19. The reference code is attached below.
-```py
-vpc_properties = {
-    "vpc-name": "ecs-vpc",
-    "vpc-igw-name": "ecs-vpc-igw",
-    "vpc-public-rt-name": "ecs-vpc-public-rt",
-    "vpc-private-rt-name": "ecs-vpc-private-rt",
-    "vpc-public-subnet-name": "ecs-vpc-public-subnet",
-    "vpc-private-subnet-name": "ecs-vpc-private-subnet"
-}
-
-s3_properties = {
-    "s3-bucket-name": "",
-    "s3-bucket-versioning": "Disabled",
-    "s3-env-file-path": ""
-}
-
-rds_properties = {
-    "db-subnet-group-name": "ecs-db-subnet-group",
-    "db-sg-name": "ecs-db-sg",
-    "db-identifier": "ecs-db",
-    "db-allocated-storage": 10,
-    "db-engine": "mysql",
-    "db-engine-version": "8.0",
-    "db-instance-class": "db.t3.micro",
-    "db-username": "",
-    "db-password": "",
-    "db-publicly-accessible": False,
-    "db-skip-final-snapshot": True,
-}
-
-bastion_properties = {
-    "bastion-host-sg-name": "ecs-db-bastion-host-sg",
-    "bastion-host-key-public-file": "",
-    "bastion-host-instance-type": "t2.micro",
-    "bastion-host-name": "ecs-db-bastion-host"
-}
-
-ecs_properties = {
-    "ecs-cluster-name": "ecs-cluster",
-    "ecs-task-execution-role-name": "ecs-task-execution-role",
-    "ecs-task-family-name": "ecs-task-family",
-    "ecs-container-name": "",
-    "ecs-container-image-name": "",
-    "ecs-container-port": "",
-    "s3-config-bucket": s3_properties["s3-bucket-name"],
-    "s3-config-path": "",
-
-    "ecs-service-name": "ecs-service",
-    "ecs-service-desired-count": 1
-}
-
-ecs_container_definition = [
-    {
-        "name": ecs_properties["ecs-container-name"],
-    	"image": ecs_properties["ecs-container-image-name"],
-		"essential": True,
-		"portMappings": [
-            {
-                "containerPort": ecs_properties["ecs-container-port"],
-       			"hostPort": ecs_properties["ecs-container-port"],
-				"protocol": "tcp"
-			}
-        ],
-	    "environment": [
-            {
-				"name": "S3_CONFIG_BUCKET",
-                "value": ecs_properties["s3-config-bucket"]
-			},
-            {
-                "name": "S3_CONFIG_PATH",
-                "value": ecs_properties["s3-config-path"]
-	        }
-        ]
-	}
-]
-
-load_balancer_properties = {
-    "load-balancer-sg-name": "ecs-lb-sg",
-    "load-balancer-tg-name": "ecs-lb-tg",
-    "port": ecs_properties["ecs-container-port"]
-}
-```
+19. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/ecs/sample.values.py) for reference.
 20. The definition of *values.py* is complete.
 21. Now navigate to the *__main__.py* file present in the root folder of the above-created project directory.
-22. Clear the code if present.
+22. Clear the sample code if present.
 23. Import the following:
     - pulumi
     - pulumi_aws as aws
@@ -179,36 +53,15 @@ load_balancer_properties = {
     - Load_balancer
     - ECS
     - bucket_object
-25. The reference code is attached below.
-```py
-import pulumi
-import pulumi_aws as aws
-from commons import vpc, s3, rds, load_balancer, ecs
-import values
-
-VPC = vpc(values)
-S3 = s3(values)
-RDS = rds(values, VPC)
-Load_balancer = load_balancer(values, VPC)
-ECS = ecs(values, VPC, Load_balancer)
-
-bucket_object = aws.s3.BucketObject(
-    "config.env",
-    
-	bucket = S3.s3_bucket.id,
-    source = pulumi.FileAsset(values.s3_properties["s3-env-file-path"])
-)
-```
+25. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/ecs/__main__.py) for reference.
 26. Definition of *__main__.py* is complete.
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ## Provisioning the Infrastructure
 Now we will provision the infrastructure by applying the above-created configuration files.
 
-> Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
+> Ensure AWS CLI is configured with appropriate IAM user credentials and enough permissions.
 
 ### Steps:
 1. Open the PowerShell.
@@ -219,7 +72,11 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
+
+<div style="page-break-after: always;"></div>
+
 ## Screenshots of Provisioned Infrastructure
+
 ---
 
 ### VPC Image
@@ -227,31 +84,29 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ### S3 Image
 ![s3 image](./images/s3.png)
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ### RDS Image
 ![rds image](./images/rds.png)
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ### LB Image
 ![lb image](./images/lb.png)
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### ECS Image
 ![ecs image](./images/ecs.png)
 
 ---
-
-<div style="page-break-after: always;"></div>
 
 ## Connect to the RDS database through Bastion Host
 1. Open MySQL Workbench.
@@ -267,6 +122,8 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Screenshots of MySQL Workbench
 
 ---
@@ -276,12 +133,12 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ### Commands Page
 ![commands page image](./images/commands.png)
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## Destroy the provisioned infrastructure
 
