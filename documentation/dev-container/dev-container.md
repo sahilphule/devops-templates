@@ -15,12 +15,12 @@ In short, a Dev Container allows you to set up a development environment and too
 ## Install Remote Development Extension
 1. Open VSCode.
 2. Open *Extensions* tab.
-3. Type **`remote development`** or paste this **`ms-vscode-remote.vscode-remote-extensionpack`** extension id.
+3. Type **`remote development`** or paste this **`ms-vscode-remote.vscode-remote-extensionpack`** extension id in the search bar.
 4. Install this extension.
 
 ![remote development extension](./images/extension.png)
 
-5. Once you install the remote development extension, a new symbol named **Remote Host** and labeled **Open a Remote Window** will be added to the VSCode status bar.
+5. Once you install the Remote Development extension, a new symbol named **Remote Host** and labeled **Open a Remote Window** will be added to the VSCode status bar.
 
 ---
 
