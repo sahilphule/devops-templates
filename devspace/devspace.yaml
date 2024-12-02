@@ -1,0 +1,36 @@
+version: v2beta1
+name: devspace
+
+# ...
+
+deployments:
+  the-dev-container:
+    helm:
+      chart:
+        name: component-chart
+        repo: https://charts.devspace.sh
+      values:
+        containers:
+          - image: "${THE_DEV_CONTAINER_IMAGE}"
+            imagePullPolicy: IfNotPresent
+            resources:
+              requests:
+                memory: "500Mi"
+                cpu: "500m"
+              limits:
+                memory: "1Gi"
+                cpu: "1"
+
+dev:
+  the-dev-container:
+    imageSelector: "${THE_DEV_CONTAINER_IMAGE}"
+    ssh:
+      localPort: 60550 
+    command: ["sleep", "infinity"]
+    sync:
+    - path: ./:/home/dev
+
+vars:
+  THE_DEV_CONTAINER_IMAGE:
+    source: env
+    default: ubuntu:22.04

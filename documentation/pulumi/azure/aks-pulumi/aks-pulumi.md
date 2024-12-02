@@ -90,12 +90,17 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-### AKS Cluster Image
-![aks cluster image](./images/aks-cluster.png)
+### MySQL Flexible Server Image
+![mysql flexible server image](./images/mysql-flexible-server.png)
 
 ---
 
 <div style="page-break-after: always;"></div>
+
+### AKS Cluster Image
+![aks cluster image](./images/aks-cluster.png)
+
+---
 
 ## Connect to the AKS Cluster from Powershell
 1. Open a new Powershell window.

@@ -90,8 +90,8 @@ Now we will provision the infrastructure by applying the above-created configura
 
 ---
 
-### MySQL Flexible Image
-![mysql image](./images/mysql-flexible.png)
+### MySQL Flexible Server Image
+![mysql flexible server image](./images/mysql-flexible-server.png)
 
 ---
 

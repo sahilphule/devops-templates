@@ -27,6 +27,12 @@ kubens "namespace"
 kubectl create namespace "namespace-name"
 kubectl port-forward service/"service-name" "desired-port":"service-port"
 
+kubectl create secret docker-registry regcred \
+  --docker-server=${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com \
+  --docker-username=AWS \
+  --docker-password=$(aws ecr get-login-password) \
+  --namespace=health-check
+
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://"service-name:port"; done"
 kubectl get hpa "hpa-name" --watch
@@ -50,7 +56,10 @@ minikube mount "src-path":"dest-path"
 minikube tunnel
 minikube service "service-name" -n "namespace-name"
 minikube dashboard
+minikube addons list
 minikube addons enable ingress
+minikube addons configure registry-creds
+minikube addons enable registry-creds
 
 minikube start — vm-driver=virtualbox
 eval $(minikube docker-env)
