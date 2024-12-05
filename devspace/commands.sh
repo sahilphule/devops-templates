@@ -4,6 +4,6 @@ devspace init
 
 devspace dev
 
-devspace dev --var THE_DEV_CONTAINER_IMAGE=""
+devspace dev --var THE_DEV_CONTAINER_IMAGE=<container-base-image-name>
 
 devspace purge

@@ -69,8 +69,8 @@ resource "azurerm_container_app" "container-app" {
   # }
 
   registry {
-    server = var.container-app-properties.ca-registry-server
-    username = var.acr-admin-username
+    server               = var.container-app-properties.ca-registry-server
+    username             = var.acr-admin-username
     password_secret_name = "acr-admin-password"
 
     # identity = azurerm_user_assigned_identity.user-assigned-identity.id
@@ -79,7 +79,7 @@ resource "azurerm_container_app" "container-app" {
   }
 
   secret {
-    name = "acr-admin-password"
+    name  = "acr-admin-password"
     value = var.acr-admin-password
   }
 

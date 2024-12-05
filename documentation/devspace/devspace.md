@@ -1,9 +1,9 @@
 # Dev Containers on EKS using DevSpace
 
-DevSpace is an open-source developer tool for Kubernetes that lets you develop and deploy cloud-native software faster.  DevSpace is a very lightweight, client-only CLI tool which uses your current kube-context, just like kubectl or helm. DevSpace, also falls in the category of dev container tools.
+DevSpace is an open-source developer tool for Kubernetes that lets you develop and deploy cloud-native software faster.  DevSpace is a very lightweight, client-only CLI tool that uses your current kube-context, just like Kubectl or Helm. DevSpace also falls in the category of dev container tools.
 Three of the most striking features of DevSpace are:
-- configurable out of the box SSH server injection, as well as the
-- two-way sync capability between local host file system and development container file system, and that
+- configurable out-of-the-box SSH server injection, as well as the
+- two-way sync capability between the local host file system and development container file system, and that
 - DevSpace development containers run on Kubernetes.
 
 ---
@@ -17,23 +17,28 @@ Three of the most striking features of DevSpace are:
 ---
 
 ## Steps
-> Assuming that we already have access to a Kubernetes cluster and that we have pointed kubectl to use the corresponding context. As a best practice we should create a unique kubernetes namespace eg. **devspace**, for our development environment and then tell DevSpace to use the targeted context and namespace.
+> Assuming that we already have access to a Kubernetes cluster and that we have pointed Kubectl to use the corresponding context. As a best practice, we should create a unique Kubernetes namespace eg. **devspace**, for our development environment and then tell DevSpace to use the targeted context and namespace.
 1. Create the **devspace** directory.
 2. Open the Powershell window & change directory to the above-created **devspace** directory.
-3. Run the following command to create kubernetes namespace for DevSpace.
+3. Run the following command to create Kubernetes namespace for DevSpace.
     - **`kubectl create namespace devspace`**
-4. Then, run the following command to make DevSpace use above-created specific namespace.
+4. Then, run the following command to make DevSpace use the above-created specific namespace.
     - **`devspace use namespace devspace`**
-5. Now, run the following command to set the DevSpace context to kubectl current context.
+5. Now, run the following command to set the DevSpace context to Kubectl's current context.
     - **`devspace use context "$(kubectl config current-context)"`**
 6. Run the following command to initialize the DevSpace tool in the directory.
     - **`devspace init`**
 7. To start the **dev container** inside **Pod**, run the following command by providing the dev container image.
-    - **`devspace dev --var THE_DEV_CONTAINER_IMAGE="dev-container-image"`**  
-    Replace the *dev-container-image* with the name of the image for dev container.
-8. Dev Container pod will deployed and ssh credentials will be added into *~/.ssh/config* file.
-9. To check the deployed dev container, run the following command in the new powershell window:
+    - **`devspace dev --var THE_DEV_CONTAINER_IMAGE="dev-container-base-image"`**  
+    Replace the *dev-container-base-image* with the actual name of the base image for the dev container.
+
+![devspace-powershell](./images/devspace-powershell.png)
+
+8. The Dev Container pod will deployed and SSH credentials will be added to the *~/.ssh/config* file.
+9. To check the deployed dev container, run the following command in the new PowerShell window:
     - **`kubectl get all -n devspace`**
+
+![kubectl powershell](./images/kubectl-powershell.png)
 
 ---
 
@@ -63,7 +68,15 @@ Three of the most striking features of DevSpace are:
 
 ![ssh selection](./images/ssh-selection.png)
 
-5. A new window will be opened with connection to **dev container pod**.
+5. A new window will be opened with a dropdown asking for operating system selection. Select the os according to the requirement.
+
+![operating system selection](./images/os-selection.png)
+
+6. The connection to **dev container pod** is successful.
+
+![pod dev container vscode connection](./images/pod-dev-container-vscode-connection.png)
+
+7. Now we can initialize or clone any GitHub repository and start developing.
 
 ---
 

@@ -2,3 +2,7 @@ Forwarding from 127.0.0.1:60550 -> 8022
 Forwarding from [::1]:60550 -> 8022
 Handling connection for 60550
 {"level":"error","msg":"error copying from local connection to remote stream: writeto tcp6 [::1]:60550-\u003e[::1]:62091: read tcp6 [::1]:60550-\u003e[::1]:62091: wsarecv: An existing connection was forcibly closed by the remote host.","time":"2024-11-30T21:11:02+05:30"}
+Forwarding from 127.0.0.1:60550 -> 8022
+Forwarding from [::1]:60550 -> 8022
+Handling connection for 60550
+{"level":"error","msg":"error copying from local connection to remote stream: writeto tcp6 [::1]:60550-\u003e[::1]:57879: read tcp6 [::1]:60550-\u003e[::1]:57879: wsarecv: An existing connection was forcibly closed by the remote host.","time":"2024-12-02T17:59:04+05:30"}

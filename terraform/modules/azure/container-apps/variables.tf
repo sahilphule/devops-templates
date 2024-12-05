@@ -1,10 +1,10 @@
-variable "container-app-properties" {
-  description = "container app properties"
+variable "resource-group-properties" {
+  description = "resource group properties"
   type        = any
 }
 
-variable "resource-group-properties" {
-  description = "resource group properties"
+variable "container-app-properties" {
+  description = "container app properties"
   type        = any
 }
 
@@ -25,10 +25,10 @@ variable "vnet-public-subnet-id" {
 
 variable "acr-admin-username" {
   description = "acr admin username"
-  type       = string
+  type        = string
 }
 
 variable "acr-admin-password" {
   description = "acr admin password"
-  type       = any
+  type        = any
 }

@@ -8,7 +8,7 @@ pulumi up
 
 pulumi install
 
-pulumi stack output "property-name"
+pulumi stack output <property-name>
 
 pulumi down
 
@@ -16,7 +16,7 @@ pulumi destroy
 
 pulumi stack
 
-pulumi stack rm "stack-name"
+pulumi stack rm <stack-name>
 
 pulumi about
 

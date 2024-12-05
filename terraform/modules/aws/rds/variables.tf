@@ -1,9 +1,9 @@
-variable "database-properties" {
+variable "rds-properties" {
   description = "database properties"
   type        = map(any)
 }
 
-variable "bastion-properties" {
+variable "bastion-host-properties" {
   description = "bastion properties"
   type        = any
 }

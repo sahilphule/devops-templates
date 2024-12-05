@@ -10,5 +10,5 @@ output "load-balancer-tg-arn" {
 
 output "load-balancer-dns-name" {
   description = "load balancer dns name"
-  value = aws_lb.load-balancer.dns_name
+  value       = aws_lb.load-balancer.dns_name
 }

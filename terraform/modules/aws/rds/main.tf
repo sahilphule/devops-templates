@@ -25,7 +25,7 @@ resource "aws_security_group" "db-sg" {
   }
 
   tags = {
-    Name = var.database-properties.db-sg-tag-value
+    Name = var.rds-properties.db-sg-tag-value
   }
 }
 
@@ -35,15 +35,15 @@ resource "aws_db_instance" "db" {
     aws_security_group.db-sg.id
   ]
 
-  identifier          = var.database-properties.db-identifier
-  allocated_storage   = var.database-properties.db-allocated-storage
-  engine              = var.database-properties.db-engine
-  engine_version      = var.database-properties.db-engine-version
-  instance_class      = var.database-properties.db-instance-class
-  username            = var.database-properties.db-username
-  password            = var.database-properties.db-password
-  publicly_accessible = var.database-properties.db-publicly-accessible
-  skip_final_snapshot = var.database-properties.db-skip-final-snapshot
+  identifier          = var.rds-properties.db-identifier
+  allocated_storage   = var.rds-properties.db-allocated-storage
+  engine              = var.rds-properties.db-engine
+  engine_version      = var.rds-properties.db-engine-version
+  instance_class      = var.rds-properties.db-instance-class
+  username            = var.rds-properties.db-username
+  password            = var.rds-properties.db-password
+  publicly_accessible = var.rds-properties.db-publicly-accessible
+  skip_final_snapshot = var.rds-properties.db-skip-final-snapshot
 }
 
 resource "aws_security_group" "bastion-host-sg" {
@@ -65,18 +65,18 @@ resource "aws_security_group" "bastion-host-sg" {
   }
 
   tags = {
-    Name = var.bastion-properties.bastion-host-sg-tag-value
+    Name = var.bastion-host-properties.bastion-host-sg-tag-value
   }
 }
 
 resource "aws_key_pair" "bastion-host-key-pair" {
   key_name   = "bastion-host-key-pair"
-  public_key = file(var.bastion-properties.bastion-host-public-key)
+  public_key = file(var.bastion-host-properties.bastion-host-public-key)
 }
 
 resource "aws_instance" "bastion-host" {
   ami           = data.aws_ami.linux-ami.id
-  instance_type = var.bastion-properties.bastion-host-instance-type
+  instance_type = var.bastion-host-properties.bastion-host-instance-type
   key_name      = aws_key_pair.bastion-host-key-pair.id
   subnet_id     = var.vpc-public-subnets[0].id
 
@@ -85,6 +85,6 @@ resource "aws_instance" "bastion-host" {
   ]
 
   tags = {
-    Name = var.bastion-properties.bastion-host-tag-value
+    Name = var.bastion-host-properties.bastion-host-tag-value
   }
 }

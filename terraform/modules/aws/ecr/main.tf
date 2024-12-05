@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "ecr-repository" {
-  name = var.ecr-properties.ecr-repository-name
+  name         = var.ecr-properties.ecr-repository-name
   force_delete = var.ecr-properties.ecr-repository-force-delete
 }
 
