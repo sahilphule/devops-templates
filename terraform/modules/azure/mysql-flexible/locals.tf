@@ -2,8 +2,8 @@ locals {
   # resource group properties
   resource-group-properties = {}
 
-  vnet-id   = module.virtual-network.vnet-id
-  vnet-name = module.virtual-network.vnet-name
+  # vnet-id   = module.virtual-network.vnet-id
+  # vnet-name = module.virtual-network.vnet-name
 
   # mysql flexible properties
   mysql-flexible-properties = {

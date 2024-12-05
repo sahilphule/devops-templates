@@ -2,7 +2,7 @@ locals {
   # resource group properties
   resource-group-properties = {}
 
-  vnet-public-subnet-id = module.virtual-network.vnet-public-subnet-id
+  # vnet-public-subnet-id = module.virtual-network.vnet-public-subnet-id
 
   # application gateway properties
   application-gateway-properties = {

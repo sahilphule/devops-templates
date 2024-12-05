@@ -2,8 +2,8 @@ locals {
   # resource group properties
   resource-group-properties = {}
 
-  vnet-name             = module.virtual-network.vnet-name
-  vnet-public-subnet-id = module.virtual-network.vnet-public-subnet-id
+  # vnet-name             = module.virtual-network.vnet-name
+  # vnet-public-subnet-id = module.virtual-network.vnet-public-subnet-id
 
   # mssql properties
   mssql-properties = {

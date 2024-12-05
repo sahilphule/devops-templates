@@ -1,8 +1,8 @@
 locals {
-  vpc-id               = module.vpc.vpc-id
-  vpc-public-subnets   = module.vpc.vpc-public-subnets
-  load-balancer-tg-arn = module.load-balancer.load-balancer-tg-arn
-  load-balancer-sg-id  = module.load-balancer.load-balancer-sg-id
+  # vpc-id               = module.vpc.vpc-id
+  # vpc-public-subnets   = module.vpc.vpc-public-subnets
+  # load-balancer-tg-arn = module.load-balancer.load-balancer-tg-arn
+  # load-balancer-sg-id  = module.load-balancer.load-balancer-sg-id
 
   # ecs properties
   ecs-properties = {

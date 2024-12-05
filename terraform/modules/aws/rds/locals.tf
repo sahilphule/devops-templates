@@ -1,7 +1,7 @@
 locals {
-  vpc-id              = module.vpc.vpc-id
-  vpc-public-subnets  = module.vpc.vpc-public-subnets
-  vpc-private-subnets = module.vpc.vpc-private-subnets
+  # vpc-id              = module.vpc.vpc-id
+  # vpc-public-subnets  = module.vpc.vpc-public-subnets
+  # vpc-private-subnets = module.vpc.vpc-private-subnets
 
   # rds properties
   rds-properties = {

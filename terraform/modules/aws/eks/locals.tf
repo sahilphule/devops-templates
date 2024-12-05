@@ -1,5 +1,5 @@
 locals {
-  vpc-public-subnets = module.vpc.vpc-public-subnets
+  # vpc-public-subnets = module.vpc.vpc-public-subnets
 
   # eks properties
   eks-properties = {

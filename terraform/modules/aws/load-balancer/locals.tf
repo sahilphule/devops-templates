@@ -1,6 +1,6 @@
 locals {
-  vpc-id             = module.vpc.vpc-id
-  vpc-public-subnets = module.vpc.vpc-public-subnets
+  # vpc-id             = module.vpc.vpc-id
+  # vpc-public-subnets = module.vpc.vpc-public-subnets
 
   # load balancer properties
   load-balancer-properties = {

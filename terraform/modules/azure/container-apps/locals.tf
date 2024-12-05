@@ -2,9 +2,9 @@ locals {
   # resource group properties
   resource-group-properties = {}
 
-  vnet-public-subnet-id = module.virtual-network.vnet-public-subnet-id
-  acr-admin-username    = module.acr.acr-admin-username
-  acr-admin-password    = module.acr.acr-admin-password
+  # vnet-public-subnet-id = module.virtual-network.vnet-public-subnet-id
+  # acr-admin-username    = module.acr.acr-admin-username
+  # acr-admin-password    = module.acr.acr-admin-password
 
   # container app properties
   container-app-properties = {

@@ -3,8 +3,8 @@ variable "resource-group-properties" {
   type        = any
 }
 
-variable "storage-account-properties" {
-  description = "storage account properties"
+variable "storage-properties" {
+  description = "storage properties"
   type        = any
 }
 
