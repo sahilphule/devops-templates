@@ -63,8 +63,8 @@ Now, let's create a Virtual Network module.
 5. The definition of *main.tf* file is completed.
 6. Now we will create *variables.tf* file for declaring variables.
 7. Inside it, declare the following variables:
-    - virtual-network-properties
     - resource-group-properties
+    - virtual-network-properties
 8. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/virtual-network/variables.tf) for reference.
 9. We have completed declaring *variables.tf* file for the *VNet module*.
 10. Now we will declare outputs for the *VNet module*.
@@ -85,8 +85,8 @@ We will use Azure Container Registry for storing container image.
 4. The definition of *main.tf* file is complete.
 5. Now we will create *variables.tf* file.
 6. Inside it, declare the following variables:
-    - acr-properties
     - resource-group-properties
+    - acr-properties
 7. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/acr/variables.tf) for reference.
 8. Variables have been declared.
 9. Now create the *outputs.tf* file and define the following outputs:
@@ -108,8 +108,8 @@ For the database, we will use Azure MySQL Flexible.
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/main.tf) for reference.
 4. The definition of *main.tf* file is complete.
 5. Now we will create *variables.tf* file and declare the following variables:
-    - mysql-flexible-properties
     - resource-group-properties
+    - mysql-flexible-properties
     - vnet-id
     - vnet-name
 6. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/mysql-flexible/variables.tf) for reference.
@@ -120,11 +120,29 @@ For the database, we will use Azure MySQL Flexible.
 10. We have completed defining the **MySQL Flexible Module**.
 
 ---
+## Storage Module
+Let's start with the Storage Module
+1. Create *storage* folder in the above-created *azure-modules* directory.
+2. Inside it, create *main.tf* file and define the following resources:
+    - azurerm_storage_account
+    - azurerm_storage_container
+    - azurerm_storage_blob
+3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/storage/main.tf) for reference.
+4. The definition of *main.tf* file for *Storage Module* is complete.
+5. Now create *variables.tf* file and declare the following variables:
+    - resource-group-properties
+    - storage-properties
+    - vnet-public-subnet-id
+6. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/storage/variables.tf) for reference.
+7. Variables have been declared.
+8. The definition of **Storage Module** is complete.
+
+---
 
 ## Container Apps Module
 Let's start with the Container Apps Module.
 1. Create *container-apps* folder in the above-created *azure-modules* directory.
-2. Inside it, create *main.tf* file and define the following resources;
+2. Inside it, create *main.tf* file and define the following resources:
     - azurerm_container-registry_scope_map
     - azurerm_container_registry_token
     - azurerm_container_registry_token_password
@@ -134,8 +152,8 @@ Let's start with the Container Apps Module.
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/container-apps/main.tf) for reference.
 4. The definition of *main.tf* file for *Container Apps* is complete.
 5. Now create *variables.tf* file and declare the following variables:
-    - container-apps-properties
     - resource-group-properties
+    - container-apps-properties
     - vnet-public-subnet-id
     - acr-id
     - acr-name
@@ -157,8 +175,8 @@ Let's start with the AKS Module.
 3. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/aks/main.tf) for reference.
 4. The *main.tf* file for AKS has been defined.
 5. Now we will create *variables.tf* file and declare the following variables:
-    - aks-properties
     - resource-group-properties
+    - aks-properties
     - vnet-name
 6. Click [code](https://github.com/sahilphule/templates/blob/master/terraform/modules/azure/aks/variables.tf) for reference.
 7. We have completed defining the **AKS Module**.

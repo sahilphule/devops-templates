@@ -1,4 +1,9 @@
 # EKS Provisioning using Terraform
+- We will provision the EKS using Terraform as an Infrasturcture as Code.
+- We will deploy it in custom Virtual Private Cloud for isolation.
+- We will also deploy RDS MySQL Instance to store the relational data and connect it to EKS.
+
+---
 
 ### Prerequisites
 1. AWS Account with an IAM User with administrative permissions.
@@ -66,8 +71,8 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 ### Steps:
 1. Open the PowerShell.
 2. Change the directory to the above-created **eks-terraform** directory using **`cd`** command.
-3. Run the **`terraform init`** command to initialize the *terraform*.
-4. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+3. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+4. Run the **`terraform init`** command to initialize the *terraform*.
 5. Run the **`terraform validate`** command to validate the configuration files.
 6. Run the **`terraform plan`** command to plan the resources to be created.
 7. Run the **`terraform apply`** command and if prompted, type **`yes`** to provision the infrastructure.

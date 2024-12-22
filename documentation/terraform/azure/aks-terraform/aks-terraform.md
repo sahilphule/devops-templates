@@ -1,4 +1,10 @@
 # AKS Provisioning using Terraform
+- We will provision the AKS using Terraform as an Infrasturcture as Code.
+- We will deploy it in custom Virtual Network for isolation.
+- We will connect the AKS to ACR for Docker Image.
+- We will also deploy MySQL Flexible to store the relational data and connect it to AKS.
+
+---
 
 ### Prerequisites
 1. Azure Account with Subscription.
@@ -68,11 +74,15 @@ Now we will provision the Azure infrastructure by applying the above-created con
 
 > Ensure Azure CLI is configured with appropriate Azure Account credentials with enough permissions.
 
+> Also first provision the ACR, push the Docker Image and then provision the Container App. To do that, comment out the **aks** module and follow the further steps.
+
+---
+
 ### Steps:
 1. Open the PowerShell.
-2. Change the directory to the above-created **eks-terraform** directory using **`cd`** command.
-3. Run the **`terraform init`** command to initialize the *terraform*.
-4. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+2. Change the directory to the above-created **aks-terraform** directory using **`cd`** command.
+3. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+4. Run the **`terraform init`** command to initialize the *terraform*.
 5. Run the **`terraform validate`** command to validate the configuration files.
 6. Run the **`terraform plan`** command to plan the resources to be created.
 7. Run the **`terraform apply`** command and if prompted, type **`yes`** to provision the infrastructure.
@@ -111,21 +121,41 @@ Now we will provision the Azure infrastructure by applying the above-created con
 
 <div style="page-break-after: always;"></div>
 
-### AKS Image
-![aks image](./images/aks-cluster.png)
-
----
-
-## Build and push Docker Image to ACR
+## Now push the Docker Image to ACR
 
 1. Open a new Powershell window.
 2. Run the following commands to login into ACR:
-    - **`az login`**
-    - **`az acr login --name "acr-name"`**
+    - `az login`
+    - `az acr login --name "acr-name"`
 3. Then tag & push the docker image using the following commands:
-    - **`docker tag "image-name:tag" "acr-name".azurecr.io/"image-name:tag"`**
-    - **`docker push "acr-name".azurecr.io/"image-name:tag"`**  
+    - `docker tag "image-name:tag" "acr-name".azurecr.io/"image-name:tag"`
+    - `docker push "acr-name".azurecr.io/"image-name:tag"`  
     Substitute *acr-name* with the value defined in the above-created locals.tf file. Also, substitute *image-name:tag* with it's respective name.
+
+---
+
+## Provisioning the AKS
+
+> Uncomment the **aks** module that we commented earlier and follow the further steps.
+
+---
+
+### Steps:
+1. Change window to the PowerShell.
+2. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
+3. Run the **`terraform init`** command to initialize the *terraform*.
+4. Run the **`terraform validate`** command to validate the configuration files.
+5. Run the **`terraform plan`** command to plan the resources to be created.
+6. Run the **`terraform apply`** command and if prompted, type **`yes`** to provision the infrastructure.
+7. Once completed, head to the Azure Console, and verify the created resources.
+8. Run the **`terraform output`** command to get the values of defined variables in *outputs.tf* file.
+
+---
+
+<!-- <div style="page-break-after: always;"></div> -->
+
+### AKS Image
+![aks image](./images/aks-cluster.png)
 
 ---
 
