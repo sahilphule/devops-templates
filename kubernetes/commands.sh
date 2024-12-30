@@ -21,6 +21,9 @@ kubectl get application
 kubectl logs <pod-name>
 kubectl describe <pod-name>
 kubectl rollout restart <deployment/deployment-name>
+kubectl rollout status -w <deployment/deployment-name>
+kubectl rollout history <deployment/deployment-name>
+kubectl rollout undo <deployment/deployment-name>
 
 kubectl create configmap <config-name> --from-file=<file-path>
 kubectl get configmaps
