@@ -25,3 +25,10 @@ git config -l
 git config credential.username <username>
 git config --global user.name <username>
 git config --global user.email <email>
+
+git commit --amend --all
+
+git log
+git rebase -i <commit-id>~1
+git commit --amend
+git rebase --continue

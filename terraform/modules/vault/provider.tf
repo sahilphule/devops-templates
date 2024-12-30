@@ -1,4 +1,4 @@
 provider "vault" {
   address = local.vault-address
-  token = local.vault-token
+  token   = local.vault-token
 }
