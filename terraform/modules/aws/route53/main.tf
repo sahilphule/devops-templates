@@ -1,21 +1,23 @@
 resource "aws_route53_zone" "route53-zone" {
   name = var.route53-properties.route53-zone-name
 
-  vpc {
-    vpc_id = var.vpc-id
-  }
+  # vpc {
+  #   vpc_id = var.vpc-id
+  # }
 }
 
 resource "aws_route53_record" "route53-record" {
   zone_id = aws_route53_zone.route53-zone.zone_id
-  name    = var.route53-properties.route53-record-name
-  type    = var.route53-properties.route53-record-type
-  ttl     = var.route53-properties.route53-record-ttl
-  records = var.route53-properties.route53-record-records
 
-  # alias {
-  #   name                   = var.route53-properties.route53-record-dns-name
-  #   zone_id                = var.route53-properties.route53-record-alias-zone-id
-  #   evaluate_target_health = true
-  # }
+  name = var.route53-properties.route53-record-name
+  type = var.route53-properties.route53-record-type
+  # ttl             = var.route53-properties.route53-record-ttl
+  # records         = var.route53-properties.route53-record-records
+  # allow_overwrite = var.route53-properties.route53-record-allow-overwrite
+
+  alias {
+    name                   = var.route53-properties.route53-record-alias-dns-name
+    zone_id                = var.route53-properties.route53-record-alias-zone-id
+    evaluate_target_health = true
+  }
 }

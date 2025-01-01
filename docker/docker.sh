@@ -6,6 +6,7 @@ docker ps -a
 docker run -d <image-name>
 docker restart <container-name>
 docker stop <container-name>
+docker logs <container-name> --follow
 docker rm <container-name>
 docker rm -v <container-name>
 

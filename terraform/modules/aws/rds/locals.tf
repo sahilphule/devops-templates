@@ -10,6 +10,7 @@ locals {
     db-engine              = "mysql"
     db-engine-version      = "8.0.35"
     db-instance-class      = "db.t3.micro"
+    db-name                = "db"
     db-skip-final-snapshot = true
     db-publicly-accessible = false
 

@@ -1,6 +1,6 @@
 variable "load-balancer-properties" {
   description = "load balancer properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "vpc-id" {

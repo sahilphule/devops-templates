@@ -5,14 +5,15 @@ locals {
 
   # route53 properties
   route53-properties = {
-    route53-zone-name = "test.example.com"
+    route53-zone-name = ""
 
-    route53-record-name = "www.example.com"
-    route53-record-type = "A/CNAME"
-    route53-record-ttl  = 300
-    # route53-record-records = ["${locals.eip-lb-public-ip}"]
+    route53-record-name = ""
+    route53-record-type = "A"
+    route53-record-ttl  = 60
+    # route53-record-records         = ["${local.eip}"]
+    route53-record-allow-overwrite = false
 
-    # route53-record-dns-name = "${locals.load-balancer-dns-name}"
-    # route53-record-alias-zone-id = "${locals.load-balancer-zone-id}"
+    # route53-record-alias-dns-name = "${local.load-balancer-dns-name}"
+    # route53-record-alias-zone-id  = "${local.load-balancer-zone-id}"
   }
 }

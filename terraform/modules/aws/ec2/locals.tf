@@ -17,10 +17,10 @@ locals {
     ec2-instance-sg-tag-value = "sg"
 
     ec2-instance-key-pair-name = "key"
-    ec2-instance-public-key    = "~/.ssh/key.pub"
+    ec2-instance-public-key    = ""
 
     ec2-instance-type                        = "t2.micro"
-    ec2-instance-user-data                   = file("./startup-config.tpl")
+    ec2-instance-user-data                   = ""
     ec2-instance-associate-public-ip-address = true
     ec2-instance-tag-value                   = ""
   }

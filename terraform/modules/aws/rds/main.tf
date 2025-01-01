@@ -40,6 +40,7 @@ resource "aws_db_instance" "db" {
   engine              = var.rds-properties.db-engine
   engine_version      = var.rds-properties.db-engine-version
   instance_class      = var.rds-properties.db-instance-class
+  db_name             = var.rds-properties.db-name
   username            = var.rds-properties.db-username
   password            = var.rds-properties.db-password
   publicly_accessible = var.rds-properties.db-publicly-accessible

@@ -31,7 +31,7 @@ resource "aws_instance" "ec2-instance" {
   ami                         = data.aws_ami.ami.id
   instance_type               = var.ec2-properties.ec2-instance-type
   key_name                    = aws_key_pair.ec2-instance-key-pair.id
-  user_data                   = var.ec2-properties.ec2-instance-user-data
+  user_data                   = file(var.ec2-properties.ec2-instance-user-data)
   associate_public_ip_address = var.ec2-properties.ec2-instance-associate-public-ip-address
   subnet_id                   = var.vpc-public-subnets[0].id
 
