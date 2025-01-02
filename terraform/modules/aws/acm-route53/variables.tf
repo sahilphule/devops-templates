@@ -3,7 +3,7 @@ variable "route53-properties" {
   type        = any
 }
 
-variable "vpc-id" {
-  description = "vpc id"
-  type        = string
+variable "acm-properties" {
+  description = "acm properties"
+  type        = any
 }
