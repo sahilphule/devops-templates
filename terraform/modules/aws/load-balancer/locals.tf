@@ -26,7 +26,10 @@ locals {
     load-balancer-tg-protocol    = "HTTP"
     load-balancer-tg-target-type = "instance"
 
-    load-balancer-listener-port     = 80
-    load-balancer-listener-protocol = "HTTP"
+    load-balancer-listener-http-port     = 80
+    load-balancer-listener-http-protocol = "HTTP"
+
+    load-balancer-listener-https-port     = 443
+    load-balancer-listener-https-protocol = "HTTPS"
   }
 }

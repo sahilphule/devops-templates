@@ -43,13 +43,44 @@ resource "aws_lb_target_group" "load-balancer-tg" {
   vpc_id      = var.vpc-id
 }
 
-resource "aws_lb_listener" "load-balancer-listener" {
+resource "aws_lb_listener" "load-balancer-listener-http" {
   load_balancer_arn = aws_lb.load-balancer.arn
-  port              = var.load-balancer-properties.load-balancer-listener-port
-  protocol          = var.load-balancer-properties.load-balancer-listener-protocol
+  port              = var.load-balancer-properties.load-balancer-listener-http-port
+  protocol          = var.load-balancer-properties.load-balancer-listener-http-protocol
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.load-balancer-tg.arn
   }
+
+  # default_action {
+  #   type = "redirect"
+  #   redirect {
+  #     port        = var.load-balancer-properties.load-balancer-listener-https-port
+  #     protocol    = var.load-balancer-properties.load-balancer-listener-https-protocol
+  #     status_code = "HTTP_301"
+  #   }
+  # }
+
+  depends_on        = [
+    aws_lb_target_group.load-balancer-tg
+  ]
+}
+
+resource "aws_lb_listener" "load-balancer-listener-https" {
+  load_balancer_arn = aws_lb.load-balancer.arn
+  port              = var.load-balancer-properties.load-balancer-listener-https-port
+  protocol          = var.load-balancer-properties.load-balancer-listener-https-protocol
+
+  certificate_arn   = var.acm-certificate-arn
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.load-balancer-tg.arn
+  }
+
+  depends_on        = [
+    aws_lb_target_group.load-balancer-tg
+  ]
 }
