@@ -1,6 +1,6 @@
 # AKS Provisioning using Terraform
-- We will provision the AKS using Terraform as an Infrasturcture as Code.
-- We will deploy it in custom Virtual Network for isolation.
+- We will provision the AKS using Terraform as an Infrastructure as Code.
+- We will deploy it in a custom Virtual Network for isolation.
 - We will connect the AKS to ACR for Docker Image.
 - We will also deploy MySQL Flexible to store the relational data and connect it to AKS.
 
@@ -15,7 +15,7 @@
 
 ## Steps
 1. Create the **aks-terraform** directory.
-2. Folders structure for the above-created directory is as follows:
+2. The folder structure for the above-created directory is as follows:
 ```
 aks-terraform
 │───.terraform.lock.hcl
@@ -36,7 +36,7 @@ aks-terraform
       - required_providers
     - provider
       - azurerm
-5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/aks/providers.tf) for reference.
+5. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/aks/providers.tf) for reference.
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
@@ -45,7 +45,7 @@ aks-terraform
     - acr
     - mysql-flexible
     - aks
-9. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/aks/main.tf) for reference.
+9. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/aks/main.tf) for reference.
 10. The definition of *main.tf* file is complete.
 11. Now we will create *outputs.tf* file.
 12. Inside it, define the following outputs.
@@ -53,19 +53,19 @@ aks-terraform
     - acr-admin-username
     - acr-admin-password
     - DB_HOST
-13. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/aks/outputs.tf) for reference.
+13. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/aks/outputs.tf) for reference.
 14. The definition of *outputs.tf* file is complete.
 15. Now we will create *locals.tf* file.
-16. Inside it, define the followiing variables:
+16. Inside it, define the following variables:
     - resource-group-properties
     - virtual-network-properties
     - acr-properties
     - mysql-flexible-properties
     - aks-properties
-17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/azure/aks/sample-locals.txt) for reference.
+17. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/aks/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
 
-> Make sure you give the appropriate values to the varibles defined in *locals.tf* file.
+> Ensure you give the appropriate values to the variables defined in *locals.tf* file.
 
 ---
 
@@ -74,7 +74,7 @@ Now we will provision the Azure infrastructure by applying the above-created con
 
 > Ensure Azure CLI is configured with appropriate Azure Account credentials with enough permissions.
 
-> Also first provision the ACR, push the Docker Image and then provision the Container App. To do that, comment out the **aks** module and follow the further steps.
+> Also first provision the ACR, push the Docker Image, and then provision the Container App. To do that, comment out the **aks** module and follow the further steps.
 
 ---
 
@@ -124,24 +124,24 @@ Now we will provision the Azure infrastructure by applying the above-created con
 ## Now push the Docker Image to ACR
 
 1. Open a new Powershell window.
-2. Run the following commands to login into ACR:
+2. Run the following commands to log into ACR:
     - `az login`
     - `az acr login --name "acr-name"`
 3. Then tag & push the docker image using the following commands:
     - `docker tag "image-name:tag" "acr-name".azurecr.io/"image-name:tag"`
     - `docker push "acr-name".azurecr.io/"image-name:tag"`  
-    Substitute *acr-name* with the value defined in the above-created locals.tf file. Also, substitute *image-name:tag* with it's respective name.
+    Substitute *acr-name* with the value defined in the above-created locals.tf file. Also, substitute *image-name:tag* with its respective name.
 
 ---
 
 ## Provisioning the AKS
 
-> Uncomment the **aks** module that we commented earlier and follow the further steps.
+> Uncomment the **aks** module that we commented on earlier and follow the further steps.
 
 ---
 
 ### Steps:
-1. Change window to the PowerShell.
+1. Open the Powershell Window.
 2. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
 3. Run the **`terraform init`** command to initialize the *terraform*.
 4. Run the **`terraform validate`** command to validate the configuration files.
@@ -169,7 +169,7 @@ Now we will provision the Azure infrastructure by applying the above-created con
 Substitute *subscription-id* which can be found by running **`az account list`** in the *id* field. Also, substitute *resource-group-name* and *cluster-name* with the values defined in the above-created locals.tf file.
 3. Now apply the Kubernetes manifest files of the application using the following command:
     - **`kubectl apply -f "file-path"`**  
-    Substitute *file-path* with the kubernetes manifest file path.
+    Substitute *file-path* with the Kubernetes manifest file path.
 4. To list them all, run **`kubectl get all`**.
 5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
 
@@ -179,8 +179,8 @@ Substitute *subscription-id* which can be found by running **`az account list`**
 
 1. Firstly, delete all the Kubernetes Deployments using:
     - **`kubectl delete -f "file-path"`**  
-    Substitute *file-path* with the kubernetes manifest file path.
-2. To destroy infrastructure, change directory to the above-created **aks-terraform** directory using **`cd`** command.
+    Substitute *file-path* with the Kubernetes manifest file path.
+2. To destroy infrastructure, change the directory to the above-created **aks-terraform** directory using the **`cd`** command.
 3. Run **`terraform destroy`** & if prompted, type **`yes`**.
 4. Infrastructure will be destroyed.
 

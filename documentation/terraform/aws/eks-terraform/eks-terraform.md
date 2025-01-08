@@ -1,6 +1,6 @@
 # EKS Provisioning using Terraform
-- We will provision the EKS using Terraform as an Infrasturcture as Code.
-- We will deploy it in custom Virtual Private Cloud for isolation.
+- We will provision the EKS using Terraform as an Infrastructure as Code.
+- We will deploy it in a custom Virtual Private Cloud for isolation.
 - We will also deploy RDS MySQL Instance to store the relational data and connect it to EKS.
 
 ---
@@ -14,7 +14,7 @@
 
 ## Steps
 1. Create the **eks-terraform** directory.
-2. Folders structure for the above-created directory is as follows:
+2. The folder structure for the above-created directory is as follows:
 ```
 eks-terraform
 │───.terraform.lock.hcl
@@ -35,31 +35,31 @@ eks-terraform
       - required_providers
     - provider
       - aws
-5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/providers.tf) for reference.
+5. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/providers.tf) for reference.
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
     - vpc
     - rds
     - eks
-9. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/main.tf) for reference.
+9. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/main.tf) for reference.
 10. The definition of *main.tf* file is complete.
 11. Now we will create *outputs.tf* file.
 12. Inside it, define the following outputs.
     - DB_HOST
     - bastion-host-ip
-13. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/outputs.tf) for reference.
+13. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/outputs.tf) for reference.
 14. The definition of *outputs.tf* file is complete.
 15. Now we will create *locals.tf* file.
-16. Inside it, define the followiing variables:
+16. Inside it, define the following variables:
     - vpc-properties
     - database-properties
     - bastion-properties
     - eks-properties
-17. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/eks/sample-locals.txt) for reference.
+17. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
 
-> Make sure you give the appropriate values to the varibles defined in *locals.tf* file.
+> Ensure you give the appropriate values to the variables defined in *locals.tf* file.
 
 ---
 
@@ -124,7 +124,7 @@ Now we will provision the AWS infrastructure by applying the above-created confi
     Substitute *region-name* and *cluster-name* with the values defined in the above-created locals.tf file.
 3. Now apply the Kubernetes manifest files of the application using the following command:
     - **`kubectl apply -f "file-path"`**  
-    Substitute *file-path* with the kubernetes manifest file path.
+    Substitute *file-path* with the Kubernetes manifest file path.
 4. To list them all, run **`kubectl get all`**.
 5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
 
@@ -140,7 +140,7 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from the **`terraform output`** command.
 8. In the Password section, select *Store in Vault*, and enter the password passed in above-created *locals.tf* file.
 9. Click *OK* and open the connection.
-10. Now you can run mysql commands to access databases, and verify the successful connection of *eks-nodes*.
+10. Now you can run MySQL commands to access databases and verify the successful connection of *eks-nodes*.
 
 ---
 
@@ -164,8 +164,8 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 1. Firstly, delete all the Kubernetes Deployments using:
     - **`kubectl delete -f "file-path"`**  
-    Substitute *file-path* with the kubernetes manifest file path.
-2. To destroy infrastructure, change directory to the above-created **eks-terraform** directory using **`cd`** command.
+    Substitute *file-path* with the Kubernetes manifest file path.
+2. To destroy infrastructure, change the directory to the above-created **eks-terraform** directory using the **`cd`** command.
 3. Run **`terraform destroy`** & if prompted, type **`yes`**.
 4. Infrastructure will be destroyed.
 

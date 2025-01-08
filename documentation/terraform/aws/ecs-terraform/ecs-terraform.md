@@ -1,6 +1,6 @@
 # ECS Provisioning using Terraform
-- We will provision the ECS using Terraform as an Infrasturcture as Code.
-- We will deploy it in custom Virtual Private Cloud for isolation.
+- We will provision the ECS using Terraform as an Infrastructure as Code.
+- We will deploy it in a custom Virtual Private Cloud for isolation.
 - We will connect the Container App to ECR for Docker Image.
 - We will also create S3 bucket to store the *.env* file.
 - Also will deploy RDS MySQL Instance to store the relational data and connect it to ECS.
@@ -15,7 +15,7 @@
 
 ## Steps
 1. Create the **ecs-terraform** directory.
-2. Folders structure for the above-created directory is as follows:
+2. The folder structure for the above-created directory is as follows:
 ```
 ecs-terraform
 │───.terraform.lock.hcl
@@ -37,7 +37,7 @@ ecs-terraform
     - provider
       - docker
       - aws
-5. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/ecs/providers.tf) for reference.
+5. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/providers.tf) for reference.
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
@@ -49,13 +49,13 @@ ecs-terraform
     - ecs
 9. Also define the following s3 resource for uploading local .env file:
     - aws_s3_object
-10. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/ecs/main.tf) for reference.
+10. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/main.tf) for reference.
 11. The definition of *main.tf* file is complete.
 12. Now we will create *outputs.tf* file.
 13. Inside it, define the following outputs.
     - DB_HOST
     - bastion-host-ip
-14. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/ecs/outputs.tf) for reference.
+14. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/outputs.tf) for reference.
 15. The definition of *outputs.tf* file is complete.
 16. Now we will create *locals.tf* file.
 17. Inside it, define the following variables:
@@ -65,10 +65,11 @@ ecs-terraform
     - bastion-properties
     - load-balancer-properties
     - ecs-properties
-18. Click [code](https://github.com/inflection-sahil/devops/blob/master/terraform/aws/ecs/sample-locals.txt) for reference.
+18. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/sample-locals.txt) for reference.
 19. The definition of *locals.tf* file is complete.
 
-> Make sure you give the appropriate values to the varibles defined in *locals.tf* file. Also update the *s3-object-source-path* variable under *s3-properties* with local *.env* file relative path.
+> Ensure you give the appropriate values to the variables defined in *locals.tf* file.  
+> Also, update the *s3-object-source-path* variable under *s3-properties* with local *.env* file relative path.
 
 ---
 
@@ -139,7 +140,7 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 7. In MySQL Hostname, enter *DB_HOST* where DB_HOST is received from the **`terraform output`** command.
 8. In the Password section, select *Store in Vault*, and enter the password passed in above-created *locals.tf* file.
 9. Click *OK* and open the connection.
-10. Now you can run mysql commands to access databases, and verify the successful connection of *ecs-container*.
+10. Now you can run MySQL commands to access databases and verify the successful connection of *ecs-container*.
 
 ---
 
@@ -163,7 +164,7 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 ## Destroy the provisioned infrastructure
 
-1. To destroy infrastructure, change directory to the above-created **ecs-terraform** directory using **`cd`** command.
+1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **ecs-terraform** directory using the **`cd`** command.
 2. Run **`terraform destroy`** & if prompted, type **`yes`**.
 3. Infrastructure will be destroyed.
 
