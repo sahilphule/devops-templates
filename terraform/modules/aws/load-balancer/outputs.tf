@@ -7,14 +7,14 @@ output "load-balancer-tg-arn" {
   value       = aws_lb_target_group.load-balancer-tg.arn
 }
 
-output "load-balancer-listener-http-arn" {
+output "load-balancer-http-listener-arn" {
   description = "load balancer http listener arn"
-  value       = aws_lb_listener.load-balancer-listener-http.arn
+  value       = aws_lb_listener.load-balancer-http-listener.arn
 }
 
-output "load-balancer-listener-https-arn" {
+output "load-balancer-https-listener-arn" {
   description = "load balancer http listener arn"
-  value       = aws_lb_listener.load-balancer-listener-http.arn
+  value       = aws_lb_listener.load-balancer-https-listener.arn
 }
 
 output "load-balancer-sg-id" {

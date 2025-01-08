@@ -15,5 +15,5 @@ variable "vpc-public-subnets" {
 
 variable "acm-certificate-arn" {
   description = "acm certificate arn"
-  type = string
+  type        = string
 }

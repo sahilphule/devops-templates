@@ -10,9 +10,25 @@ locals {
 
     s3-bucket-acl = "private"
 
+    s3-bucket-website-configuration-count = 0
+
     s3-bucket-public-access-block-public-acls        = false
     s3-bucket-public-access-block-public-policy      = false
     s3-bucket-public-access-ignore-public-acls       = false
     s3-buckets-public-access-restrict-public-buckets = false
+
+    s3-bucket-policy-count = 0
+  }
+
+  s3-bucket-policy = {
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : "*",
+        "Action" : "*",
+        "Resource" : "arn:aws:s3:::${local.s3-bucket-properties.s3-bucket-name}/*"
+      }
+    ]
   }
 }

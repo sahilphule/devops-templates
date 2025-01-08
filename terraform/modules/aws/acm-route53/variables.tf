@@ -1,9 +1,9 @@
-variable "route53-properties" {
-  description = "route53 properties"
+variable "acm-properties" {
+  description = "acm properties"
   type        = any
 }
 
-variable "acm-properties" {
-  description = "acm properties"
+variable "route53-zone-properties" {
+  description = "route53 zone properties"
   type        = any
 }

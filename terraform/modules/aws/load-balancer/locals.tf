@@ -1,6 +1,7 @@
 locals {
   # vpc-id             = module.vpc.vpc-id
   # vpc-public-subnets = module.vpc.vpc-public-subnets
+  # acm-certificate-arn = "module.acm-route53.acm-certificate-arn"
 
   # load balancer properties
   load-balancer-properties = {
@@ -26,10 +27,10 @@ locals {
     load-balancer-tg-protocol    = "HTTP"
     load-balancer-tg-target-type = "instance"
 
-    load-balancer-listener-http-port     = 80
-    load-balancer-listener-http-protocol = "HTTP"
+    load-balancer-http-listener-port     = 80
+    load-balancer-http-listener-protocol = "HTTP"
 
-    load-balancer-listener-https-port     = 443
-    load-balancer-listener-https-protocol = "HTTPS"
+    load-balancer-https-listener-port     = 443
+    load-balancer-https-listener-protocol = "HTTPS"
   }
 }
