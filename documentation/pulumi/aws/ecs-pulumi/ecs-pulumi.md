@@ -1,11 +1,24 @@
-# AWS ECS Provisioning using Pulumi
+# ECS Provisioning using Pulumi
+- We will provision the ECS using Pulumi as an Infrastructure as Code.
+- We will deploy it in a custom Virtual Private Cloud for isolation.
+- We will connect the Container App to ECR for Docker Image.
+- We will also create S3 bucket to store the *.env* file.
+- Also will deploy RDS MySQL Instance to store the relational data and connect it to ECS.
 
+---
 ## Prerequisites
+---
+
 1. An AWS account with an IAM user having sufficient permissions.
 2. AWS CLI installed and configured with the IAM user.
 3. Pulumi Installed.
 
 ---
+## Write Pulumi Configuration files
+---
+
+First, we will initiate and edit Pulumi configuration files for AWS resources using predefined Pulumi Library available on the internet.
+
 ## Steps
 1. Create a Pulumi Project directory.
 2. Open the PowerShell.
@@ -26,7 +39,7 @@
     - from inflection_zone_pulumi.modules.aws.rds import rds
     - from inflection_zone_pulumi.modules.aws.load_balancer import load_balancer
     - from inflection_zone_pulumi.modules.aws.ecs import ecs
-15. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/ecs/commons/__init__.py) for reference.
+15. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/aws/ecs/commons/__init__.py) for reference.
 16. Definition of *__init__.py* is complete.
 17. Now create the *values.py* file in the root folder of the above-created project directory.
 18. Define the following values:
@@ -37,7 +50,7 @@
     - ecs_properties
     - ecs_container_definition
     - load_balancer_properties
-19. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/ecs/sample.values.py) for reference.
+19. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/aws/ecs/sample.values.py) for reference.
 20. The definition of *values.py* is complete.
 21. Now navigate to the *__main__.py* file present in the root folder of the above-created project directory.
 22. Clear the sample code if present.
@@ -53,14 +66,14 @@
     - Load_balancer
     - ECS
     - bucket_object
-25. Click [code](https://github.com/inflection-sahil/devops/blob/master/pulumi/aws/ecs/__main__.py) for reference.
+25. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/aws/ecs/__main__.py) for reference.
 26. Definition of *__main__.py* is complete.
 
 ---
-
 ## Provisioning the Infrastructure
-Now we will provision the infrastructure by applying the above-created configuration files.
+---
 
+Now we will provision the infrastructure by applying the above-created configuration files.
 > Ensure AWS CLI is configured with appropriate IAM user credentials and enough permissions.
 
 ### Steps:
@@ -71,12 +84,10 @@ Now we will provision the infrastructure by applying the above-created configura
 5. Access the service onto the browser using the load balancer url received by running **`pulumi stack output url`**.
 
 ---
-
-
 <div style="page-break-after: always;"></div>
 
+---
 ## Screenshots of Provisioned Infrastructure
-
 ---
 
 ### VPC Image
@@ -88,7 +99,6 @@ Now we will provision the infrastructure by applying the above-created configura
 ![s3 image](./images/s3.png)
 
 ---
-
 <div style="page-break-after: always;"></div>
 
 ### RDS Image
@@ -100,15 +110,17 @@ Now we will provision the infrastructure by applying the above-created configura
 ![lb image](./images/lb.png)
 
 ---
-
 <div style="page-break-after: always;"></div>
 
 ### ECS Image
 ![ecs image](./images/ecs.png)
 
 ---
+## Connection to the RDS database through Bastion Host using MySQL Workbench
+---
 
-## Connect to the RDS database through Bastion Host
+Now, we will use MySQL Workbench to connect and access the MySQL RDS Database through above created Bastion Host.
+
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
@@ -121,11 +133,10 @@ Now we will provision the infrastructure by applying the above-created configura
 10. Now you can run MySQL commands to access databases and verify the successful connection of *ecs-service*.
 
 ---
-
 <div style="page-break-after: always;"></div>
 
+---
 ## Screenshots of MySQL Workbench
-
 ---
 
 ### Connection Page
@@ -137,12 +148,16 @@ Now we will provision the infrastructure by applying the above-created configura
 ![commands page image](./images/commands.png)
 
 ---
-
 <div style="page-break-after: always;"></div>
 
+---
 ## Destroy the provisioned infrastructure
+---
 
-1. To destroy infrastructure, change the directory to the above-created Pulumi Project.
+Lastly, we will destroy the above-created resources.
+
+## Steps
+1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created Pulumi Project using the **`cd`** command.
 2. Run **`pulumi destroy`** & if prompted, select **`yes`**.
 3. Infrastructure will be destroyed.
 
