@@ -1,4 +1,4 @@
-# Container Apps Provisionig using Terraform
+# Container Apps Provisioning using Terraform
 - We will provision the Container App using Terraform as an Infrastructure as Code.
 - We will deploy it in a custom Virtual Network for isolation.
 - We will connect the Container App to ACR for Docker Image.

@@ -1,8 +1,8 @@
-# AKS Provisioning using Pulumi
-- We will provision the AKS using Pulumi as an Infrastructure as Code.
+# Azure Virtual Machine Provisioning using Pulumi
+- We will provision the Azure Virtual Machine using Pulumi as an Infrastructure as Code.
 - We will deploy it in a custom Virtual Network for isolation.
-- We will connect the AKS to ACR for Docker Image.
-- We will also deploy MySQL Flexible to store the relational data and connect it to AKS.
+- We will SSH into the Virtual Machine, and install the docker.
+- Then, we will deploy the Nginx Container and try accessing it on the Web Browser.
 
 ---
 ## Prerequisites
@@ -36,32 +36,26 @@ First, we will initiate and edit Pulumi configuration files for Azure resources 
 14. Import the following in the *__init__.py* file:
     - from inflection_zone_pulumi.modules.azure.resource_group import resource_group
     - from inflection_zone_pulumi.modules.azure.vnet import vnet
-    - from inflection_zone_pulumi.modules.azure.acr import acr
-    - from inflection_zone_pulumi.modules.azure.mysql_flexible import mysql_flexible
-    - from inflection_zone_pulumi.modules.azure.aks import aks
-15. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/azure/aks/commons/__init__.py) for reference.
+    - from inflection_zone_pulumi.modules.azure.virtual_machine import virtual_machine
+\15. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/azure/virtual-machine/commons/__init__.py) for reference.
 16. Definition of *__init__.py* is complete.
 17. Now create the *values.py* file in the root folder of the above-created project directory.
 18. Define the following values:
     - resource_group_properties
     - vnet_properties
-    - acr_properties
-    - mysql_flexible_properties
-    - aks_properties
-19. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/azure/aks/sample.values.py) for reference.
+    - virtual_machine_properties
+19. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/azure/virtual-machine/sample.values.py) for reference.
 20. The definition of *values.py* is complete.
 21. Now navigate to the *__main__.py* file present in the root folder of the above-created project directory.
 22. Clear the sample code if present.
 23. Import the following:
-    - from commons import resource_group, vnet, acr, mysql_flexible, aks
+    - from commons import resource_group, vnet, virtual_machine
     - values
 24. Define the following objects and pass the values & dependencies as an argument:
     - RESOURCE_GROUP
     - VNET
-    - ACR
-    - MYSQL_FLEXIBLE
-    - AKS
-25. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/azure/aks/__main__.py) for reference.
+    - VM
+25. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/pulumi/azure/virtual-machine/__main__.py) for reference.
 26. Definition of *__main__.py* is complete.
 
 ---
@@ -90,45 +84,59 @@ Now we will provision the infrastructure by applying the above-created configura
 ---
 
 ### VNet Image
-![vnet image](./images/vnet.png)
+![virtual-network image](./images/virtual-network.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
-### ACR Image
-![acr image](./images/acr.png)
+### Public IP Image
+![public-ip image](./images/public-ip.png)
 
 ---
 
-### MySQL Flexible Server Image
-![mysql flexible server image](./images/mysql-flexible-server.png)
+### Network Interface Card Image
+![network-interface-card image](./images/network-interface-card.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
-### AKS Cluster Image
-![aks cluster image](./images/aks-cluster.png)
+### Network Security Group Image
+![network-security-group image](./images/network-security-group.png)
 
 ---
-## Connect to the AKS Cluster from Powershell
+
+### Virtual Machine Image
+![virtual-machine image](./images/virtual-machine.png)
+
 ---
+<div style="page-break-after: always;"></div>
+
+---
+## SSH Into Azure VM
+---
+
+Now we will SSH into the Azure VM and configure it for Nginx container deployment.
 
 ## Steps
-1. Open a new Powershell window.
-2. Run the following commands to configure local kubectl with aks cluster:
+1. Open the Powershell Window.
+2. Run the following command to SSH into Azure VM and substitute the <*admin-username*> with the value provided in *values.py* file under <*virtual_machine_properties*> section and <*vm-public-ip*> with the Azure VM Public IP received from **`pulumi stack output vm-public-ip`** command:
 ```sh
-az login
-az account set --subscription <subscription-id>
-az aks get-credentials --resource-group <resource-group-name> --name <cluster-name> --overwrite-existing
+    ssh -o StrictHostKeyChecking=no <admin-username>@<vm-public-ip>
 ```
-> Substitute <*subscription-id*> which can be found by running **`az account list`** in the *id* field. Also, substitute <*resource-group-name*> and <*cluster-name*> with the values defined in the above-created *values.py* file.
-3. Now apply the Kubernetes manifest files of the application using the following command:
+3. It will promt for password, enter the <*admin-password*> provided in the *values.py* file under <*virtual_machine_properties*> section.
+4. Once you enter the server, run the following commands to install the necessary dependencies for deployment and run the nginx container:
 ```sh
-kubectl apply -f <file-path>
+    sudo apt update
+    sudo apt install -y docker.io
+    sudo docker run -d -p 80:80 nginx
 ```
-> Substitute <*file-path*> with the Kubernetes manifest file path.
-4. To list them all, run **`kubectl get all`**.
-5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
+9. Try accessing it on the browser using <*vm-public-ip*> received from **`terraform output`** command.
+
+### Nginx Image
+![nginx image](./images/nginx.png)
+
+---
+<div style="page-break-after: always;"></div>
 
 ---
 ## Destroy the provisioned infrastructure
@@ -137,11 +145,8 @@ kubectl apply -f <file-path>
 Lastly, we will destroy the above-created resources.
 
 ## Steps
-1. Firstly, delete all the Kubernetes Deployments using:
-    - **`kubectl delete -f "file-path"`**  
-    Substitute *file-path* with the Kubernetes manifest file path.
-2. To destroy infrastructure, open the Powershell Window and change the directory to the above-created Pulumi Project using the **`cd`** command.
-3. Run **`pulumi destroy`** & if prompted, select **`yes`**.
-4. Infrastructure will be destroyed.
+1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created Pulumi Project using the **`cd`** command.
+2. Run **`pulumi destroy`** & if prompted, select **`yes`**.
+3. Infrastructure will be destroyed.
 
 ---

@@ -130,7 +130,7 @@ Now we will SSH into the Azure VM and configure it for Nginx container deploymen
 
 ## Steps
 1. Open the Powershell Window.
-2. Run the following command to SSH into Azure VM and substitute the <*admin-username*> with the value provided in locals.tf file under <*virtual-machine-properties*> section and <*vm-public-ip*> with the Azure VM Public IP received from **`terraform output`** command:
+2. Run the following command to SSH into Azure VM and substitute the <*admin-username*> with the value provided in *locals.tf* file under <*virtual-machine-properties*> section and <*vm-public-ip*> with the Azure VM Public IP received from **`terraform output`** command:
 ```sh
     ssh -o StrictHostKeyChecking=no <admin-username>@<vm-public-ip>
 ```
