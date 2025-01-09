@@ -5,19 +5,22 @@
 - We will also create a Route53 Hosted Zone and add a Route53 Record to access the website using the domain name.
 - We will create all these resources using Terraform as an Infrastructure as Code.
 
+---
 ## Prerequisites
+---
+
 1. AWS Account with IAM User Access Keys
 2. Terraform installed
 3. Website repository
 4. Domain name
 
 ---
-
 ## Write Terraform Configuration files
+---
 
-Now we will write Terraform configuration files for AWS resources using predefined modules available on the internet.
+First, we will write Terraform configuration files for AWS resources using predefined modules available on the internet.
 
-### Steps
+## Steps
 1. Create the **cloudfront-website-terraform** project directory.
 2. The folder structure for the above-created directory is as follows:
 ```
@@ -51,12 +54,12 @@ cloudfront-website-terraform
 10. The definition of *main.tf* file is complete.
 11. Now we will create *locals.tf* file.
 12. Inside it, define the following variables:
-    - aws-region
-    - s3-properties
-    - acm-properties
-    - route53-zone-properties
-    - cloudfront-properties
-    - route53-record-properties
+    - local.aws-region
+    - local.s3-properties
+    - local.acm-properties
+    - local.route53-zone-properties
+    - local.cloudfront-properties
+    - local.route53-record-properties
 13. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/cloudfront-website/sample-locals.txt) for reference.
 14. The definition of *locals.tf* file is complete.
 
@@ -64,14 +67,14 @@ cloudfront-website-terraform
 > Also, ensure you set *aws-region* to **us-east-1**, as ACM will work with Cloudfront only & only if it is deployed in that region.
 
 ---
-
 ## Provisioning the Infrastructure
+---
 
 Now we will provision the AWS infrastructure by applying the above-created Terraform configuration files.
 
 > Ensure AWS CLI is configured with appropriate IAM User Access Keys with enough permissions.
 
-### Steps:
+## Steps:
 1. Open the PowerShell Window.
 2. Change the directory to the above-created cloudfront-website-terraform directory using the **`cd`** command.
 3. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
@@ -93,9 +96,12 @@ Now we will provision the AWS infrastructure by applying the above-created Terra
 11. Once the terraform provisioning is completed, try accessing the static website on the browser.
 
 ---
-
 ## Destroy the provisioned infrastructure
+---
 
+Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+
+## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **cloudfront-website-terraform** directory using the **`cd`** command.
 2. Run **`terraform destroy`** & if prompted, type **`yes`**.
 3. Infrastructure will be destroyed.

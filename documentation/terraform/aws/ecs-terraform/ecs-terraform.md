@@ -6,12 +6,17 @@
 - Also will deploy RDS MySQL Instance to store the relational data and connect it to ECS.
 
 ---
-
 ## Prerequisites
+---
+
 1. AWS Account with an IAM User with administrative permissions.
 2. Terraform installed.
 
 ---
+## Write Terraform Configuration files
+---
+
+First, we will write Terraform configuration files for AWS resources using predefined modules available on the internet.
 
 ## Steps
 1. Create the **ecs-terraform** directory.
@@ -41,30 +46,30 @@ ecs-terraform
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
-    - vpc
-    - s3
-    - rds
-    - ecr
-    - load-balancer
-    - ecs
+    - module.vpc
+    - module.s3
+    - module.rds
+    - module.ecr
+    - module.load-balancer
+    - module.ecs
 9. Also define the following s3 resource for uploading local .env file:
-    - aws_s3_object
+    - resource.aws_s3_object
 10. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/main.tf) for reference.
 11. The definition of *main.tf* file is complete.
 12. Now we will create *outputs.tf* file.
 13. Inside it, define the following outputs.
-    - DB_HOST
-    - bastion-host-ip
+    - output.DB_HOST
+    - output.bastion-host-ip
 14. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/outputs.tf) for reference.
 15. The definition of *outputs.tf* file is complete.
 16. Now we will create *locals.tf* file.
 17. Inside it, define the following variables:
-    - vpc-properties
-    - s3-properties
-    - database-properties
-    - bastion-properties
-    - load-balancer-properties
-    - ecs-properties
+    - local.vpc-properties
+    - local.s3-properties
+    - local.database-properties
+    - local.bastion-properties
+    - local.load-balancer-properties
+    - local.ecs-properties
 18. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ecs/sample-locals.txt) for reference.
 19. The definition of *locals.tf* file is complete.
 
@@ -74,10 +79,11 @@ ecs-terraform
 ---
 
 ## Provisioning the Infrastructure
-Now we will provision the AWS infrastructure by applying the above-created configuration files.
-> Ensure AWS CLI is configured with appropriate AWS user credentials with enough permissions.
 
 ---
+
+Now we will provision the AWS infrastructure by applying the above-created configuration files.
+> Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
 
 ## Steps:
 1. Open the PowerShell.
@@ -106,31 +112,39 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### S3 Image
 ![s3 image](./images/s3.png)
 
 ---
-
-<div style="page-break-after: always;"></div>
 
 ### RDS Image
 ![rds image](./images/rds.png)
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ### ALB Image
 ![alb image](./images/alb.png)
 
 ---
-
-<div style="page-break-after: always;"></div>
 
 ### ECS Image
 ![ecs image](./images/ecs.png)
 
 ---
 
+<div style="page-break-after: always;"></div>
+
+---
 ## Connection to the RDS database through Bastion Host using MySQL Workbench
+---
+
+Now, we will use MySQL Workbench to connect and access the MySQL RDS Database through above created Bastion Host.
+
+## Steps
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
@@ -143,11 +157,10 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 10. Now you can run MySQL commands to access databases and verify the successful connection of *ecs-container*.
 
 ---
-
 <div style="page-break-after: always;"></div>
 
+---
 ## Screenshots of MySQL Workbench
-
 ---
 
 ### Connection Page
@@ -159,11 +172,15 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 ![commands page image](./images/commands.png)
 
 ---
-
 <div style="page-break-after: always;"></div>
 
+---
 ## Destroy the provisioned infrastructure
+---
 
+Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+
+## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **ecs-terraform** directory using the **`cd`** command.
 2. Run **`terraform destroy`** & if prompted, type **`yes`**.
 3. Infrastructure will be destroyed.

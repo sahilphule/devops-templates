@@ -1,6 +1,6 @@
 resource "aws_security_group" "security-group" {
-  name        = "ec2-instance-sg"
-  vpc_id      = var.vpc-id
+  name   = "ec2-instance-sg"
+  vpc_id = var.vpc-id
 
   tags = {
     Name = var.ec2-properties.ec2-instance-sg-tag-value

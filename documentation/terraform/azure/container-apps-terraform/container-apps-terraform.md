@@ -6,12 +6,17 @@
 - Also will deploy MySQL Flexible to store the relational data and connect it to the Container App.
 
 ---
+## Prerequisites
+---
 
-### Prerequisites
 1. Azure Account with Subscription.
 2. Terraform installed.
 
 ---
+## Write Terraform Configuration files
+---
+
+First, we will write Terraform configuration files for Azure resources using predefined modules available on the internet.
 
 ## Steps
 1. Create the **container-apps-terraform** directory.
@@ -40,31 +45,31 @@ container-apps-terraform
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
-    - resource-group
-    - virtual-network
-    - acr
-    - mysql-flexible
-    - storage
-    - container-apps
+    - module.resource-group
+    - module.virtual-network
+    - module.acr
+    - module.mysql-flexible
+    - module.storage
+    - module.container-apps
 9. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/container-apps/main.tf) for reference.
 10. The definition of *main.tf* file is complete.
 11. Now we will create *outputs.tf* file.
 12. Inside it, define the following outputs.
-    - acr-login-server
-    - acr-admin-username
-    - acr-admin-password
-    - DB_HOST
-    - container-apps-url
+    - output.acr-login-server
+    - output.acr-admin-username
+    - output.acr-admin-password
+    - output.DB_HOST
+    - output.container-apps-url
 13. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/container-apps/outputs.tf) for reference.
 14. The definition of *outputs.tf* file is complete.
 15. Now we will create *locals.tf* file.
 16. Inside it, define the following variables:
-    - resource-group-properties
-    - virtual-network-properties
-    - acr-properties
-    - mysql-flexible-properties
-    - storage-properties
-    - container-apps-properties
+    - local.resource-group-properties
+    - local.virtual-network-properties
+    - local.acr-properties
+    - local.mysql-flexible-properties
+    - local.storage-properties
+    - local.container-apps-properties
 17. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/container-apps/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
 
@@ -72,19 +77,20 @@ container-apps-terraform
 > Also update the *sb-object-source-path* variable under *storage-properties* with local *.env* file relative path.
 
 ---
+<div style="page-break-after: always;"></div>
 
+---
 ## Provisioning the Infrastructure
-Now we will provision the Azure infrastructure by applying the above-created configuration files.
+---
 
-> Ensure Azure CLI is configured with appropriate Azure Account credentials with enough permissions.
+Now we will provision the Azure infrastructure by applying the above-created configuration files.
+> Ensure Azure CLI is configured with appropriate Azure Account credentials and enough permissions.
 
 > Also first provision the ACR, push the Docker Image, and then provision the Container App. To do that, comment out the **container-app** module and follow the further steps.
 
----
-
-### Steps:
-1. Open the PowerShell.
-2. Change the directory to the above-created **container-apps-terraform** directory using **`cd`** command.
+## Steps:
+1. Open the PowerShell Window.
+2. Change the directory to the above-created **container-apps-terraform** directory using the **`cd`** command.
 3. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
 4. Run the **`terraform init`** command to initialize the *terraform*.
 5. Run the **`terraform validate`** command to validate the configuration files.
@@ -93,49 +99,45 @@ Now we will provision the Azure infrastructure by applying the above-created con
 8. Once completed, head to the Azure Console, and verify the created resources.
 
 ---
-
 ## Screenshots of Provisioned Infrastructure
-
 ---
 
 ### Resource Group Image
 ![resource-group image](./images/resource-group.png)
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### Virtual Network Image
-![virtual-network image](./images/vnet.png)
+![virtual-network image](./images/virtual-network.png)
 
 ---
-
-<div style="page-break-after: always;"></div>
 
 ### ACR Image
 ![acr image](./images/acr.png)
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### MySQL Flexible Server Image
 ![mysql-flexible image](./images/mysql-flexible-server.png)
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ### Storage Account Container Image
 ![storage account container](./images/storage-account-container.png)
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### Storage Account Container Env File
 ![storage account container env file](./images/storage-account-container-env-file.png)
 
 ---
-
-<div style="page-break-after: always;"></div>
-
 ## Now push the Docker Image to ACR
+---
 
+## Steps
 1. Open a new Powershell window.
 2. Run the following commands to log into ACR:
     - `az login`
@@ -146,12 +148,13 @@ Now we will provision the Azure infrastructure by applying the above-created con
     Substitute *acr-name* with the value defined in the above-created locals.tf file. Also, substitute *image-name:tag* with its respective name.
 
 ---
-
-## Provisioning the Container App
-
-> Uncomment the **container-app** module that we commented on earlier and follow the further steps.
+<div style="page-break-after: always;"></div>
 
 ---
+## Provisioning the Container App
+---
+
+> Uncomment the **container-app** module that we commented on earlier and follow the further steps.
 
 ### Steps:
 1. Change window to the PowerShell.
@@ -168,15 +171,19 @@ Now we will provision the Azure infrastructure by applying the above-created con
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ### Container Apps Image
 ![container-apps image](./images/container-app.png)
 
 ---
+<div style="page-break-after: always;"></div>
 
+---
 ## Destroy the provisioned infrastructure
+---
 
+Lastly, we will destroy the above-created resources by Terraform configuration files for Azure.
+
+## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **container-apps-terraform** directory using the **`cd`** command.
 2. Run **`terraform destroy`** & if prompted, type **`yes`**.
 3. Infrastructure will be destroyed.

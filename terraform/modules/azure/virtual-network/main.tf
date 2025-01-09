@@ -13,9 +13,9 @@ resource "azurerm_subnet" "vnet-public-subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.virtual-network-properties.vnet-public-subnet-address-prefixes
 
-  service_endpoints = [
-    "Microsoft.Storage"
-  ]
+  # service_endpoints = [
+  #   "Microsoft.Storage"
+  # ]
 
   depends_on = [
     azurerm_virtual_network.vnet

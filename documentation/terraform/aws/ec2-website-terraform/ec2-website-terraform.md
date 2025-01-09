@@ -5,18 +5,22 @@
 - We will also create a Route53 Hosted Zone and add a Route53 Record to access the website using the domain name.
 - We will create all these resources using Terraform as an Infrastructure as Code.
 
+---
 ## Prerequisites
+---
+
 1. AWS Account with IAM User Access Keys
 2. Terraform installed
 3. Website repository
 4. Domain name
 
 ---
-
 ## Generate SSH Key Pair
-First, we will generate a **SSH Key Pair** so that we can SSH into the EC2 server once created and start the Svelte with Nodejs.
+---
 
-### Steps
+First, we will generate an **SSH Key Pair** to SSH into the EC2 server once it is created and start the Svelte with Nodejs.
+
+## Steps
 1. Open the Powershell Window.
 2. Run the following command to generate the ssh key pair and enter the location where you want to save the ssh key (C:/Users/user/.ssh/aws/ssh-keys/):
 ```sh
@@ -25,12 +29,12 @@ First, we will generate a **SSH Key Pair** so that we can SSH into the EC2 serve
 3. SSH Key will be generated.
 
 ---
-
 ## Write Terraform Configuration files
+---
 
 Now we will write Terraform configuration files for AWS resources using predefined modules available on the internet.
 
-### Steps
+## Steps
 1. Create the **ec2-website-terraform** project directory.
 2. The folder structure for the above-created directory is as follows:
 ```
@@ -63,14 +67,14 @@ ec2-website-terraform
 10. The definition of *main.tf* file is complete.
 11. Now we will create *outputs.tf* file.
 12. Inside it, define the following outputs
-    - ec2-instance-public-ip
+    - output.ec2-instance-public-ip
 13. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ec2-website/outputs.tf) for reference.
 14. The definition of *outputs.tf* file is complete.
 15. Now we will create *locals.tf* file.
 16. Inside it, define the following variables:
-    - aws-region
-    - vpc-properties
-    - ec2-properties
+    - local.aws-region
+    - local.vpc-properties
+    - local.ec2-properties
 17. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/ec2-website/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
 
@@ -78,14 +82,13 @@ ec2-website-terraform
 > In *ec2-properties.ec2-instance-public-key*, provide the above generated public SSH key path.
 
 ---
-
 ## Provisioning the Infrastructure
+---
 
 Now we will provision the AWS infrastructure by applying the above-created Terraform configuration files.
-
 > Ensure AWS CLI is configured with appropriate IAM User Access Keys with enough permissions.
 
-### Steps:
+## Steps:
 1. Open the PowerShell Window.
 2. Change the directory to the above-created ec2-website-terraform directory using the **`cd`** command.
 3. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
@@ -97,11 +100,12 @@ Now we will provision the AWS infrastructure by applying the above-created Terra
 9. Head to the **AWS Console**, and verify the created resources.
 
 ---
-
 ## Route53 Configuration
+---
+
 Now we will configure the Route53 service for domain routing to the website.
 
-### Steps
+## Steps
 1. Login to the AWS console and search for the **Route-53** service.
 2. Click open the Route-53 console.
 3. In the left plane of the window, click on **`Hosted zones`**.
@@ -113,13 +117,14 @@ Now we will configure the Route53 service for domain routing to the website.
 9. Add a **`dev.example.com`**(replace with your domain name) record of type `A` pointing to your EC2 instance's IP address received from running **`terraform output`** command.
 
 ---
-
 ## SSH Into EC2 Server
+---
+
 Now we will SSH into the EC2 instance and configure the server for website deployment.
 
-### Steps
+## Steps
 1. Open the Powershell Window.
-2. Run the following command to SSH into EC2 server and substitute the <*private-ssh-key-path*> with the above generated private ssh key path and <*ec2-instance-public-ip*> with the server ip received from **`terraform output`** command:
+2. Run the following command to SSH into EC2 server and substitute the <*private-ssh-key-path*> with the above generated private ssh key path and <*ec2-instance-public-ip*> with the server IP received from **`terraform output`** command:
 ```sh
     ssh -o StrictHostKeyChecking=no -i <*private-ssh-key-path*> ec2-user@<*ec2-instance-public-ip*>
 ```
@@ -158,9 +163,12 @@ Now we will SSH into the EC2 instance and configure the server for website deplo
 9. Nginx configuration is complete. Try accessing the website on the browser.
 
 ---
-
 ## Destroy the provisioned infrastructure
+---
 
+Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+
+## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **ec2-website-terraform** directory using the **`cd`** command.
 2. Run **`terraform destroy`** & if prompted, type **`yes`**.
 3. Infrastructure will be destroyed.

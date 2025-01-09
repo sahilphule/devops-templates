@@ -4,13 +4,18 @@
 - We will also deploy RDS MySQL Instance to store the relational data and connect it to EKS.
 
 ---
+## Prerequisites
+---
 
-### Prerequisites
 1. AWS Account with an IAM User with administrative permissions.
 2. Terraform installed.
 3. Kubectl installed.
 
 ---
+## Write Terraform Configuration files
+---
+
+First, we will write Terraform configuration files for AWS resources using predefined modules available on the internet.
 
 ## Steps
 1. Create the **eks-terraform** directory.
@@ -62,13 +67,14 @@ eks-terraform
 > Ensure you give the appropriate values to the variables defined in *locals.tf* file.
 
 ---
-
 ## Provisioning the Infrastructure
+---
+
 Now we will provision the AWS infrastructure by applying the above-created configuration files.
 
-> Ensure AWS CLI is configured with appropriate AWS user credentials with enough permissions.
+> Ensure AWS CLI is configured with appropriate AWS user credentials and enough permissions.
 
-### Steps:
+## Steps:
 1. Open the PowerShell.
 2. Change the directory to the above-created **eks-terraform** directory using **`cd`** command.
 3. Run the **`terraform fmt -recursive`** command to format the syntax of the files.
@@ -83,8 +89,8 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 <div style="page-break-after: always;"></div>
 
+---
 ## Screenshots of Provisioned Infrastructure
-
 ---
 
 ### VPC Image
@@ -115,9 +121,10 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 ![eks-nodes image](./images/nodes.png)
 
 ---
-
 ## Connect to the EKS Cluster from Powershell
+---
 
+## Steps
 1. Open a new Powershell window.
 2. Run the following command to configure local kubectl with eks cluster:
     - **`aws eks --region "region-name" update-kubeconfig --name "cluster-name"`**  
@@ -129,8 +136,15 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
 
 ---
+<div style="page-break-after: always;"></div>
 
+---
 ## Connection to the RDS database through Bastion Host using MySQL Workbench
+---
+
+Now, we will use MySQL Workbench to connect and access the MySQL RDS Database through above created Bastion Host.
+
+## Steps
 1. Open MySQL Workbench.
 2. Click Add Connection.
 3. Select connection method as **Standard TCP/IP over SSH**.
@@ -143,9 +157,10 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 10. Now you can run MySQL commands to access databases and verify the successful connection of *eks-nodes*.
 
 ---
+<div style="page-break-after: always;"></div>
 
+---
 ## Screenshots of MySQL Workbench
-
 ---
 
 ### Connection Page
@@ -153,15 +168,19 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 
 ---
 
-<div style="page-break-after: always;"></div>
-
 ### Commands Page
 ![commands page image](./images/commands.png)
 
 ---
+<div style="page-break-after: always;"></div>
 
+---
 ## Destroy the provisioned infrastructure
+---
 
+Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+
+## Steps
 1. Firstly, delete all the Kubernetes Deployments using:
     - **`kubectl delete -f "file-path"`**  
     Substitute *file-path* with the Kubernetes manifest file path.
