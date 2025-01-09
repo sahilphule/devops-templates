@@ -1,12 +1,12 @@
 locals {
   # virtual-machine-properties
   virtual-machine-properties = {
+    public-ip-name              = "linux-vm-public-ip"
+    public-ip-allocation-method = "Static"
+
     network-interface-name                          = "nic"
     network-interface-ip-configuration-name         = "test-configuration"
     network-interface-private-ip-address-allocation = "Dynamic"
-
-    public-ip-name              = "linux-vm-public-ip"
-    public-ip-allocation-method = "Dynamic"
 
     network-security-group-name = "vm-network-security-group"
 
@@ -31,7 +31,7 @@ locals {
 
     linux-vm-os-disk-name                 = "linux-vm-os-disk"
     linux-vm-os-disk-caching              = "ReadWrite"
-    linux-vm-os-disk-storage-account-type = "Premium_LRS"
+    linux-vm-os-disk-storage-account-type = "Standard_LRS"
 
     vm-storage-image-reference-publisher = "Canonical"
     vm-storage-image-reference-offer     = "UbuntuServer"

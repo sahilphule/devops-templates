@@ -1,7 +1,7 @@
 # Azure Virtual Machine Provisioning using Terraform
 - We will provision the Azure Virtual Machine using Terraform as an Infrastructure as Code.
 - We will deploy it in a custom Virtual Network for isolation.
-- We will SSH into the Virtual Machine, install the docker.
+- We will SSH into the Virtual Machine, and install the docker.
 - Then, we will deploy the Nginx Container and try accessing it on the Web Browser.
 
 ---
@@ -15,7 +15,7 @@
 ## Write Terraform Configuration files
 ---
 
-First we will write Terraform configuration files for AWS resources using predefined modules available on the internet.
+First, we will write Terraform configuration files for Azure resources using predefined modules available on the internet.
 
 ## Steps
 1. Create the **virtual-machine-terraform** directory.
@@ -32,7 +32,7 @@ virtual-machine-terraform
 └───.terraform
 ```
 
-> We need to only create *providers.tf*, *main.tf*, *outputs.tf*, & *locals.tf* file. Other files are generated while initiating terraform.
+> We need to only create *providers.tf*, *main.tf*, *outputs.tf*, & *locals.tf* files. Other files are generated while initiating terraform.
 
 3. Create a *providers.tf* file inside the above-created directory.
 4. Inside it, define the following:
@@ -69,7 +69,7 @@ virtual-machine-terraform
 ---
 
 Now we will provision the Azure infrastructure by applying the above-created configuration files.
-> Ensure Azure CLI is configured with appropriate Azure Account credentials with enough permissions.
+> Ensure Azure CLI is configured with appropriate Azure Account credentials and enough permissions.
 
 ## Steps:
 1. Open the PowerShell Window.
@@ -123,18 +123,18 @@ Now we will provision the Azure infrastructure by applying the above-created con
 <div style="page-break-after: always;"></div>
 
 ---
-## SSH Into EC2 Server
+## SSH Into Azure VM
 ---
 
-Now we will SSH into the Azure VM and configure the it for Nginx container deployment.
+Now we will SSH into the Azure VM and configure it for Nginx container deployment.
 
 ## Steps
 1. Open the Powershell Window.
-2. Run the following command to SSH into Azure VM and substitute the <*admin-username*> with the value provided in locals.tf file under <*virtual-machine-properties*> section and <*vm-public-ip*> with the Azure VM public IP received from **`terraform output`** command:
+2. Run the following command to SSH into Azure VM and substitute the <*admin-username*> with the value provided in locals.tf file under <*virtual-machine-properties*> section and <*vm-public-ip*> with the Azure VM Public IP received from **`terraform output`** command:
 ```sh
-    ssh -o StrictHostKeyChecking=no admin-username@<*vm-public-ip*>
+    ssh -o StrictHostKeyChecking=no <admin-username>@<vm-public-ip>
 ```
-3. It will promt for password, enter the <*admin_password*> provided in the *locals.tf* file under <*virtual-machine-properties*> section.
+3. It will promt for password, enter the <*admin-password*> provided in the *locals.tf* file under <*virtual-machine-properties*> section.
 4. Once you enter the server, run the following commands to install the necessary dependencies for deployment and run the nginx container:
 ```sh
     sudo apt update
@@ -153,7 +153,7 @@ Now we will SSH into the Azure VM and configure the it for Nginx container deplo
 ## Destroy the provisioned infrastructure
 ---
 
-Lastly, we will destroy the above-created resources by Terraform configuration files for Azure.
+Lastly, we will destroy the above-created resources.
 
 ## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **virtual-machine-terraform** directory using the **`cd`** command.

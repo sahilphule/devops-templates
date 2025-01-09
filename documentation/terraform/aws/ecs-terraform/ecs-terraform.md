@@ -178,7 +178,7 @@ Now, we will use MySQL Workbench to connect and access the MySQL RDS Database th
 ## Destroy the provisioned infrastructure
 ---
 
-Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+Lastly, we will destroy the above-created resources.
 
 ## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **ecs-terraform** directory using the **`cd`** command.

@@ -140,12 +140,16 @@ Now we will provision the Azure infrastructure by applying the above-created con
 ## Steps
 1. Open a new Powershell window.
 2. Run the following commands to log into ACR:
-    - `az login`
-    - `az acr login --name "acr-name"`
+```sh
+    az login
+    az acr login --name <acr-name>
+```
 3. Then tag & push the docker image using the following commands:
-    - `docker tag "image-name:tag" "acr-name".azurecr.io/"image-name:tag"`
-    - `docker push "acr-name".azurecr.io/"image-name:tag"`  
-    Substitute *acr-name* with the value defined in the above-created locals.tf file. Also, substitute *image-name:tag* with its respective name.
+```sh
+    docker tag <image-name:tag> <acr-name>.azurecr.io/<image-name:tag>
+    docker push <acr-name>.azurecr.io/<image-name:tag>
+```
+Substitute <*acr-name*> with the value defined in the above-created *locals.tf* file. Also, substitute <*image-name:tag*> with its respective name.
 
 ---
 <div style="page-break-after: always;"></div>
@@ -181,7 +185,7 @@ Now we will provision the Azure infrastructure by applying the above-created con
 ## Destroy the provisioned infrastructure
 ---
 
-Lastly, we will destroy the above-created resources by Terraform configuration files for Azure.
+Lastly, we will destroy the above-created resources.
 
 ## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **container-apps-terraform** directory using the **`cd`** command.

@@ -127,11 +127,15 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 ## Steps
 1. Open a new Powershell window.
 2. Run the following command to configure local kubectl with eks cluster:
-    - **`aws eks --region "region-name" update-kubeconfig --name "cluster-name"`**  
-    Substitute *region-name* and *cluster-name* with the values defined in the above-created locals.tf file.
+```sh
+aws eks --region <region-name> update-kubeconfig --name <cluster-name>
+```
+> Substitute <*region-name*> and <*cluster-name*> with the values defined in the above-created *locals.tf* file.
 3. Now apply the Kubernetes manifest files of the application using the following command:
-    - **`kubectl apply -f "file-path"`**  
-    Substitute *file-path* with the Kubernetes manifest file path.
+```sh
+kubectl apply -f <file-path>
+```
+> Substitute <*file-path*> with the Kubernetes manifest file path.
 4. To list them all, run **`kubectl get all`**.
 5. If a Load Balancer type Service is present then try accessing the External IP of that service in the browser.
 
@@ -178,12 +182,14 @@ Now, we will use MySQL Workbench to connect and access the MySQL RDS Database th
 ## Destroy the provisioned infrastructure
 ---
 
-Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+Lastly, we will destroy the above-created resources.
 
 ## Steps
 1. Firstly, delete all the Kubernetes Deployments using:
-    - **`kubectl delete -f "file-path"`**  
-    Substitute *file-path* with the Kubernetes manifest file path.
+```sh
+    kubectl delete -f <file-path>
+```
+> Substitute <*file-path*> with the Kubernetes manifest file path.
 2. To destroy infrastructure, change the directory to the above-created **eks-terraform** directory using the **`cd`** command.
 3. Run **`terraform destroy`** & if prompted, type **`yes`**.
 4. Infrastructure will be destroyed.

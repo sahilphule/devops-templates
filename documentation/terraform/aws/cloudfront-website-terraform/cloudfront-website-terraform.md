@@ -99,7 +99,7 @@ Now we will provision the AWS infrastructure by applying the above-created Terra
 ## Destroy the provisioned infrastructure
 ---
 
-Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+Lastly, we will destroy the above-created resources.
 
 ## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **cloudfront-website-terraform** directory using the **`cd`** command.

@@ -166,7 +166,7 @@ Now we will SSH into the EC2 instance and configure the server for website deplo
 ## Destroy the provisioned infrastructure
 ---
 
-Lastly, we will destroy the resources created above by Terraform configuration files for AWS.
+Lastly, we will destroy the above-created resources.
 
 ## Steps
 1. To destroy infrastructure, open the Powershell Window and change the directory to the above-created **ec2-website-terraform** directory using the **`cd`** command.
