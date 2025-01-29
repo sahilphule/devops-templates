@@ -1,25 +1,28 @@
+git init
+git remote add origin <git-repository-url>
 git status
 git add *
 git add .
 git commit -m <commit-message>
 git push -u origin <branch-name> --force
+
+git stash
+git stash apply
+
+git branch -a
+git branch <branch-name>
+git checkout <branch-name>
+git checkout -b <branch-name>
+git branch -m <new-branch-name>
+git branch -d <local-branch-name>
+git push origin --delete <remote-branch-name>
+git remote prune origin 
+
 git rm <filename>
 git rm --cached <filename>
 git reset --hard HEAD~1
 
-# delete branch locally
-git branch -d <local-branch-name>
-
-# delete branch remotely
-git push origin --delete <remote-branch-name>
-
-git init
-git remote add origin <git-repository-url>
 git remote remove origin
-
-git branch <branch-name>
-git checkout <branch-name>
-git checkout -b <branch-name>
 
 git config -l
 git config credential.username <username>

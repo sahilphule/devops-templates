@@ -18,15 +18,16 @@ resource "azurerm_storage_account" "storage-account" {
 }
 
 resource "azurerm_storage_container" "storage-container" {
-  name                  = var.storage-properties.sc-name
+  count                 = var.storage-properties.sc-count
+  name                  = var.storage-properties.sc-name[count.index]
   storage_account_id    = azurerm_storage_account.storage-account.id
-  container_access_type = "private"
+  container_access_type = var.storage-properties.sc-container-access-type
 }
 
-resource "azurerm_storage_blob" "storage-blob-object" {
-  name                   = var.storage-properties.sb-object-name
-  storage_account_name   = azurerm_storage_account.storage-account.name
-  storage_container_name = azurerm_storage_container.storage-container.name
-  type                   = var.storage-properties.sb-object-type
-  source                 = var.storage-properties.sb-object-source-path
-}
+# resource "azurerm_storage_blob" "storage-blob-object" {
+#   name                   = var.storage-properties.sb-object-name
+#   storage_account_name   = azurerm_storage_account.storage-account.name
+#   storage_container_name = azurerm_storage_container.storage-container.name
+#   type                   = var.storage-properties.sb-object-type
+#   source                 = var.storage-properties.sb-object-source-path
+# }

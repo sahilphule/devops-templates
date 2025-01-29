@@ -18,6 +18,7 @@ docker pull <username>/<image-name>:<image-tag>
 
 docker volume ls
 docker volume rm <volume-name>
+docker volume prune
 
 sudo rm -r shared
 

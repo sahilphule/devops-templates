@@ -79,34 +79,34 @@ Now we will provision the infrastructure by applying the above-created configura
 ---
 
 ### Resource Group Image
-![resource group image](./images/resource-group.png)
+![resource group image](./virtual-machine-images/resource-group.png)
 
 ---
 
 ### VNet Image
-![virtual-network image](./images/virtual-network.png)
+![virtual-network image](./virtual-machine-images/virtual-network.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### Public IP Image
-![public-ip image](./images/public-ip.png)
+![public-ip image](./virtual-machine-images/public-ip.png)
 
 ---
 
 ### Network Interface Card Image
-![network-interface-card image](./images/network-interface-card.png)
+![network-interface-card image](./virtual-machine-images/network-interface-card.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### Network Security Group Image
-![network-security-group image](./images/network-security-group.png)
+![network-security-group image](./virtual-machine-images/network-security-group.png)
 
 ---
 
 ### Virtual Machine Image
-![virtual-machine image](./images/virtual-machine.png)
+![virtual-machine image](./virtual-machine-images/virtual-machine.png)
 
 ---
 <div style="page-break-after: always;"></div>
@@ -130,10 +130,10 @@ Now we will SSH into the Azure VM and configure it for Nginx container deploymen
     sudo apt install -y docker.io
     sudo docker run -d -p 80:80 nginx
 ```
-9. Try accessing it on the browser using <*vm-public-ip*> received from **`terraform output`** command.
+9. Try accessing it on the browser using <*vm-public-ip*> received from **`pulumi stack output vm-public-ip`** command.
 
 ### Nginx Image
-![nginx image](./images/nginx.png)
+![nginx image](./virtual-machine-images/nginx.png)
 
 ---
 <div style="page-break-after: always;"></div>

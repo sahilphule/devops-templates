@@ -85,29 +85,29 @@ Now we will provision the infrastructure by applying the above-created configura
 ---
 
 ### Resource Group Image
-![resource group image](./images/resource-group.png)
+![resource group image](./aks-images/resource-group.png)
 
 ---
 
 ### VNet Image
-![vnet image](./images/vnet.png)
+![vnet image](./aks-images/vnet.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### ACR Image
-![acr image](./images/acr.png)
+![acr image](./aks-images/acr.png)
 
 ---
 
 ### MySQL Flexible Server Image
-![mysql flexible server image](./images/mysql-flexible-server.png)
+![mysql flexible server image](./aks-images/mysql-flexible-server.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### AKS Cluster Image
-![aks cluster image](./images/aks-cluster.png)
+![aks cluster image](./aks-images/aks-cluster.png)
 
 ---
 ## Connect to the AKS Cluster from Powershell

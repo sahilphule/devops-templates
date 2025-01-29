@@ -72,34 +72,35 @@ Now we will provision the infrastructure by applying the above-created configura
 4. Head to the AWS Console, and verify the created resources.
 
 ---
+<div style="page-break-after: always;"></div>
+
 ## Screenshots of Provisioned Infrastructure
 ---
 
 ### VPC Image
-![vpc image](./images/vpc.png)
+![vpc image](./eks-images/vpc.png)
 
 ---
-<div style="page-break-after: always;"></div>
 
 ### RDS Image
-![rds image](./images/rds.png)
+![rds image](./eks-images/rds.png)
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### EKS Cluster Image
-![eks cluster image](./images/eks-cluster.png)
+![eks cluster image](./eks-images/eks-cluster.png)
 
 ---
-<div style="page-break-after: always;"></div>
 
 ### EKS Node Group Image
-![eks node group image](./images/eks-node-group.png)
-
-### EKS Nodes Image
-![eks nodes image](./images/eks-nodes.png)
+![eks node group image](./eks-images/eks-node-group.png)
 
 ---
 <div style="page-break-after: always;"></div>
+
+### EKS Nodes Image
+![eks nodes image](./eks-images/eks-nodes.png)
 
 ---
 ## Connect to EKS Cluster from Powershell
@@ -133,22 +134,17 @@ Now, we will use MySQL Workbench to connect and access the MySQL RDS Database th
 10. Now you can run MySQL commands to access databases and verify the successful connection of *eks-nodes*.
 
 ---
-<div style="page-break-after: always;"></div>
-
----
 ## Screenshots of MySQL Workbench
 ---
 
 ### Connection Page
-![connection image](./images/workbench.png)
-
----
-
-### Commands Page
-![commands page image](./images/commands.png)
+![connection image](./eks-images/workbench.png)
 
 ---
 <div style="page-break-after: always;"></div>
+
+### Commands Page
+![commands page image](./eks-images/commands.png)
 
 ---
 ## Destroy the provisioned infrastructure

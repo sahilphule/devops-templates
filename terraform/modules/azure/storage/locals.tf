@@ -15,7 +15,9 @@ locals {
     sa-public-network-access-enabled = true
     sa-network-rules-default-action  = "Allow"
 
-    sc-name = "storage-container"
+    sc-count                 = 1
+    sc-name                  = ["storage-container"]
+    sc-container-access-type = "private"
 
     sb-object-name        = "storage-blob-object"
     sb-object-type        = "Block"

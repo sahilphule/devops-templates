@@ -1,16 +1,3 @@
-data "azuread_client_config" "client_config" {}
-
-data "azuread_user" "user" {
-  user_principal_name = var.user-principal-name
-}
-
-locals {
-  owners = [
-    data.azuread_client_config.client_config.object_id,
-    data.azureadata.azuread_user.user.object_id
-  ]
-}
-
 resource "azuread_application" "application" {
   display_name = var.application-display-name
   owners       = local.owners

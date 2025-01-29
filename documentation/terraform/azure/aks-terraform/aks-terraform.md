@@ -100,24 +100,24 @@ Now we will provision the Azure infrastructure by applying the above-created con
 ---
 
 ### Resource Group Image
-![resource-group image](./images/resource-group.png)
+![resource-group image](./aks-images/resource-group.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### Virtual Network Image
-![virtual-network image](./images/virtual-network.png)
+![virtual-network image](./aks-images/virtual-network.png)
 
 ---
 
 ### ACR Image
-![acr image](./images/acr.png)
+![acr image](./aks-images/acr.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### MySQL Flexible Server Image
-![mysql-flexible image](./images/mysql.png)
+![mysql-flexible image](./aks-images/mysql.png)
 
 ---
 ## Now push the Docker Image to ACR
@@ -159,7 +159,7 @@ docker push <acr-name>.azurecr.io/<image-name:tag>
 ---
 
 ### AKS Image
-![aks image](./images/aks-cluster.png)
+![aks image](./aks-images/aks-cluster.png)
 
 ---
 <div style="page-break-after: always;"></div>

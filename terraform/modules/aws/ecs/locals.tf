@@ -13,7 +13,7 @@ locals {
     ecs-container-image          = ""
     ecs-container-name           = ""
     ecs-container-port           = ""
-    s3-config-bucket             = "${local.s3-properties.s3-bucket-name}"
+    s3-config-bucket             = local.s3-properties.s3-bucket-name
     s3-config-path               = ""
     ecs-service-name             = "ecs-service"
 

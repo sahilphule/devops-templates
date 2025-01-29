@@ -1,0 +1,40 @@
+stages:
+    - build
+    - test
+    - deploy
+
+pages:
+    only:
+        - main
+    script:
+        - mkdir ./public
+        - cp index.html ./public
+    artifacts:
+        paths:
+            - "public"
+
+build-job:
+    stage: build
+    image: python:latest
+    only:
+        - main
+    script:
+        - echo "First step"
+        - echo "Second step"
+    artifacts:
+        paths:
+            - "./newfile"
+        when: on_success
+        access: all
+        expire_in: 30 days
+
+test-job:
+    stage: test
+    when: manual
+    script:
+        - echo "Testing step"
+
+deploy-job:
+    stage: deploy
+    script:
+        - echo "Deploy step"

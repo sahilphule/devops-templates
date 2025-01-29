@@ -8,9 +8,9 @@ variable "container-app-properties" {
   type        = any
 }
 
-variable "vnet-public-subnet-id" {
-  description = "virtual network public subnet id"
-  type        = any
+variable "container-app-environment-id" {
+  description = "container app environment id"
+  type        = string
 }
 
 # variable "acr-id" {

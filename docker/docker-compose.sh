@@ -1,8 +1,9 @@
-docker-compose ps
+docker-compose ps -a
 docker-compose build
 
 docker-compose up -d
 docker-compose down -v
+docker-compose down --rmi all
 
 docker-compose start
 docker-compose stop

@@ -8,7 +8,8 @@ terraform apply -refresh-only
 terraform apply -replace <resource-name/module-name>
 terraform refresh
 terraform state list
-terraform state show <>
+terraform state show <name>
+terraform state rm <name>
 terraform show
 terraform destroy
 terraform destroy -auto-approve

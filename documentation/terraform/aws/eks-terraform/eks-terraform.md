@@ -94,31 +94,31 @@ Now we will provision the AWS infrastructure by applying the above-created confi
 ---
 
 ### VPC Image
-![vpc image](./images/vpc.png)
+![vpc image](./eks-images/vpc.png)
 
 ---
 
 ### RDS Image
-![rds image](./images/rds.png)
+![rds image](./eks-images/rds.png)
 
 ---
 
 <div style="page-break-after: always;"></div>
 
 ### EKS Cluster Image
-![eks-cluster image](./images/cluster.png)
+![eks-cluster image](./eks-images/cluster.png)
 
 ---
 
 ### EKS Node Group Image
-![eks-node-group image](./images/node-group.png)
+![eks-node-group image](./eks-images/node-group.png)
 
 ---
 
 <div style="page-break-after: always;"></div>
 
 ### EKS Nodes Image
-![eks-nodes image](./images/nodes.png)
+![eks-nodes image](./eks-images/nodes.png)
 
 ---
 ## Connect to the EKS Cluster from Powershell
@@ -168,12 +168,12 @@ Now, we will use MySQL Workbench to connect and access the MySQL RDS Database th
 ---
 
 ### Connection Page
-![connection image](./images/workbench.png)
+![connection image](./eks-images/workbench.png)
 
 ---
 
 ### Commands Page
-![commands page image](./images/commands.png)
+![commands page image](./eks-images/commands.png)
 
 ---
 <div style="page-break-after: always;"></div>

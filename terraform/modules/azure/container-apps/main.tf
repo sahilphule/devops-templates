@@ -38,30 +38,12 @@
 #   }
 # }
 
-resource "azurerm_log_analytics_workspace" "container-app-log-analytics-workspace" {
-  resource_group_name = var.resource-group-properties.rg-name
-  location            = var.resource-group-properties.rg-location
-
-  name              = var.container-app-properties.ca-log-analytics-workspace-name
-  sku               = "PerGB2018"
-  retention_in_days = 30
-}
-
-resource "azurerm_container_app_environment" "container-app-environment" {
-  resource_group_name = var.resource-group-properties.rg-name
-  location            = var.resource-group-properties.rg-location
-
-  name                       = var.container-app-properties.ca-environment-name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.container-app-log-analytics-workspace.id
-  infrastructure_subnet_id   = var.vnet-public-subnet-id
-}
-
 resource "azurerm_container_app" "container-app" {
   resource_group_name = var.resource-group-properties.rg-name
 
   name                         = var.container-app-properties.ca-name
-  container_app_environment_id = azurerm_container_app_environment.container-app-environment.id
-  revision_mode                = "Single"
+  container_app_environment_id = var.container-app-environment-id
+  revision_mode                = var.container-app-properties.ca-revision-mode
 
   # identity {
   #   type         = "UserAssigned"
@@ -90,21 +72,21 @@ resource "azurerm_container_app" "container-app" {
 
   template {
     container {
-      name   = var.container-app-properties.container-name
-      image  = var.container-app-properties.container-image-name
-      cpu    = 0.25
-      memory = "0.5Gi"
+      name   = var.container-app-properties.ca-template-container-name
+      image  = var.container-app-properties.ca-template-container-image
+      cpu    = var.container-app-properties.ca-template-container-cpu
+      memory = var.container-app-properties.ca-template-container-memory
     }
-    min_replicas = 1
-    max_replicas = 1
+    min_replicas = var.container-app-properties.ca-template-min-replicas
+    max_replicas = var.container-app-properties.ca-template-max-replicas
   }
 
   ingress {
-    allow_insecure_connections = true
-    external_enabled           = true
+    allow_insecure_connections = var.container-app-properties.ca-ingress-allow-insecure-connections
+    external_enabled           = var.container-app-properties.ca-ingress-external-enabled
     # exposed_port               = 80
-    target_port = 7272
-    transport   = "http"
+    target_port = var.container-app-properties.ca-ingress-target-port
+    transport   = var.container-app-properties.ca-ingress-transport
 
     traffic_weight {
       latest_revision = true

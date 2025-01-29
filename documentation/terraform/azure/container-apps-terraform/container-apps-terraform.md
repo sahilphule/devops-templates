@@ -50,6 +50,7 @@ container-apps-terraform
     - module.acr
     - module.mysql-flexible
     - module.storage
+    - module.container-apps-setup
     - module.container-apps
 9. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/container-apps/main.tf) for reference.
 10. The definition of *main.tf* file is complete.
@@ -69,6 +70,7 @@ container-apps-terraform
     - local.acr-properties
     - local.mysql-flexible-properties
     - local.storage-properties
+    - local.container-apps-setup-properties
     - local.container-apps-properties
 17. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/container-apps/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
@@ -103,35 +105,35 @@ Now we will provision the Azure infrastructure by applying the above-created con
 ---
 
 ### Resource Group Image
-![resource-group image](./images/resource-group.png)
+![resource-group image](./container-apps-images/resource-group.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### Virtual Network Image
-![virtual-network image](./images/virtual-network.png)
+![virtual-network image](./container-apps-images/virtual-network.png)
 
 ---
 
 ### ACR Image
-![acr image](./images/acr.png)
+![acr image](./container-apps-images/acr.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### MySQL Flexible Server Image
-![mysql-flexible image](./images/mysql-flexible-server.png)
+![mysql-flexible image](./container-apps-images/mysql-flexible-server.png)
 
 ---
 
 ### Storage Account Container Image
-![storage account container](./images/storage-account-container.png)
+![storage account container](./container-apps-images/storage-account-container.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### Storage Account Container Env File
-![storage account container env file](./images/storage-account-container-env-file.png)
+![storage account container env file](./container-apps-images/storage-account-container-env-file.png)
 
 ---
 ## Now push the Docker Image to ACR
@@ -176,7 +178,7 @@ Substitute <*acr-name*> with the value defined in the above-created *locals.tf* 
 ---
 
 ### Container Apps Image
-![container-apps image](./images/container-app.png)
+![container-apps image](./container-apps-images/container-app.png)
 
 ---
 <div style="page-break-after: always;"></div>

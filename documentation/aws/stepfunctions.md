@@ -16,7 +16,7 @@
 - Open the created role in IAM and manually attach the EC2FullAccess policy.
 - Edit timeout in configuration settings of lambda functions to 5 mins.
 - Write the lambda function to control the EC2 instance state.
-- Click on *[code](https://github.com/sahilphule/quizstar-portal/blob/prod/aws/lambda.py)* for reference.
+- Click on *[code](https://github.com/sahilphule/templates/blob/master/aws/lambda.py)* for reference.
 - Deploy the code and create the test event.
 - Test the code and check whether the EC2 instance state changed.
 

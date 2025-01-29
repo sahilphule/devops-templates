@@ -12,15 +12,13 @@ locals {
       "10.1.101.0/24"
     ]
 
-    vnet-mysql-flexible-dns-zone-name                      = "vnet-mysql-flexible-dns-zone.mysql.database.azure.com"
-    vnet-mysql-flexible-dns-zone-virtual-network-link-name = "vnet-mysql-flexible-dns-zone-virtual-network-link.com"
-
     mysql-flexible-server-name            = "mysql-flexible-server"
     mysql-flexible-administrator-login    = ""
     mysql-flexible-administrator-password = ""
     mysql-flexible-version                = "8.0.21"
     mysql-flexible-sku-name               = "B_Standard_B1ms"
-
-    mysql-flexible-server-read-replica-name = "mysql-flexible-server-read-replica"
+    mysql-flexible-backup-retention-days  = 7
+    mysql-flexible-storage-iops           = 360
+    mysql-flexible-storage-size-gb        = 20
   }
 }

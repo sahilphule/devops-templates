@@ -86,29 +86,29 @@ Now we will provision the infrastructure by applying the above-created configura
 ---
 
 ### Resource Group Image
-![resource group image](./images/resource-group.png)
+![resource group image](./container-apps-images/resource-group.png)
 
 ---
 
 ### VNet Image
-![vnet image](./images/vnet.png)
+![vnet image](./container-apps-images/vnet.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### ACR Image
-![acr image](./images/acr.png)
+![acr image](./container-apps-images/acr.png)
 
 ---
 
 ### MySQL Flexible Server Image
-![mysql flexible server image](./images/mysql-flexible-server.png)
+![mysql flexible server image](./container-apps-images/mysql-flexible-server.png)
 
 ---
 <div style="page-break-after: always;"></div>
 
 ### Container App Image
-![container app image](./images/container-app.png)
+![container app image](./container-apps-images/container-app.png)
 
 ---
 ## Destroy the provisioned infrastructure
