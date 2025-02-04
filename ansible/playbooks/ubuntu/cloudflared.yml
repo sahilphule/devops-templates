@@ -1,0 +1,26 @@
+- name: Install Cloudflare Tunnel (cloudflared)
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install from github
+      shell: |
+        curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+        chmod +x cloudflared
+        sudo mv cloudflared /usr/local/bin/
+
+    - name: Verify Cloudflared Installation
+      command: cloudflared --version
+      register: cloudflared_version
+
+    - name: Display Installed Cloudflared Version
+      debug:
+        msg: "{{ cloudflared_version.stdout }}"
+
+    - name: Authenticate Cloudflare Tunnel (Manual Step)
+      debug:
+        msg: "Run 'cloudflared tunnel login' manually to authenticate this instance with Cloudflare."

@@ -1,0 +1,20 @@
+# minimum tfsec version to be used
+min_required_version: v1.1.2
+
+# specify the minimum severity of result 
+minimum_severity: MEDIUM
+
+# override severity for any checks
+severity_overrides:
+  CUS002: ERROR
+  aws-s3-enable-versioning: LOW
+
+# include only few subset checks
+include:
+  - CUS002
+  - aws-s3-enable-versioning
+
+# exclude only few subset checks
+exclude:
+  - CUS002
+  - aws-s3-enable-versioning

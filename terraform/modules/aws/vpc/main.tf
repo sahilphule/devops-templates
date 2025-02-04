@@ -13,7 +13,7 @@ resource "aws_subnet" "vpc-public-subnet" {
   count                   = var.vpc-properties.vpc-subnet-count.public
   cidr_block              = var.vpc-properties.vpc-public-subnet-cidr-blocks[count.index]
   availability_zone       = var.vpc-properties.availability-zones[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = var.vpc-properties.vpc-public-subnet-map-public-ip-on-launch
 
   tags = {
     Name = var.vpc-properties.vpc-public-subnet-tag-value

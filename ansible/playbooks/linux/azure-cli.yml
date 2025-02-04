@@ -1,0 +1,42 @@
+- name: Install Azure CLI on Amazon Linux
+  hosts: linux
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes
+
+    - name: Import Microsoft GPG key
+      rpm_key:
+        key: "https://packages.microsoft.com/keys/microsoft.asc"
+        state: present
+
+    - name: Add Azure CLI repository (Amazon Linux 2)
+      when: ansible_distribution_version == "2"
+      yum_repository:
+        name: azure-cli
+        description: Microsoft Azure CLI
+        baseurl: "https://packages.microsoft.com/yumrepos/azure-cli"
+        gpgcheck: yes
+        gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+
+    - name: Add Azure CLI repository (Amazon Linux 2023)
+      when: ansible_distribution_version == "2023"
+      shell: |
+        dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/azure-cli
+      args:
+        creates: /etc/yum.repos.d/azure-cli.repo
+
+    - name: Install Azure CLI
+      yum:
+        name: azure-cli
+        state: present
+
+    - name: Verify Azure CLI installation
+      command: az --version
+      register: az_version
+      changed_when: false
+
+    - name: Display Azure CLI version
+      debug:
+        msg: "Azure CLI version installed: {{ az_version.stdout_lines[0] }}"

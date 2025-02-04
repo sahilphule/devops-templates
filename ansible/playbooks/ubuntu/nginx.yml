@@ -1,0 +1,24 @@
+- name: Install and start nginx
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

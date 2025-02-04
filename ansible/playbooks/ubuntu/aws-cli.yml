@@ -1,0 +1,39 @@
+- name: Install AWS CLI on Ubuntu
+  hosts: ubuntu
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - unzip
+          - curl
+        state: present
+        update_cache: yes
+
+    - name: Download AWS CLI installer
+      get_url:
+        url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+        dest: "/tmp/awscliv2.zip"
+
+    - name: Unzip AWS CLI installer
+      unarchive:
+        src: "/tmp/awscliv2.zip"
+        dest: "/tmp"
+        remote_src: yes
+
+    - name: Run AWS CLI installer
+      command: "/tmp/aws/install"
+
+    - name: Verify AWS CLI installation
+      command: aws --version
+      register: aws_version
+      changed_when: false
+
+    - name: Display AWS CLI version
+      debug:
+        msg: "AWS CLI version installed: {{ aws_version.stdout }}"

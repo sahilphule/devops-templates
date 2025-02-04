@@ -5,6 +5,7 @@ wsl ~
 wsl --distribution <distribution-name> --user <user-name>
 
 wsl --list
+wsl --list --online
 wsl --list --verbose
 wsl --update
 wsl --install

@@ -1,0 +1,45 @@
+- name: Install Azure CLI on Ubuntu
+  hosts: ubuntu
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - apt-transport-https
+          - lsb-release
+        state: present
+        update_cache: yes
+
+    - name: Import Microsoft GPG key
+      shell: |
+        curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+
+    - name: Add Azure CLI repository
+      shell: |
+        echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/azure-cli.list
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install Azure CLI
+      apt:
+        name: azure-cli
+        state: present
+
+    - name: Verify Azure CLI installation
+      command: az --version
+      register: az_version
+      changed_when: false
+
+    - name: Display Azure CLI version
+      debug:
+        msg: "Azure CLI version installed: {{ az_version.stdout_lines[0] }}"

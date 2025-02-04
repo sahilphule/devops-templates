@@ -4,6 +4,9 @@ locals {
     ec2-instance-ami-value = ["al2023-ami-2023.6.20241212.0-kernel-6.1-x86_64"]
     ec2-instance-owners    = ["137112412989"]
 
+    ec2-instance-sg-name      = "ec2-instance-sg"
+    ec2-instance-sg-tag-value = "ec2-instance-sg"
+
     ec2-instance-sg-ingress-ssh-cidr-blocks = "0.0.0.0/0"
     ec2-instance-sg-ingress-ssh-from-port   = 22
     ec2-instance-sg-ingress-ssh-protocol    = "tcp"
@@ -24,8 +27,6 @@ locals {
 
     ec2-instance-sg-egress-ipv6-cidr-blocks = "::/0"
     ec2-instance-sg-egress-ipv6-protocol    = "-1"
-
-    ec2-instance-sg-tag-value = "sg"
 
     ec2-instance-key-pair-name = "server-key"
     ec2-instance-public-key    = "~/desktop/aws/ssh-keys/server-key.pub"

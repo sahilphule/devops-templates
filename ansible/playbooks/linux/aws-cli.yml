@@ -1,0 +1,37 @@
+- name: Install AWS CLI on Amazon Linux
+  hosts: linux
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes
+
+    - name: Install required dependencies
+      yum:
+        name: 
+          - unzip
+          # - curl
+        state: present
+
+    - name: Download AWS CLI installer
+      get_url:
+        url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+        dest: "/tmp/awscliv2.zip"
+
+    - name: Unzip AWS CLI installer
+      unarchive:
+        src: "/tmp/awscliv2.zip"
+        dest: "/tmp"
+        remote_src: yes
+
+    - name: Run AWS CLI installer
+      command: "/tmp/aws/install"
+
+    - name: Verify AWS CLI installation
+      command: aws --version
+      register: aws_version
+      changed_when: false
+
+    - name: Display AWS CLI version
+      debug:
+        msg: "AWS CLI version installed: {{ aws_version.stdout }}"

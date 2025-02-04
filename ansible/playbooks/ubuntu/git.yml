@@ -1,0 +1,22 @@
+- name: Install Git on Ubuntu
+  hosts: ubuntu
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+
+    - name: Verify Git installation
+      command: git --version
+      register: git_version
+      changed_when: false
+
+    - name: Display Git version
+      debug:
+        msg: "Git version installed: {{ git_version.stdout }}"

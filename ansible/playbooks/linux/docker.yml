@@ -1,0 +1,57 @@
+- name: Install Docker and Docker Compose on Amazon Linux
+  hosts: linux
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes
+
+    - name: Detect Amazon Linux version
+      shell: cat /etc/os-release | grep "^VERSION_ID" | cut -d= -f2 | tr -d '"'
+      register: amazon_version
+      changed_when: false
+
+    - name: Install dependencies
+      yum:
+        name: 
+          - yum-utils
+          - device-mapper-persistent-data
+          - lvm2
+        state: present
+
+    - name: Install Docker (Amazon Linux 2)
+      when: amazon_version.stdout == "2"
+      command: amazon-linux-extras enable docker && yum install -y docker
+
+    - name: Install Docker (Amazon Linux 2023)
+      when: amazon_version.stdout == "2023"
+      dnf:
+        name: docker
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ ansible_user | default('ec2-user') }}"
+        groups: docker
+        append: yes
+
+    - name: Download Docker Compose binary
+      get_url:
+        url: "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64"
+        dest: "/usr/local/bin/docker-compose"
+        mode: '0755'
+
+    - name: Verify Docker Compose installation
+      command: docker-compose --version
+      register: docker_compose_version
+      changed_when: false
+
+    - name: Display Docker Compose version
+      debug:
+        msg: "Docker Compose version: {{ docker_compose_version.stdout }}"

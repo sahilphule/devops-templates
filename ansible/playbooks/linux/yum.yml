@@ -1,0 +1,7 @@
+- name: Update yum cache for Linux
+  hosts: linux
+  become: yes
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes

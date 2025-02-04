@@ -1,0 +1,15 @@
+[Unit]
+Description=Cloudflare Tunnel
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=cloudflared tunnel run <my-tunnel>
+Restart=on-failure
+RestartSec=3
+StandardOutput=append:/var/log/cloudflared.log
+StandardError=append:/var/log/cloudflared-error.log
+
+[Install]
+WantedBy=multi-user.target

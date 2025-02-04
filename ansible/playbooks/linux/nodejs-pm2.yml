@@ -1,0 +1,20 @@
+- name: Install Node.js, npm, PM2, and Svelte Adapter on Amazon Linux
+  hosts: linux
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes
+
+    - name: Install Node.js and npm
+      yum:
+        name:
+          - nodejs
+          - npm
+        state: present
+
+    - name: Install PM2 globally
+      command: npm install -g pm2
+
+    - name: Install Svelte adapter
+      command: npm install @sveltejs/adapter-node

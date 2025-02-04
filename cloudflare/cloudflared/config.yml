@@ -1,0 +1,29 @@
+tunnel: <tunnel-id>  # Replace with your tunnel ID
+credentials-file: /home/user/.cloudflared/<tunnel-id>.json
+originRequest: # Top-level configuration
+  connectTimeout: 30s
+
+ingress:
+  - hostname: dev.example.com
+    service: http://localhost:80  # Change port based on your web server
+  
+  - hostname: prod.example.com
+    service: http://localhost:8000
+  
+  - hostname: ssh.example.com
+    service: ssh://localhost:22
+  
+  - hostname: static.example.com  # Rules can match the request's path to a regular expression:
+    path: \.(jpg|png|css|js)$
+    service: https://localhost:8001
+  
+  # - hostname: "*.example.com" # Rules can match the request's hostname to a wildcard character:
+  #   service: https://localhost:8002
+
+  # - service: localhost:8002  # The localhost:8002 service overrides some root-level config.
+  #   originRequest:
+  #     connectTimeout: 10s
+  #     disableChunkedEncoding: true
+
+  # Some built-in services such as `http_status` do not use any configuration.
+  - service: http_status:404  # An example of a catch-all rule

@@ -1,0 +1,33 @@
+- name: Install Git on Amazon Linux
+  hosts: linux
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes
+
+    - name: Detect Amazon Linux version
+      shell: cat /etc/os-release | grep "^VERSION_ID" | cut -d= -f2 | tr -d '"'
+      register: amazon_version
+      changed_when: false
+
+    - name: Install Git using `yum` (Amazon Linux 2)
+      when: amazon_version.stdout == "2"
+      yum:
+        name: git
+        state: present
+
+    - name: Install Git using `dnf` (Amazon Linux 2023)
+      when: amazon_version.stdout == "2023"
+      dnf:
+        name: git
+        state: present
+
+    - name: Verify Git installation
+      command: git --version
+      register: git_version
+      changed_when: false
+
+    - name: Display Git version
+      debug:
+        msg: "Git version installed: {{ git_version.stdout }}"

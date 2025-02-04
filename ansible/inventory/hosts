@@ -1,8 +1,16 @@
+[all]
+
 [webservers]
+10.0.2.15
 webserver1.example.com
-webserver2.example.com
-webserver3.example.com
+<public-ip> ansible_user=<ec2-user/ubuntu/root> ansible_ssh_private_key_file=~/.ssh/<private-key-file>.pem
 
 [databases]
 database1.example.com
 database2.example.com
+
+[linux]
+<public-ip> ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/<private-key-file>.pem
+
+[ubuntu]
+<public-ip> ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/<private-key-file>.pem

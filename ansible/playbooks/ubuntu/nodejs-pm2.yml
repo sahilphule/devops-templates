@@ -1,0 +1,21 @@
+- name: Install Node.js, npm, PM2, and Svelte Adapter on Ubuntu
+  hosts: ubuntu
+  become: yes  # Run as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install Node.js and npm
+      apt:
+        name:
+          - nodejs
+          - npm
+        state: present
+
+    - name: Install PM2 globally
+      command: npm install -g pm2
+
+    - name: Install Svelte adapter
+      command: npm install @sveltejs/adapter-node

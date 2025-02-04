@@ -1,7 +1,10 @@
 terraform init -upgrade
 terraform fmt -recursive
+terraform fmt -check
 terraform validate
 terraform plan
+terraform plan -out tfplan.binary
+terraform show -json tfplan.binary >tfplan.json
 terraform apply
 terraform apply -auto-approve
 terraform apply -refresh-only

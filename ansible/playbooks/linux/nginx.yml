@@ -1,0 +1,23 @@
+- name: Install and start nginx
+  hosts: linux
+  become: yes
+  tasks:
+    - name: Update yum cache
+      yum:
+        update_cache: yes
+
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: latest
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

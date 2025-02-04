@@ -1,0 +1,22 @@
+{
+  "min_required_version": "v1.1.2"
+}
+
+{
+  "minimum_severity": "MEDIUM"
+}
+
+{
+  "severity_overrides": {
+    "CUS002": "ERROR",
+    "aws-s3-enable-versioning": "LOW"
+  }
+}
+
+{
+  "include": ["CUS002", "aws-s3-enable-versioning"]
+}
+
+{
+  "exclude": ["CUS002", "aws-s3-enable-versioning"]
+}
