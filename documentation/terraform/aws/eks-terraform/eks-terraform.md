@@ -44,23 +44,23 @@ eks-terraform
 6. The definition of *providers.tf* file is complete.
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
-    - vpc
-    - rds
-    - eks
+    - module.vpc
+    - module.rds
+    - module.eks
 9. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/main.tf) for reference.
 10. The definition of *main.tf* file is complete.
 11. Now we will create *outputs.tf* file.
 12. Inside it, define the following outputs.
-    - DB_HOST
-    - bastion-host-ip
+    - output.DB_HOST
+    - output.bastion-host-ip
 13. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/outputs.tf) for reference.
 14. The definition of *outputs.tf* file is complete.
 15. Now we will create *locals.tf* file.
 16. Inside it, define the following variables:
-    - vpc-properties
-    - database-properties
-    - bastion-properties
-    - eks-properties
+    - local.vpc-properties
+    - local.database-properties
+    - local.bastion-properties
+    - local.eks-properties
 17. Click [code](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/eks/sample-locals.txt) for reference.
 18. The definition of *locals.tf* file is complete.
 

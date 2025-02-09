@@ -13,7 +13,10 @@ locals {
     sa-access-tier                   = "Hot"
     sa-https-traffic-only-enabled    = true
     sa-public-network-access-enabled = true
-    sa-network-rules-default-action  = "Allow"
+
+    sa-network-rules-count          = 1
+    sa-network-rules-default-action = "Allow"
+    sa-network-rules-bypass         = ["Metrics"] # Metrics, Logging, AzureServices (Default), None
 
     sc-count                 = 1
     sc-name                  = ["storage-container"]

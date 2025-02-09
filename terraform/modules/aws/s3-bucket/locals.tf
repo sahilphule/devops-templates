@@ -1,5 +1,7 @@
 locals {
-  # s3 properties
+  # s3 bucket properties
+  # s3-bucket-arn = module.s3-bucket.s3-bucket-arn
+
   s3-bucket-properties = {
     s3-bucket-name          = "s3-bucket"
     s3-bucket-force-destroy = true
@@ -27,7 +29,7 @@ locals {
         "Effect" : "Allow",
         "Principal" : "*",
         "Action" : "*",
-        "Resource" : "arn:aws:s3:::${local.s3-bucket-properties.s3-bucket-name}/*"
+        # "Resource" : "${local.s3-bucket-arn}/*"
       }
     ]
   }

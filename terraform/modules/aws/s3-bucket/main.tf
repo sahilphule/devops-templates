@@ -9,6 +9,10 @@ resource "aws_s3_bucket_versioning" "s3-bucket-versioning" {
   versioning_configuration {
     status = var.s3-bucket-properties.s3-bucket-versioning
   }
+
+  depends_on = [
+    aws_s3_bucket.s3-bucket
+  ]
 }
 
 resource "aws_s3_bucket_ownership_controls" "s3-bucket-ownership-controls" {
@@ -17,6 +21,10 @@ resource "aws_s3_bucket_ownership_controls" "s3-bucket-ownership-controls" {
   rule {
     object_ownership = var.s3-bucket-properties.s3-bucket-ownership-controls-object-ownership
   }
+
+  depends_on = [
+    aws_s3_bucket.s3-bucket
+  ]
 }
 
 resource "aws_s3_bucket_acl" "s3-bucket-acl" {
@@ -40,6 +48,10 @@ resource "aws_s3_bucket_website_configuration" "s3-bucket-website-configuration"
   error_document {
     key = "error.html"
   }
+
+  depends_on = [
+    aws_s3_bucket.s3-bucket
+  ]
 }
 
 resource "aws_s3_bucket_public_access_block" "s3-bucket-public-access" {
@@ -49,6 +61,10 @@ resource "aws_s3_bucket_public_access_block" "s3-bucket-public-access" {
   block_public_policy     = var.s3-bucket-properties.s3-bucket-public-access-block-public-policy
   ignore_public_acls      = var.s3-bucket-properties.s3-bucket-public-access-ignore-public-acls
   restrict_public_buckets = var.s3-bucket-properties.s3-buckets-public-access-restrict-public-buckets
+
+  depends_on = [
+    aws_s3_bucket.s3-bucket
+  ]
 }
 
 resource "aws_s3_bucket_policy" "s3-bucket-policy" {

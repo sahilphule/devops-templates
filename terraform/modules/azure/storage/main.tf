@@ -9,12 +9,18 @@ resource "azurerm_storage_account" "storage-account" {
   access_tier                   = var.storage-properties.sa-access-tier
   https_traffic_only_enabled    = var.storage-properties.sa-https-traffic-only-enabled
   public_network_access_enabled = var.storage-properties.sa-public-network-access-enabled
+}
 
-  network_rules {
-    default_action = var.storage-properties.sa-network-rules-default-action
-    # ip_rules = [""]
-    virtual_network_subnet_ids = [var.vnet-public-subnet-id]
-  }
+resource "azurerm_storage_account_network_rules" "storage-account-network-rules" {
+  count = var.storage-properties.sa-network-rules-count
+
+  storage_account_id = azurerm_storage_account.storage-account.id
+  default_action     = var.storage-properties.sa-network-rules-default-action
+  bypass             = var.storage-properties.sa-network-rules-bypass
+  # ip_rules                   = [""]
+  virtual_network_subnet_ids = [
+    var.vnet-public-subnet-id
+  ]
 }
 
 resource "azurerm_storage_container" "storage-container" {
@@ -22,6 +28,10 @@ resource "azurerm_storage_container" "storage-container" {
   name                  = var.storage-properties.sc-name[count.index]
   storage_account_id    = azurerm_storage_account.storage-account.id
   container_access_type = var.storage-properties.sc-container-access-type
+
+  depends_on = [
+    azurerm_storage_account.storage-account
+  ]
 }
 
 # resource "azurerm_storage_blob" "storage-blob-object" {

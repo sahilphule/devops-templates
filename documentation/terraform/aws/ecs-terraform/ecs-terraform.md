@@ -47,7 +47,7 @@ ecs-terraform
 7. Now, create the *main.tf* file.
 8. Inside *main.tf* file, we will use the following predefined modules:
     - module.vpc
-    - module.s3
+    - module.s3-bucket
     - module.rds
     - module.ecr
     - module.load-balancer
@@ -65,7 +65,7 @@ ecs-terraform
 16. Now we will create *locals.tf* file.
 17. Inside it, define the following variables:
     - local.vpc-properties
-    - local.s3-properties
+    - local.s3-bucket-properties
     - local.database-properties
     - local.bastion-properties
     - local.load-balancer-properties
@@ -74,7 +74,7 @@ ecs-terraform
 19. The definition of *locals.tf* file is complete.
 
 > Ensure you give the appropriate values to the variables defined in *locals.tf* file.  
-> Also, update the *s3-object-source-path* variable under *s3-properties* with local *.env* file relative path.
+> Also, update the *s3-object-source-path* variable under *s3-bucket-properties* with local *.env* file relative path.
 
 ---
 

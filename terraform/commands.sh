@@ -1,4 +1,5 @@
 terraform init -upgrade
+terraform init -migrate-state
 terraform fmt -recursive
 terraform fmt -check
 terraform validate
@@ -13,6 +14,7 @@ terraform refresh
 terraform state list
 terraform state show <name>
 terraform state rm <name>
+terraform state push <terraform.tfstate>
 terraform show
 terraform destroy
 terraform destroy -auto-approve
