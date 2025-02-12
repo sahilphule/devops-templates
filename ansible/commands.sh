@@ -18,6 +18,7 @@ chmod 400 /home/user/.ssh/key-1.pem
 # Ping servers
 ansible -i inventory -m ping all -u <username>
 ansible all -m ping
+ansible all -i hosts.ini -m ping -vvvv
 
 # Run playbooks
 ansible-playbook -i inventory <playbook>.yml

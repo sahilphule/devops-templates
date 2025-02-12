@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
 
   tags = {
-    Name = var.vpc-properties.vpc-tag-value
+    Name = var.vpc-properties.vpc-tags-Name
   }
 }
 
@@ -16,7 +16,7 @@ resource "aws_subnet" "vpc-public-subnet" {
   map_public_ip_on_launch = var.vpc-properties.vpc-public-subnet-map-public-ip-on-launch
 
   tags = {
-    Name = var.vpc-properties.vpc-public-subnet-tag-value
+    Name = var.vpc-properties.vpc-public-subnet-tags-Name
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_subnet" "vpc-private-subnet" {
   availability_zone = var.vpc-properties.availability-zones[count.index]
 
   tags = {
-    Name = var.vpc-properties.vpc-private-subnet-tag-value
+    Name = var.vpc-properties.vpc-private-subnet-tags-Name
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "vpc-igw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = var.vpc-properties.vpc-igw-tag-value
+    Name = var.vpc-properties.vpc-igw-tags-Name
   }
 }
 

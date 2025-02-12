@@ -3,7 +3,7 @@ resource "aws_security_group" "security-group" {
   vpc_id = var.vpc-id
 
   tags = {
-    Name = var.ec2-properties.ec2-instance-sg-tag-value
+    Name = var.ec2-properties.ec2-instance-sg-tags-Name
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_instance" "ec2-instance" {
   ]
 
   tags = {
-    Name = var.ec2-properties.ec2-instance-tag-value
+    Name = var.ec2-properties.ec2-instance-tags-Name
   }
 
   depends_on = [

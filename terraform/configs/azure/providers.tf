@@ -9,6 +9,7 @@ terraform {
     }
   }
 
+  # Only use backend block when Remote Backend Storage is provisioned
   backend "azurerm" {
     resource_group_name  = "terraform-rg"
     storage_account_name = "terraformstate123"

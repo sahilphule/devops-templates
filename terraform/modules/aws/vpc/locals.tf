@@ -25,9 +25,9 @@ locals {
       "10.0.104.0/24"
     ]
 
-    vpc-tag-value                = "vpc"
-    vpc-public-subnet-tag-value  = "public-vpc"
-    vpc-private-subnet-tag-value = "private-vpc"
-    vpc-igw-tag-value            = "igw"
+    vpc-tags-Name                = "vpc"
+    vpc-public-subnet-tags-Name  = "public-vpc"
+    vpc-private-subnet-tags-Name = "private-vpc"
+    vpc-igw-tags-Name            = "igw"
   }
 }

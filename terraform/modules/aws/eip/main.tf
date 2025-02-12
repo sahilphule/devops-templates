@@ -3,6 +3,6 @@ resource "aws_eip" "eip" {
   domain   = var.eip-properties.eip-domain
 
   tags = {
-    Name = var.eip-properties.eip-tag-name
+    Name = var.eip-properties.eip-tags-Name
   }
 }

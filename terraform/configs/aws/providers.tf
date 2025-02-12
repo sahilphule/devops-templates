@@ -8,6 +8,7 @@ terraform {
     }
   }
 
+  # Only use backend block when Remote Backend Storage is provisioned
   backend "s3" {
     bucket         = "my-terraform-state-bucket" # S3 bucket for state storage
     key            = "path/to/my/state.tfstate"  # Path in the S3 bucket

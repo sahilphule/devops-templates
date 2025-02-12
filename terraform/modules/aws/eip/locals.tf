@@ -4,6 +4,6 @@ locals {
     eip-instance-id = ""
     eip-domain      = "vpc"
 
-    eip-tag-name = "eip"
+    eip-tags-Name = "eip"
   }
 }

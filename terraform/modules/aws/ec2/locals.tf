@@ -5,7 +5,7 @@ locals {
     ec2-instance-owners    = ["137112412989"]
 
     ec2-instance-sg-name      = "ec2-instance-sg"
-    ec2-instance-sg-tag-value = "ec2-instance-sg"
+    ec2-instance-sg-tags-Name = "ec2-instance-sg"
 
     ec2-instance-sg-ingress-ssh-cidr-blocks = "0.0.0.0/0"
     ec2-instance-sg-ingress-ssh-from-port   = 22
@@ -34,6 +34,6 @@ locals {
     ec2-instance-type                        = "t2.micro"
     ec2-instance-user-data                   = "../../aws/linux-user-data.tpl"
     ec2-instance-associate-public-ip-address = true
-    ec2-instance-tag-value                   = "server"
+    ec2-instance-tags-Name                   = "server"
   }
 }

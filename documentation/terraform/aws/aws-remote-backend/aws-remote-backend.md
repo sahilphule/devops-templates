@@ -52,7 +52,7 @@ Before setting up the remote backend, ensure you have:
 
 ### Steps:
 1. Open PowerShell.
-2. Navigate to `aws-remote-terraform`.
+2. Navigate to `aws-remote-terraform` directory.
 3. Run:
    - **`terraform fmt -recursive`** → Format Terraform files.
    - **`terraform init`** → Initialize Terraform.
@@ -103,7 +103,7 @@ Before setting up the remote backend, ensure you have:
 
 ### Steps:
 1. Open PowerShell.
-2. Navigate to `aws-remote-terraform`.
+2. Navigate to `sample-terraform` directory.
 3. Run:
    - **`terraform fmt -recursive`** → Format files.
    - **`terraform init`** → Initialize Terraform.
@@ -124,11 +124,21 @@ Before setting up the remote backend, ensure you have:
 
 ---
 
-## Destroying the Infrastructure
+## Destroying the Sample Infrastructure
 
 ### Steps:
 1. Open PowerShell.
-2. Navigate to `aws-remote-terraform`.
+2. Navigate to `sample-terraform` directory.
+3. Run **`terraform destroy`** (type `yes` when prompted).
+4. Resources will be deleted.
+
+---
+
+## Destroying the AWS Remote Backend Infrastructure
+
+### Steps:
+1. Open PowerShell.
+2. Navigate to `aws-remote-terraform` directory.
 3. Run **`terraform destroy`** (type `yes` when prompted).
 4. Resources will be deleted.
 
@@ -137,3 +147,5 @@ Before setting up the remote backend, ensure you have:
 ## Conclusion
 - By following this guide, you have successfully set up a Terraform remote backend using AWS S3 for state storage and DynamoDB for state locking.
 - This ensures secure, scalable, and team-friendly infrastructure management.
+
+---
