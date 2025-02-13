@@ -13,15 +13,10 @@ variable "container-app-environment-id" {
   type        = string
 }
 
-# variable "acr-id" {
-#   description = "acr id"
-#   type        = any
-# }
-
-# variable "acr-name" {
-#   description = "acr name"
-#   type        = string
-# }
+variable "acr-login-server" {
+  description = "acr login server"
+  type        = string
+}
 
 variable "acr-admin-username" {
   description = "acr admin username"

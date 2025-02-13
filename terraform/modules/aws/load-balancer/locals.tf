@@ -1,36 +1,41 @@
 locals {
-  # vpc-id             = module.vpc.vpc-id
-  # vpc-public-subnets = module.vpc.vpc-public-subnets
-  # acm-certificate-arn = "module.acm-route53.acm-certificate-arn"
+  # vpc-id              = module.vpc.vpc-id
+  # vpc-public-subnets  = module.vpc.vpc-public-subnets
+  # acm-certificate-arn = module.acm-route53.acm-certificate-arn
 
   # load balancer properties
   load-balancer-properties = {
+    lb-security-group-name      = "lb-security-group"
+    lb-security-group-tags-Name = "lb-security-group"
 
-    load-balancer-sg-ingress-from-port   = 80
-    load-balancer-sg-ingress-to-port     = 80
-    load-balancer-sg-ingress-protocol    = "tcp"
-    load-balancer-sg-ingress-cidr-blocks = ["0.0.0.0/0"]
+    lb-vpc-security-group-ingress-https-cidr-blocks = "0.0.0.0/0"
+    lb-vpc-security-group-ingress-https-from-port   = 443
+    lb-vpc-security-group-ingress-https-protocol    = "tcp"
+    lb-vpc-security-group-ingress-https-to-port     = 443
 
-    load-balancer-sg-egress-from-port   = 0
-    load-balancer-sg-egress-to-port     = 0
-    load-balancer-sg-egress-protocol    = -1
-    load-balancer-sg-egress-cidr-blocks = ["0.0.0.0/0"]
+    lb-vpc-security-group-egress-ipv4-cidr-blocks = "0.0.0.0/0"
+    lb-vpc-security-group-egress-ipv4-protocol    = "-1"
 
-    load-balancer-sg-tag-value = "load-balancer-sg"
+    lb-vpc-security-group-egress-ipv6-cidr-blocks = "::/0"
+    lb-vpc-security-group-egress-ipv6-protocol    = "-1"
 
-    load-balancer-name     = "alb"
-    load-balancer-type     = "application"
-    load-balancer-internal = false
+    lb-name     = "lb"
+    lb-type     = "application"
+    lb-internal = false
 
-    load-balancer-tg-name        = "alb-tg"
-    load-balancer-tg-port        = 80
-    load-balancer-tg-protocol    = "HTTP"
-    load-balancer-tg-target-type = "instance"
+    lb-target-group-name        = "lb-target-group"
+    lb-target-group-port        = 80
+    lb-target-group-protocol    = "HTTP"
+    lb-target-group-target-type = "instance"
 
-    load-balancer-http-listener-port     = 80
-    load-balancer-http-listener-protocol = "HTTP"
+    lb-http-listener-port     = 80
+    lb-http-listener-protocol = "HTTP"
 
-    load-balancer-https-listener-port     = 443
-    load-balancer-https-listener-protocol = "HTTPS"
+    lb-https-listener-port     = 443
+    lb-https-listener-protocol = "HTTPS"
   }
+
+  # lb-target-group-arn = module.load-balancer.lb-target-group-arn
+  # lb-dns-name         = module.load-balancer.lb-dns-name
+  # lb-zone-id          = module.load-balancer.lb-zone-id
 }

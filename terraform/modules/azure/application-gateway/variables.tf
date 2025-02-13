@@ -1,11 +1,11 @@
 variable "resource-group-properties" {
   description = "resource group properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "application-gateway-properties" {
   description = "application gateway properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "vnet-public-subnet-id" {

@@ -16,9 +16,6 @@ locals {
     mssql-server-login-password = ""
     mssql-database-name         = "mssql-database"
 
-    mssql-subnet-private-endpoint-name  = "mssql-subnet-private-endpoint"
-    mssql-bastion-host-subnet-name      = "mssql-bastion-host-subnet"
-    mssql-bastion-host-address-prefixes = [""]
-    mssql-bastion-host-name             = "mssql-bastion-host"
+    mssql-subnet-private-endpoint-name = "mssql-subnet-private-endpoint"
   }
 }

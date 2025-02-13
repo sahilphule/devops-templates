@@ -1,6 +1,6 @@
-output "db-address" {
+output "rds-db-address" {
   description = "rds db host address"
-  value       = aws_db_instance.db.address
+  value       = aws_db_instance.db-instance.address
 }
 
 output "bastion-host-public-ip" {

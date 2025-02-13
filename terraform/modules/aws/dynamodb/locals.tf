@@ -1,25 +1,24 @@
 locals {
-
+  # Allowed tfstate access User arns
   backend-access-iam-arns = ["arn:aws:iam::012345678901:user/username"]
 
   # dynamodb properties
   # dynamodb-table-arn = module.dynamodb.dyanamodb-table-arn
 
   dynamodb-properties = {
-    dynamodb-table-name           = ""
-    dynamodb-table-billing-mode   = "PAY_PER_REQUEST" # PROVISIONED
+    dynamodb-table-name      = "remote-backend-dynamodb-table"
+    dynamodb-table-tags-Name = "remote-backend-dynamodb-table"
+
+    dynamodb-table-billing-mode   = "PAY_PER_REQUEST" # PROVISIONED, PAY_PER_REQUEST
     dynamodb-table-read-capacity  = 20
     dynamodb-table-write-capacity = 20
-    dynamodb-table-hash-key       = "UserId" # LockID
+    dynamodb-table-hash-key       = "LockID" # UserId, LockID
     dynamodb-table-range-key      = ""
 
-    dynamodb-table-attribute-name = "UserId" # LockID
+    dynamodb-table-attribute-name = "LockID" # UserId, LockID
     dynamodb-table-attribute-type = "S"
 
-    dynamodb-table-tags-Name        = "dynamodb-table-1"
-    dynamodb-table-tags-Environment = "dev"
-
-    dyanamodb-resource-policy-count = 1
+    dyanamodb-resource-policy-count = 0
   }
 
   dynamodb-resource-policy = {
@@ -29,14 +28,14 @@ locals {
         "Effect" : "Allow",
         "Principal" : {
           "AWS" : [
-            local.backend-access-iam-arns[0]
+            "${local.backend-access-iam-arns[0]}"
           ]
         },
         "Action" : [
           "dynamodb:*"
         ],
         "Resource" : [
-          # local.dyanamodb-table-arn
+          # "${local.dynamodb-table-arn}"
         ]
       },
       {
@@ -44,12 +43,12 @@ locals {
         "Principal" : "*",
         "Action" : "dynamodb:*",
         "Resource" : [
-          # local.dyanamodb-table-arn
+          # "${local.dynamodb-table-arn}"
         ]
         "Condition" : {
           "StringNotEquals" : {
             "aws:PrincipalArn" : [
-              local.backend-access-iam-arns[0]
+              "${local.backend-access-iam-arns[0]}"
             ]
           }
         }

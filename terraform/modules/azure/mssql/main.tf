@@ -45,33 +45,3 @@ resource "azurerm_private_endpoint" "mssql-subnet-private-endpoint" {
     is_manual_connection           = false
   }
 }
-
-# resource "azurerm_subnet" "AzureBastionSubnet" {
-#   resource_group_name = var.resource-group-properties.rg-name
-
-#   name                 = var.mssql-properties.mssql-bastion-host-subnet-name
-#   virtual_network_name = var.vnet-id
-#   address_prefixes     = var.mssql-properties.mssql-bastion-host-address-prefixes
-# }
-
-# resource "azurerm_public_ip" "mssql-bastion-host-public-ip" {
-#   resource_group_name = var.resource-group-properties.rg-name
-#   location            = var.resource-group-properties.rg-location
-
-#   name              = "mssql-bastion-host-public-ip"
-#   allocation_method = "Static"
-#   sku               = "Standard"
-# }
-
-# resource "azurerm_bastion_host" "mssql-bastion-host" {
-#   resource_group_name = var.resource-group-properties.rg-name
-#   location            = var.resource-group-properties.rg-location
-
-#   name = var.mssql-properties.mssql-bastion-host-name
-
-#   ip_configuration {
-#     name                 = "configuration"
-#     subnet_id            = azurerm_subnet.AzureBastionSubnet.id
-#     public_ip_address_id = azurerm_public_ip.mssql-bastion-host-public-ip.id
-#   }
-# }

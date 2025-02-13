@@ -1,6 +1,6 @@
 variable "rds-properties" {
   description = "database properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "bastion-host-properties" {

@@ -1,6 +1,6 @@
 variable "ecs-properties" {
   description = "ecs properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "ecs-container-definition" {
@@ -18,12 +18,12 @@ variable "vpc-public-subnets" {
   type        = list(any)
 }
 
-variable "load-balancer-sg-id" {
+variable "lb-security-group-id" {
   description = "load balancer security group id"
   type        = string
 }
 
-variable "target-group-arn" {
+variable "lb-target-group-arn" {
   description = "target group arn"
   type        = string
 }

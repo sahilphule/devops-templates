@@ -12,8 +12,3 @@ variable "vnet-public-subnet-id" {
   description = "virtual network public subnet id"
   type        = any
 }
-
-# variable "acr-id" {
-#   description = "acr id"
-#   type        = any
-# }

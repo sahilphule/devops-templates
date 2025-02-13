@@ -1,15 +1,14 @@
-data "aws_ami" "ami" {
+data "aws_ami" "ec2-ami" {
   most_recent = true
+  owners      = var.ec2-properties.ec2-owners
 
   filter {
     name   = "name"
-    values = var.ec2-properties.ec2-instance-ami-value
+    values = var.ec2-properties.ec2-ami-value
   }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
-  owners = var.ec2-properties.ec2-instance-owners
 }

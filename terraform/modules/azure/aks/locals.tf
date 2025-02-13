@@ -6,8 +6,6 @@ locals {
 
   # aks properties
   aks-properties = {
-    aks-user-assigned-identity-name = "aks-user-assigned-identity"
-
     aks-cluster-name                     = "aks-cluster"
     aks-kubernetes-version               = "1.30.1"
     aks-dns-prefix                       = "aks-cluster"
@@ -24,9 +22,6 @@ locals {
     aks-default-node-pool-node-count                  = 1
     aks-default-node-pool-node-public-ip-enabled      = false
     aks-default-node-pool-temporary-name-for-rotation = "nodepoolrot"
-
-    aks-service-principal-client-id     = ""
-    aks-service-principal-client-secret = ""
 
     aks-cluster-node-pool-name                   = "nodepool"
     aks-cluster-node-pool-vm-size                = "Standard_DS2_v2"

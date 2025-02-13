@@ -1,4 +1,7 @@
 locals {
+  # resource group properties
+  resource-group-properties = {}
+
   # virtual-machine-properties
   virtual-machine-properties = {
     public-ip-name              = "linux-vm-public-ip"

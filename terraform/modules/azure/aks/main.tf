@@ -1,17 +1,3 @@
-# resource "azurerm_user_assigned_identity" "user-assigned-identity" {
-#   resource_group_name = var.resource-group-properties.rg-name
-#   location = var.resource-group-properties.rg-location
-
-#   name = var.aks-properties.aks-user-assigned-identity-name
-# }
-
-# resource "azurerm_role_assignment" "aks-acr-pull" {
-#   scope                = var.acr-id
-#   role_definition_name = "AcrPull"
-#   principal_id = azurerm_user_assigned_identity.user-assigned-identity.principal_id
-#   # principal_id         = azurerm_kubernetes_cluster.aks-cluster.kubelet_identity[0].object_id
-# }
-
 resource "azurerm_kubernetes_cluster" "aks-cluster" {
   location            = var.resource-group-properties.rg-location
   resource_group_name = var.resource-group-properties.rg-name
@@ -39,13 +25,7 @@ resource "azurerm_kubernetes_cluster" "aks-cluster" {
 
   identity {
     type = "SystemAssigned"
-    # identity_ids = [azurerm_user_assigned_identity.user-assigned-identity.id]
   }
-
-  # service_principal {
-  #   client_id     = var.aks-properties.aks-service-principal-client-id
-  #   client_secret = var.aks-properties.aks-service-principal-client-secret
-  # }
 
   network_profile {
     load_balancer_sku = "standard"
@@ -66,11 +46,3 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-cluster-node-pool" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks-cluster.id
   vnet_subnet_id        = var.vnet-public-subnet-id
 }
-
-# resource "azurerm_dns_a_record" "aks-app-gw" {
-#   name                = "aks-app-gw"
-#   zone_name           = azurerm_dns_zone.mydomain.name
-#   resource_group_name = var.resource-group-properties.rg-name
-#   ttl                 = 300
-#   records             = [azurerm_public_ip.appgw.ip_address]
-# }

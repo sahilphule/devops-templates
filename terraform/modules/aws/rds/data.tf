@@ -1,10 +1,10 @@
-data "aws_ami" "linux-ami" {
+data "aws_ami" "rds-ami" {
   most_recent = true
-  owners      = ["137112412989"]
+  owners      = var.rds-properties.rds-owners
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.6.20241121.0-kernel-6.1-x86_64"]
+    values = var.rds-properties.rds-ami-value
   }
 
   filter {

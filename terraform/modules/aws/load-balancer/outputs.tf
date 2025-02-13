@@ -1,33 +1,33 @@
-output "load-balancer-arn" {
-  value = aws_lb.load-balancer.arn
+output "lb-arn" {
+  value = aws_lb.lb.arn
 }
 
-output "load-balancer-tg-arn" {
+output "lb-target-group-arn" {
   description = "load balancer target group arn"
-  value       = aws_lb_target_group.load-balancer-tg.arn
+  value       = aws_lb_target_group.lb-target-group.arn
 }
 
-output "load-balancer-http-listener-arn" {
+output "lb-http-listener-arn" {
   description = "load balancer http listener arn"
-  value       = aws_lb_listener.load-balancer-http-listener.arn
+  value       = aws_lb_listener.lb-http-listener.arn
 }
 
-output "load-balancer-https-listener-arn" {
+output "lb-https-listener-arn" {
   description = "load balancer http listener arn"
-  value       = aws_lb_listener.load-balancer-https-listener.arn
+  value       = aws_lb_listener.lb-https-listener.arn
 }
 
-output "load-balancer-sg-id" {
+output "lb-security-group-id" {
   description = "load balancer security group id"
-  value       = aws_security_group.load-balancer-sg.id
+  value       = aws_security_group.lb-security-group.id
 }
 
-output "load-balancer-dns-name" {
+output "lb-dns-name" {
   description = "load balancer dns name"
-  value       = aws_lb.load-balancer.dns_name
+  value       = aws_lb.lb.dns_name
 }
 
-output "load-balancer-zone-id" {
+output "lb-zone-id" {
   description = "load balancer zone id"
-  value       = aws_lb.load-balancer.zone_id
+  value       = aws_lb.lb.zone_id
 }

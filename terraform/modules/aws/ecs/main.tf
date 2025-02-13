@@ -12,26 +12,27 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-AmazonECSTask
   role       = aws_iam_role.ecs-task-execution-role.name
 }
 
-resource "aws_ecs_task_definition" "ecs-task" {
-  family                   = var.ecs-properties.ecs-task-family
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
-  cpu                      = 512
-  memory                   = 1024
+resource "aws_ecs_task_definition" "ecs-task-definition" {
+  family                   = var.ecs-properties.ecs-task-definition-family
+  network_mode             = var.ecs-properties.ecs-task-definition-network-mode
+  requires_compatibilities = var.ecs-properties.ecs-task-definition-requires-compatibilities
+  cpu                      = var.ecs-properties.ecs-task-definition-cpu
+  memory                   = var.ecs-properties.ecs-task-definition-memory
   container_definitions    = var.ecs-container-definition
   execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
 }
 
-resource "aws_security_group" "ecs-service-sg" {
-  name   = "ecs-service-sg"
+resource "aws_security_group" "ecs-service-security-group" {
+  name   = var.ecs-properties.ecs-service-security-group-name
   vpc_id = var.vpc-id
 
   ingress {
     from_port = 0
     to_port   = 0
     protocol  = -1
+
     security_groups = [
-      var.load-balancer-sg-id
+      var.lb-security-group-id
     ]
   }
 
@@ -43,21 +44,21 @@ resource "aws_security_group" "ecs-service-sg" {
   }
 
   tags = {
-    Name = var.ecs-properties.ecs-service-sg-tag-value
+    Name = var.ecs-properties.ecs-service-security-group-tags-Name
   }
 }
 
 resource "aws_ecs_service" "ecs-service" {
   name            = var.ecs-properties.ecs-service-name
   cluster         = aws_ecs_cluster.ecs-cluster.id
-  task_definition = aws_ecs_task_definition.ecs-task.arn
-  launch_type     = "FARGATE"
-  desired_count   = 1
+  task_definition = aws_ecs_task_definition.ecs-task-definition.arn
+  launch_type     = var.ecs-properties.ecs-service-launch-type
+  desired_count   = var.ecs-properties.ecs-service-desired-count
 
   load_balancer {
     container_name   = var.ecs-properties.ecs-container-name
     container_port   = var.ecs-properties.ecs-container-port
-    target_group_arn = var.target-group-arn
+    target_group_arn = var.lb-target-group-arn
   }
 
   network_configuration {
@@ -67,7 +68,7 @@ resource "aws_ecs_service" "ecs-service" {
 
     assign_public_ip = true
     security_groups = [
-      aws_security_group.ecs-service-sg.id
+      aws_security_group.ecs-service-security-group.id
     ]
   }
 }

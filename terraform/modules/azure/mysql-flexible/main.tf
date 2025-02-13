@@ -20,20 +20,6 @@ resource "azurerm_subnet" "vnet-mysql-flexible-subnet" {
   }
 }
 
-# resource "azurerm_private_dns_zone" "vnet-mysql-flexible-dns-zone" {
-#   resource_group_name = var.resource-group-properties.rg-name
-
-#   name = var.mysql-flexible-properties.vnet-mysql-flexible-dns-zone-name
-# }
-
-# resource "azurerm_private_dns_zone_virtual_network_link" "mysql-flexible-dns-zone-virtual-network-link" {
-#   resource_group_name = var.resource-group-properties.rg-name
-
-#   name                  = var.mysql-flexible-properties.vnet-mysql-flexible-dns-zone-virtual-network-link-name
-#   private_dns_zone_name = azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone.name
-#   virtual_network_id    = var.vnet-id
-# }
-
 resource "azurerm_mysql_flexible_server" "mysql-flexible-server" {
   resource_group_name = var.resource-group-properties.rg-name
   location            = var.resource-group-properties.rg-location
@@ -53,13 +39,8 @@ resource "azurerm_mysql_flexible_server" "mysql-flexible-server" {
     size_gb = var.mysql-flexible-properties.mysql-flexible-storage-size-gb
   }
 
-  # timeouts {
-  #   create = "60m"
-  # }
-
   depends_on = [
     azurerm_subnet.vnet-mysql-flexible-subnet,
-    # azurerm_private_dns_zone.vnet-mysql-flexible-dns-zone
   ]
 }
 
@@ -74,41 +55,4 @@ resource "azurerm_mysql_flexible_server" "mysql-flexible-server" {
 #   # timeouts {
 #   #   create = "60m" 
 #   # }
-# }
-
-# resource "azurerm_mysql_flexible_server_firewall_rule" "mysql-flexible-server-firewall-rule" {
-#   resource_group_name = var.resource-group-properties.rg-name
-
-#   name = var.mysql-flexible-properties.mysql-flexible-server-firewall-rule-name
-#   server_name = azurerm_mysql_flexible_server.mysql-flexible-server.name
-#   start_ip_address = "0.0.0.0"
-#   end_ip_address = "0.0.0.0"
-# }
-
-# resource "azurerm_mysql_flexible_server" "mysql-flexible-server-read-replica" {
-#   resource_group_name = var.resource-group-properties.rg-name
-#   location = var.resource-group-properties.rg-location
-
-#   name = var.mysql-flexible-properties.mysql-flexible-server-read-replica-name
-#   source_server_id = azurerm_mysql_flexible_server.mysql-flexible-server.id
-#   create_mode = "Replica"
-
-#   depends_on = [
-#     azurerm_mysql_flexible_server.mysql-flexible-server
-#   ]
-# }
-
-# resource "azurerm_private_endpoint" "vnet-mysql-flexible-private-endpoint" {
-#   resource_group_name = var.resource-group-properties.rg-name
-#   location = var.resource-group-properties.rg-location
-
-#   name = ""
-#   subnet_id = azurerm_subnet.vnet-mysql-flexible-subnet.id
-
-#   private_service_connection {
-#     name = ""
-#     private_connection_resource_id = azurerm_mysql_flexible_server.mysql-flexible-server.id
-#     is_manual_connection = false
-#     subresource_names = []
-#   }
 # }

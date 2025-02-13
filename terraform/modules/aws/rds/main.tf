@@ -1,13 +1,14 @@
-resource "aws_db_subnet_group" "vpc-db-subnet-group" {
-  name        = "db subnet group"
-  description = "db subnet group for rean"
+resource "aws_db_subnet_group" "rds-db-subnet-group" {
+  name        = var.rds-properties.rds-db-subnet-group-name
+  description = var.rds-properties.rds-db-subnet-group-description
+
   subnet_ids = [
     for subnet in var.vpc-private-subnets : subnet.id
   ]
 }
 
-resource "aws_security_group" "db-sg" {
-  name   = "db-sg"
+resource "aws_security_group" "rds-security-group" {
+  name   = var.rds-properties.rds-security-group-name
   vpc_id = var.vpc-id
 
   ingress {
@@ -25,30 +26,30 @@ resource "aws_security_group" "db-sg" {
   }
 
   tags = {
-    Name = var.rds-properties.db-sg-tag-value
+    Name = var.rds-properties.rds-security-group-tags-Name
   }
 }
 
-resource "aws_db_instance" "db" {
-  db_subnet_group_name = aws_db_subnet_group.vpc-db-subnet-group.name
+resource "aws_db_instance" "db-instance" {
+  db_subnet_group_name = aws_db_subnet_group.rds-db-subnet-group.name
   vpc_security_group_ids = [
-    aws_security_group.db-sg.id
+    aws_security_group.rds-security-group.id
   ]
 
-  identifier          = var.rds-properties.db-identifier
-  allocated_storage   = var.rds-properties.db-allocated-storage
-  engine              = var.rds-properties.db-engine
-  engine_version      = var.rds-properties.db-engine-version
-  instance_class      = var.rds-properties.db-instance-class
-  db_name             = var.rds-properties.db-name
-  username            = var.rds-properties.db-username
-  password            = var.rds-properties.db-password
-  publicly_accessible = var.rds-properties.db-publicly-accessible
-  skip_final_snapshot = var.rds-properties.db-skip-final-snapshot
+  identifier          = var.rds-properties.rds-db-instance-identifier
+  allocated_storage   = var.rds-properties.rds-db-instance-allocated-storage
+  engine              = var.rds-properties.rds-db-instance-engine
+  engine_version      = var.rds-properties.rds-db-instance-engine-version
+  instance_class      = var.rds-properties.rds-db-instance-class
+  db_name             = var.rds-properties.rds-db-instance-name
+  username            = var.rds-properties.rds-db-instance-username
+  password            = var.rds-properties.rds-db-instance-password
+  publicly_accessible = var.rds-properties.rds-db-instance-publicly-accessible
+  skip_final_snapshot = var.rds-properties.rds-db-instance-skip-final-snapshot
 }
 
-resource "aws_security_group" "bastion-host-sg" {
-  name   = "bastion-host-sg"
+resource "aws_security_group" "bastion-host-security-group" {
+  name   = var.bastion-host-properties.bastion-host-security-group-name
   vpc_id = var.vpc-id
 
   ingress {
@@ -66,26 +67,26 @@ resource "aws_security_group" "bastion-host-sg" {
   }
 
   tags = {
-    Name = var.bastion-host-properties.bastion-host-sg-tag-value
+    Name = var.bastion-host-properties.bastion-host-security-group-tags-Name
   }
 }
 
 resource "aws_key_pair" "bastion-host-key-pair" {
-  key_name   = "bastion-host-key-pair"
+  key_name   = var.bastion-host-properties.bastion-host-key-pair-name
   public_key = file(var.bastion-host-properties.bastion-host-public-key)
 }
 
 resource "aws_instance" "bastion-host" {
-  ami           = data.aws_ami.linux-ami.id
+  ami           = data.aws_ami.rds-ami.id
   instance_type = var.bastion-host-properties.bastion-host-instance-type
   key_name      = aws_key_pair.bastion-host-key-pair.id
   subnet_id     = var.vpc-public-subnets[0].id
 
   vpc_security_group_ids = [
-    aws_security_group.bastion-host-sg.id
+    aws_security_group.bastion-host-security-group.id
   ]
 
   tags = {
-    Name = var.bastion-host-properties.bastion-host-tag-value
+    Name = var.bastion-host-properties.bastion-host-tags-Name
   }
 }
