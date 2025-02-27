@@ -12,17 +12,18 @@ resource "aws_security_group" "rds-security-group" {
   vpc_id = var.vpc-id
 
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = var.rds-properties.rds-security-group-ingress-from-port
+    to_port     = var.rds-properties.rds-security-group-ingress-to-port
+    protocol    = var.rds-properties.rds-security-group-ingress-protocol
+    cidr_blocks = var.rds-properties.rds-security-group-ingress-cidr-blocks
+    # security_groups = var.rds-properties.rds-security-group-ingress-security-groups
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = var.rds-properties.rds-security-group-egress-from-port
+    to_port     = var.rds-properties.rds-security-group-egress-to-port
+    protocol    = var.rds-properties.rds-security-group-egress-protocol
+    cidr_blocks = var.rds-properties.rds-security-group-egress-cidr-blocks
   }
 
   tags = {
@@ -31,24 +32,32 @@ resource "aws_security_group" "rds-security-group" {
 }
 
 resource "aws_db_instance" "db-instance" {
+  count = var.rds-properties.rds-db-instance-count
+
+  identifier = var.rds-properties.rds-db-instance-identifier[count.index]
+
+  instance_class      = var.rds-properties.rds-db-instance-class[count.index]
+  engine              = var.rds-properties.rds-db-instance-engine[count.index]
+  engine_version      = var.rds-properties.rds-db-instance-engine-version[count.index]
+  allocated_storage   = var.rds-properties.rds-db-instance-allocated-storage[count.index]
+  storage_type        = var.rds-properties.rds-db-instance-storage-type[count.index]
+  publicly_accessible = var.rds-properties.rds-db-instance-publicly-accessible[count.index]
+  skip_final_snapshot = var.rds-properties.rds-db-instance-skip-final-snapshot[count.index]
+
+  db_name  = var.rds-properties.rds-db-instance-db-name[count.index]
+  username = var.rds-properties.rds-db-instance-username[count.index]
+  password = var.rds-properties.rds-db-instance-password[count.index]
+
   db_subnet_group_name = aws_db_subnet_group.rds-db-subnet-group.name
+
   vpc_security_group_ids = [
     aws_security_group.rds-security-group.id
   ]
-
-  identifier          = var.rds-properties.rds-db-instance-identifier
-  allocated_storage   = var.rds-properties.rds-db-instance-allocated-storage
-  engine              = var.rds-properties.rds-db-instance-engine
-  engine_version      = var.rds-properties.rds-db-instance-engine-version
-  instance_class      = var.rds-properties.rds-db-instance-class
-  db_name             = var.rds-properties.rds-db-instance-name
-  username            = var.rds-properties.rds-db-instance-username
-  password            = var.rds-properties.rds-db-instance-password
-  publicly_accessible = var.rds-properties.rds-db-instance-publicly-accessible
-  skip_final_snapshot = var.rds-properties.rds-db-instance-skip-final-snapshot
 }
 
 resource "aws_security_group" "bastion-host-security-group" {
+  count = var.bastion-host-properties.bastion-host-count == 1 ? 1 : 0
+
   name   = var.bastion-host-properties.bastion-host-security-group-name
   vpc_id = var.vpc-id
 
@@ -72,18 +81,22 @@ resource "aws_security_group" "bastion-host-security-group" {
 }
 
 resource "aws_key_pair" "bastion-host-key-pair" {
+  count = var.bastion-host-properties.bastion-host-count == 1 ? 1 : 0
+
   key_name   = var.bastion-host-properties.bastion-host-key-pair-name
   public_key = file(var.bastion-host-properties.bastion-host-public-key)
 }
 
 resource "aws_instance" "bastion-host" {
-  ami           = data.aws_ami.rds-ami.id
+  count = var.bastion-host-properties.bastion-host-count == 1 ? 1 : 0
+
+  ami           = data.aws_ami.bastion-host-ami.id
   instance_type = var.bastion-host-properties.bastion-host-instance-type
-  key_name      = aws_key_pair.bastion-host-key-pair.id
+  key_name      = aws_key_pair.bastion-host-key-pair[count.index].id
   subnet_id     = var.vpc-public-subnets[0].id
 
   vpc_security_group_ids = [
-    aws_security_group.bastion-host-security-group.id
+    aws_security_group.bastion-host-security-group[count.index].id
   ]
 
   tags = {

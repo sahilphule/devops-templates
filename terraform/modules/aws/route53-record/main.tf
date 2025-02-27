@@ -5,7 +5,7 @@ resource "aws_route53_record" "route53-ip-record" {
   type    = var.route53-record-properties.route53-ip-record-type
   ttl     = var.route53-record-properties.route53-ip-record-ttl
   records = var.route53-record-properties.route53-ip-record-records
-  zone_id = var.route53-record-properties.route53-apex-zone-id
+  zone_id = var.route53-record-properties.route53-apex-zone-id[count.index]
 }
 
 resource "aws_route53_record" "route53-apex-alias-record" {
@@ -13,7 +13,7 @@ resource "aws_route53_record" "route53-apex-alias-record" {
 
   name    = var.route53-record-properties.route53-apex-alias-record-name
   type    = var.route53-record-properties.route53-apex-alias-record-type
-  zone_id = var.route53-record-properties.route53-apex-zone-id
+  zone_id = var.route53-record-properties.route53-apex-zone-id[count.index]
 
   alias {
     name                   = var.route53-record-properties.route53-apex-alias-record-dns-name
@@ -27,7 +27,7 @@ resource "aws_route53_record" "route53-dev-alias-record" {
 
   name    = var.route53-record-properties.route53-dev-alias-record-name
   type    = var.route53-record-properties.route53-dev-alias-record-type
-  zone_id = var.route53-record-properties.route53-dev-zone-id
+  zone_id = var.route53-record-properties.route53-dev-zone-id[count.index]
 
   alias {
     name                   = var.route53-record-properties.route53-dev-alias-record-dns-name

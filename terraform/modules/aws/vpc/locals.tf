@@ -8,7 +8,7 @@ locals {
     ]
     vpc-cidr-block = "10.0.0.0/16"
     vpc-subnet-count = {
-      "public"  = 2,
+      "public"  = 1,
       "private" = 2
     }
     vpc-public-subnet-cidr-blocks = [
@@ -26,8 +26,10 @@ locals {
     ]
 
     vpc-tags-Name                = "vpc"
-    vpc-public-subnet-tags-Name  = "public-vpc"
-    vpc-private-subnet-tags-Name = "private-vpc"
-    vpc-igw-tags-Name            = "igw"
+    vpc-public-subnet-tags-Name  = "vpc-public-subnet"
+    vpc-private-subnet-tags-Name = "vpc-private-subnet"
+    vpc-igw-tags-Name            = "vpc-igw"
+    vpc-public-rtb-tags-Name     = "vpc-public-rtb"
+    vpc-private-rtb-tags-Name    = "vpc-private-rtb"
   }
 }

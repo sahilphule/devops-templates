@@ -7,40 +7,26 @@ resource "aws_security_group" "ec2-security-group" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ec2-vpc-security-group-ingress-ssh-rule" {
+resource "aws_vpc_security_group_ingress_rule" "ec2-vpc-security-group-ingress-rule" {
+  count = var.ec2-properties.ec2-vpc-security-group-ingress-rule-count
+
+  from_port         = var.ec2-properties.ec2-vpc-security-group-ingress-from-port[count.index]
+  to_port           = var.ec2-properties.ec2-vpc-security-group-ingress-to-port[count.index]
+  ip_protocol       = var.ec2-properties.ec2-vpc-security-group-ingress-protocol[count.index]
+  cidr_ipv4         = var.ec2-properties.ec2-vpc-security-group-ingress-cidr-blocks[count.index]
   security_group_id = aws_security_group.ec2-security-group.id
-  cidr_ipv4         = var.ec2-properties.ec2-security-group-ingress-ssh-cidr-blocks
-  from_port         = var.ec2-properties.ec2-security-group-ingress-ssh-from-port
-  ip_protocol       = var.ec2-properties.ec2-security-group-ingress-ssh-protocol
-  to_port           = var.ec2-properties.ec2-security-group-ingress-ssh-to-port
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ec2-vpc-security-group-ingress-http-rule" {
+resource "aws_vpc_security_group_egress_rule" "ec2-ipv4-vpc-security-group-egress-rule" {
+  ip_protocol       = var.ec2-properties.ec2-ipv4-vpc-security-group-egress-protocol
+  cidr_ipv4         = var.ec2-properties.ec2-ipv4-vpc-security-group-egress-cidr-blocks
   security_group_id = aws_security_group.ec2-security-group.id
-  cidr_ipv4         = var.ec2-properties.ec2-security-group-ingress-http-cidr-blocks
-  from_port         = var.ec2-properties.ec2-security-group-ingress-http-from-port
-  ip_protocol       = var.ec2-properties.ec2-security-group-ingress-http-protocol
-  to_port           = var.ec2-properties.ec2-security-group-ingress-http-to-port
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ec2-vpc-security-group-ingress-https-rule" {
+resource "aws_vpc_security_group_egress_rule" "ec2-ipv6-vpc-security-group-egress-rule" {
+  ip_protocol       = var.ec2-properties.ec2-ipv6-security-group-egress-protocol
+  cidr_ipv6         = var.ec2-properties.ec2-ipv6-security-group-egress-cidr-blocks
   security_group_id = aws_security_group.ec2-security-group.id
-  cidr_ipv4         = var.ec2-properties.ec2-security-group-ingress-https-cidr-blocks
-  from_port         = var.ec2-properties.ec2-security-group-ingress-https-from-port
-  ip_protocol       = var.ec2-properties.ec2-security-group-ingress-https-protocol
-  to_port           = var.ec2-properties.ec2-security-group-ingress-https-to-port
-}
-
-resource "aws_vpc_security_group_egress_rule" "ec2-vpc-security-group-egress-ipv4-rule" {
-  security_group_id = aws_security_group.ec2-security-group.id
-  cidr_ipv4         = var.ec2-properties.ec2-security-group-egress-ipv4-cidr-blocks
-  ip_protocol       = var.ec2-properties.ec2-security-group-egress-ipv4-protocol
-}
-
-resource "aws_vpc_security_group_egress_rule" "ec2-vpc-security-group-egress-ipv6-rule" {
-  security_group_id = aws_security_group.ec2-security-group.id
-  cidr_ipv6         = var.ec2-properties.ec2-security-group-egress-ipv6-cidr-blocks
-  ip_protocol       = var.ec2-properties.ec2-security-group-egress-ipv6-protocol
 }
 
 resource "aws_key_pair" "ec2-key-pair" {

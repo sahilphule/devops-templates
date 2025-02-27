@@ -26,13 +26,13 @@ Before setting up the remote backend, ensure you have:
             - required_providers
         - provider
             - aws
-    - Reference: [providers.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/remote-backend/providers.tf).
+    - Reference: [providers.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/aws-remote-backend/providers.tf).
 3. Define infrastructure:
     - Create *main.tf* file.
     - Use predefined modules:
         - module.s3-bucket
         - module.dynamodb
-    - Reference: [main.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/remote-backend/main.tf).
+    - Reference: [main.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/aws-remote-backend/main.tf).
 4. Define local variables:
     - Create *locals.tf* file.
     - Define variables:
@@ -42,7 +42,7 @@ Before setting up the remote backend, ensure you have:
         - local.dynamodb-table-arn
         - local.dynamodb-properties
         - local.dynamodb-resource-policy
-    - Reference: [locals.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/remote-backend/sample-locals.txt).
+    - Reference: [locals.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/aws/aws-remote-backend/sample-locals.txt).
 
 > Ensure you give the appropriate values to the variables defined in *locals.tf* file.
 

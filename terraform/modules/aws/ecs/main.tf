@@ -3,13 +3,13 @@ resource "aws_ecs_cluster" "ecs-cluster" {
 }
 
 resource "aws_iam_role" "ecs-task-execution-role" {
-  assume_role_policy = data.aws_iam_policy_document.ecs-assume-role-policy.json
   name               = var.ecs-properties.ecs-task-execution-role-name
+  assume_role_policy = data.aws_iam_policy_document.ecs-assume-role-policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-AmazonECSTaskExecutionRolePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
   role       = aws_iam_role.ecs-task-execution-role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 resource "aws_ecs_task_definition" "ecs-task-definition" {

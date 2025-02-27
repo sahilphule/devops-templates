@@ -4,6 +4,7 @@ resource "azurerm_container_app" "container-app" {
   name                         = var.container-app-properties.ca-name
   container_app_environment_id = var.container-app-environment-id
   revision_mode                = var.container-app-properties.ca-revision-mode
+  workload_profile_name        = var.container-app-properties.ca-workload-profile-name
 
   registry {
     server               = var.acr-login-server

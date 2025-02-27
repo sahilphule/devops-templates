@@ -1,0 +1,6 @@
+Hello {{name}},
+
+Welcome to our platform! We are excited to have you on board.
+
+Thank you,
+The Team

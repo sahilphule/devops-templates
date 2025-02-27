@@ -14,4 +14,9 @@ resource "azurerm_container_app_environment" "container-app-environment" {
   name                       = var.container-app-setup-properties.ca-environment-name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.container-app-log-analytics-workspace.id
   infrastructure_subnet_id   = var.vnet-public-subnet-id
+
+  workload_profile {
+    name                  = var.container-app-setup-properties.ca-environment-workload-profile-name
+    workload_profile_type = var.container-app-setup-properties.ca-environment-workload-profile-type
+  }
 }

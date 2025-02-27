@@ -8,8 +8,9 @@ locals {
 
   # container app properties
   container-app-properties = {
-    ca-name          = "container-apps"
-    ca-revision-mode = "Single"
+    ca-name                  = "container-apps"
+    ca-revision-mode         = "Single"
+    ca-workload-profile-name = "standard-workload"
 
     ca-template-container-name = "nginx-container"
     # ca-template-container-image  = "${local.acr-login-server}/nginx:latest"

@@ -26,13 +26,13 @@ Before setting up the remote backend, ensure you have:
             - required_providers
         - provider
             - azure
-    - Reference: [providers.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/remote-backend/providers.tf).
+    - Reference: [providers.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/azure-remote-backend/providers.tf).
 3. Define infrastructure:
     - Create *main.tf* file.
     - Use predefined modules:
         - module.resource-group
         - module.storage
-    - Reference: [main.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/remote-backend/main.tf).
+    - Reference: [main.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/azure-remote-backend/main.tf).
 4. Define local variables:
     - Create *locals.tf* file.
     - Define variables:
@@ -40,7 +40,7 @@ Before setting up the remote backend, ensure you have:
         - local.resource-group-properties
         - local.vnet-public-subnet-id
         - local.storage-properties
-    - Reference: [locals.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/remote-backend/sample-locals.txt).
+    - Reference: [locals.tf](https://github.com/inflection-zone/iac-recipes/blob/inflection-sahil/terraform/azure/azure-remote-backend/sample-locals.txt).
 
 > Ensure you give the appropriate values to the variables defined in *locals.tf* file.
 

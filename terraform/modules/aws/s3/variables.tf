@@ -1,6 +1,6 @@
-variable "s3-bucket-properties" {
+variable "s3-properties" {
   description = "s3 properties"
-  type        = map(any)
+  type        = any
 }
 
 variable "s3-bucket-policy" {

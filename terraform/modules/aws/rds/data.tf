@@ -1,10 +1,10 @@
-data "aws_ami" "rds-ami" {
+data "aws_ami" "bastion-host-ami" {
   most_recent = true
-  owners      = var.rds-properties.rds-owners
+  owners      = var.bastion-host-properties.bastion-host-ami-owners
 
   filter {
     name   = "name"
-    values = var.rds-properties.rds-ami-value
+    values = var.bastion-host-properties.bastion-host-ami-value
   }
 
   filter {
