@@ -1,3 +1,0 @@
-argocd repo add <repository-url> --username <username> --password <github-token>
-
-argocd repo list

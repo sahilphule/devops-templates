@@ -78,8 +78,9 @@ resource "aws_s3_bucket_policy" "s3-bucket-policy" {
   ]
 }
 
-resource "aws_s3_object" "env-file" {
-  count  = var.s3-properties.s3-object-count
+resource "aws_s3_object" "s3-object" {
+  count = var.s3-properties.s3-object-count
+
   bucket = aws_s3_bucket.s3-bucket.bucket
   key    = var.s3-properties.s3-object-key
   source = var.s3-properties.s3-object-source

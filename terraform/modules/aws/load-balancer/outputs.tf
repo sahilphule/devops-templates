@@ -9,12 +9,12 @@ output "lb-target-group-arn" {
 
 output "lb-http-listener-arn" {
   description = "load balancer http listener arn"
-  value       = aws_lb_listener.lb-http-listener.arn
+  value       = aws_lb_listener.lb-forward-http-listener[*].arn
 }
 
 output "lb-https-listener-arn" {
   description = "load balancer http listener arn"
-  value       = aws_lb_listener.lb-https-listener.arn
+  value       = aws_lb_listener.lb-https-listener[*].arn
 }
 
 output "lb-security-group-id" {

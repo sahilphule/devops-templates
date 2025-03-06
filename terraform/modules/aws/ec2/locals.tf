@@ -13,11 +13,11 @@ locals {
     ec2-vpc-security-group-ingress-protocol    = ["tcp", "tcp", "tcp"]
     ec2-vpc-security-group-ingress-cidr-blocks = ["0.0.0.0/0", "0.0.0.0/0", "0.0.0.0/0"]
 
-    ec2-ipv4-security-group-egress-cidr-blocks = "0.0.0.0/0"
-    ec2-ipv4-security-group-egress-protocol    = "-1"
+    ec2-ipv4-vpc-security-group-egress-cidr-blocks = "0.0.0.0/0"
+    ec2-ipv4-vpc-security-group-egress-protocol    = "-1"
 
-    ec2-ipv6-security-group-egress-cidr-blocks = "::/0"
-    ec2-ipv6-security-group-egress-protocol    = "-1"
+    ec2-ipv6-vpc-security-group-egress-cidr-blocks = "::/0"
+    ec2-ipv6-vpc-security-group-egress-protocol    = "-1"
 
     ec2-key-pair-name = "ec2-instance-ssh-key-pair"
     ec2-public-key    = "~/desktop/aws/ssh-keys/ec2-instance-ssh-key-pair.pub"

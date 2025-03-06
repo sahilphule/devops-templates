@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "eks-cluster-assume-role-policy" {
+data "aws_iam_policy_document" "eks-cluster-iam-policy-document" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -9,9 +9,9 @@ data "aws_iam_policy_document" "eks-cluster-assume-role-policy" {
   }
 }
 
-data "aws_iam_policy_document" "eks-node-assume-role-policy" {
+data "aws_iam_policy_document" "eks-node-group-iam-policy-document" {
   statement {
-    actions = ["sts.AssumeRole"]
+    actions = ["sts:AssumeRole"]
     effect  = "Allow"
 
     principals {

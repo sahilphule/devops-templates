@@ -1,8 +1,6 @@
 version: v2beta1
 name: devspace
 
-# ...
-
 deployments:
   the-dev-container:
     helm:

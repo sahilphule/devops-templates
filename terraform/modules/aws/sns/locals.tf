@@ -4,7 +4,7 @@ locals {
     sns-iam-role-name = "sns-iam-role"
 
     sns-cloudwatch-iam-policy-name        = "sns-cloudwatch-policy"
-    sns-cloudwatch-iam-policy-description = "Policy to access CloudWatch Logs"
+    sns-cloudwatch-iam-policy-description = "Policy to access CloudWatch Log Groups"
 
     sns-topic-name = "sns-topic"
     sns-topic-fifo = false
@@ -16,7 +16,6 @@ locals {
     sns-sms-cloudwatch-logging-default-sms-type                      = "Transactional" # Promotional
     sns-sms-cloudwatch-logging-monthly-spend-limit                   = 1
     sns-sms-cloudwatch-logging-delivery-status-success-sampling-rate = 100
-
 
     # sns-platform-application-count               = 0
     # sns-platform-application-name                = ["platform-application"]

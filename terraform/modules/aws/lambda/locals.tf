@@ -20,7 +20,7 @@ locals {
     # }
 
     lambda-cloudwatch-iam-policy-name        = "lambda-cloudwatch-policy"
-    lambda-cloudwatch-iam-policy-description = "Policy to access CloudWatch Logs"
+    lambda-cloudwatch-iam-policy-description = "Policy to access CloudWatch Log Groups"
 
     lambda-aws-service-iam-policy-count       = 2
     lambda-aws-service-iam-policy-name        = ["lambda-ec2-policy", "lambda-ecs-policy"]

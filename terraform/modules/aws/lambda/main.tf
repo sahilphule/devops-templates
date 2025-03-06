@@ -3,20 +3,17 @@ resource "aws_iam_role" "lambda-iam-role" {
   assume_role_policy = data.aws_iam_policy_document.lambda-assume-role-iam-policy-document.json
 }
 
-# IAM Policy for Lambda to Access CloudWatch Logs
 resource "aws_iam_policy" "lambda-cloudwatch-iam-policy" {
   name        = var.lambda-properties.lambda-cloudwatch-iam-policy-name
   description = var.lambda-properties.lambda-cloudwatch-iam-policy-description
   policy      = data.aws_iam_policy_document.lambda-cloudwatch-iam-policy-document.json
 }
 
-# Attach CloudWatch Policy to Lambda IAM Role
 resource "aws_iam_role_policy_attachment" "lambda-cloudwatch-iam-role-policy-attachment" {
   role       = aws_iam_role.lambda-iam-role.name
   policy_arn = aws_iam_policy.lambda-cloudwatch-iam-policy.arn
 }
 
-# IAM Policy for Lambda to Manage AWS Service
 resource "aws_iam_policy" "lambda-aws-service-iam-policy" {
   count = var.lambda-properties.lambda-aws-service-iam-policy-count
 
@@ -25,7 +22,6 @@ resource "aws_iam_policy" "lambda-aws-service-iam-policy" {
   policy      = data.aws_iam_policy_document.lambda-aws-service-iam-policy-document[count.index].json
 }
 
-# Attach service Policy to Lambda IAM Role
 resource "aws_iam_role_policy_attachment" "lambda-aws-service-iam-role-policy-attachment" {
   count = var.lambda-properties.lambda-aws-service-iam-policy-count
 

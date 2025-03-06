@@ -24,8 +24,8 @@ resource "aws_vpc_security_group_egress_rule" "ec2-ipv4-vpc-security-group-egres
 }
 
 resource "aws_vpc_security_group_egress_rule" "ec2-ipv6-vpc-security-group-egress-rule" {
-  ip_protocol       = var.ec2-properties.ec2-ipv6-security-group-egress-protocol
-  cidr_ipv6         = var.ec2-properties.ec2-ipv6-security-group-egress-cidr-blocks
+  ip_protocol       = var.ec2-properties.ec2-ipv6-vpc-security-group-egress-protocol
+  cidr_ipv6         = var.ec2-properties.ec2-ipv6-vpc-security-group-egress-cidr-blocks
   security_group_id = aws_security_group.ec2-security-group.id
 }
 

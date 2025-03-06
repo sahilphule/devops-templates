@@ -1,86 +1,71 @@
-resource "aws_iam_role" "eks-cluster-role" {
-  assume_role_policy = data.aws_iam_policy_document.eks-cluster-assume-role-policy.json
-  name               = var.eks-properties.eks-cluster-role-name
+resource "aws_iam_role" "eks-cluster-iam-role" {
+  name               = var.eks-properties.eks-cluster-iam-role-name
+  assume_role_policy = data.aws_iam_policy_document.eks-cluster-iam-policy-document.json
 }
 
-resource "aws_iam_role_policy_attachment" "eks-cluster-role-AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "eks-cluster-iam-role-policy-attachment-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.eks-cluster-role.name
+  role       = aws_iam_role.eks-cluster-iam-role.name
 }
 
 resource "aws_eks_cluster" "eks-cluster" {
   name     = var.eks-properties.eks-cluster-name
-  role_arn = aws_iam_role.eks-cluster-role.arn
+  role_arn = aws_iam_role.eks-cluster-iam-role.arn
 
   vpc_config {
-    subnet_ids = [
-      for subnet in var.vpc-public-subnets : subnet.id
-    ]
+    subnet_ids = [for subnet in var.vpc-public-subnets : subnet.id]
   }
 
   depends_on = [
-    aws_iam_role.eks-cluster-role,
-    aws_iam_role_policy_attachment.eks-cluster-role-AmazonEKSClusterPolicy
+    aws_iam_role.eks-cluster-iam-role,
+    aws_iam_role_policy_attachment.eks-cluster-iam-role-policy-attachment-AmazonEKSClusterPolicy
   ]
 }
 
-resource "aws_iam_role" "eks-node-role" {
-  name = var.eks-properties.eks-node-role-name
-  # assume_role_policy = data.aws_iam_policy_document.eks-node-assume-role-policy.json
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Effect = "Allow",
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      }
-    ]
-  })
+resource "aws_iam_role" "eks-node-group-iam-role" {
+  name               = var.eks-properties.eks-node-group-iam-role-name
+  assume_role_policy = data.aws_iam_policy_document.eks-node-group-iam-policy-document.json
 }
 
-resource "aws_iam_role_policy_attachment" "eks-node-role-AmazonEKSWorkerNodePolicy" {
+resource "aws_iam_role_policy_attachment" "eks-node-group-iam-role-policy-attachment-AmazonEKSWorkerNodePolicy" {
+  role       = aws_iam_role.eks-node-group-iam-role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.eks-node-role.name
 }
 
-resource "aws_iam_role_policy_attachment" "eks-node-role-AmazonEKS_CNI_Policy" {
+resource "aws_iam_role_policy_attachment" "eks-node-group-iam-role-policy-attachment-AmazonEKS_CNI_Policy" {
+  role       = aws_iam_role.eks-node-group-iam-role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.eks-node-role.name
 }
 
-resource "aws_iam_role_policy_attachment" "eks-node-role-AmazonEC2ContainerRegistryReadOnly" {
+resource "aws_iam_role_policy_attachment" "eks-node-group-iam-role-policy-attachment-AmazonEC2ContainerRegistryReadOnly" {
+  role       = aws_iam_role.eks-node-group-iam-role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.eks-node-role.name
 }
 
 resource "aws_eks_node_group" "eks-node-group" {
+  count = var.eks-properties.eks-node-group-count
+
   cluster_name    = aws_eks_cluster.eks-cluster.name
-  node_group_name = var.eks-properties.eks-node-group-name
-  node_role_arn   = aws_iam_role.eks-node-role.arn
+  node_group_name = var.eks-properties.eks-node-group-name[count.index]
+  instance_types  = [var.eks-properties.eks-node-group-instance-types[count.index]]
+  node_role_arn   = aws_iam_role.eks-node-group-iam-role.arn
+
+  subnet_ids = [for subnet in var.vpc-public-subnets : subnet.id]
 
   scaling_config {
-    desired_size = 1
-    max_size     = 1
-    min_size     = 1
+    desired_size = var.eks-properties.eks-node-group-scaling-config-desired-size
+    max_size     = var.eks-properties.eks-node-group-scaling-config-max-size
+    min_size     = var.eks-properties.eks-node-group-scaling-config-min-size
   }
 
   update_config {
-    max_unavailable = 1
+    max_unavailable = var.eks-properties.eks-node-group-update-config-max-unavailable
   }
 
-  instance_types = var.eks-properties.eks-instance-types
-  subnet_ids = [
-    for subnet in var.vpc-public-subnets : subnet.id
-  ]
-
   depends_on = [
-    aws_iam_role.eks-node-role,
-    aws_iam_role_policy_attachment.eks-node-role-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.eks-node-role-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.eks-node-role-AmazonEC2ContainerRegistryReadOnly
+    aws_iam_role.eks-node-group-iam-role,
+    aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.eks-node-group-iam-role-policy-attachment-AmazonEC2ContainerRegistryReadOnly
   ]
 }

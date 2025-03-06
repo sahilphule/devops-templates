@@ -3,9 +3,9 @@ variable "ecs-properties" {
   type        = any
 }
 
-variable "ecs-container-definition" {
+variable "ecs-container-definitions" {
   description = "ecs container definition"
-  type        = string
+  type        = any
 }
 
 variable "vpc-id" {

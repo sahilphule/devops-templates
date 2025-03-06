@@ -1,0 +1,111 @@
+# Service Definition
+service: serverless-app
+
+# Provider Configuration
+provider:
+  name: aws
+  profile: ${opt:profile, 'default'}  # Use AWS profile
+  accountId: ${aws:accountId}
+  region: ${opt:region, 'ap-south-1'}
+  stage: ${opt:stage, 'dev'}  # Default to 'dev' if not specified
+  runtime: nodejs18.x
+  memorySize: 256  # Increased memory for better performance
+  timeout: 30
+  environment:
+    NODE_ENV: production
+    PORT: 3000
+    DB_HOST: ${ssm:/serverless-app/db-host}  # Securely fetch from AWS SSM
+    DB_PORT: 5432
+    DB_USER: ${ssm:/serverless-app/db-user}
+    DB_PASS: ${ssm:/serverless-app/db-pass}
+    DB_NAME: ${ssm:/serverless-app/db-name}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+      Resource: "arn:aws:dynamodb:${self:provider.region}:${self:provider.accountId}:table/serverless-app-dynamodb-table"
+    - Effect: "Allow"
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      # You can either directly fetch dynamically, or reference from self file like above resource command
+      Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-app-function:*"
+  apiGateway:
+    minimumCompressionSize: 1024
+    binaryMediaTypes:
+      - '*/*'
+    logs:
+      format: 'requestId: $context.requestId, ip: $context.identity.sourceIp, method: $context.httpMethod, resourcePath: $context.resourcePath'
+  logs:
+    restApi:
+      accessLogging: true  # Logs every request
+      executionLogging: true  # Logs request execution details
+      level: INFO
+      fullExecutionData: false
+  tracing:
+    lambda: true
+  vpc:
+    securityGroupIds:
+      - sg-xxxxxxxx  # Ensure this SG allows outbound access
+    subnetIds:
+      - subnet-xxxxxx
+      - subnet-yyyyyy
+
+# Custom Domains for API Gateway
+custom:
+  customDomain:
+    domainName: api.myapp.com
+    basePath: ''
+    stage: prod
+    createRoute53Record: true
+
+# Defining Functions
+functions:
+  serverless-app-function:
+    handler: src/index.handler
+    memorySize: 512
+    timeout: 30
+    environment:
+      LOG_LEVEL: info  # info, debug
+      CORS_ORIGIN: '*'  # Allow cross-origin requests
+    events:
+      - http:
+          path: /
+          method: any
+      - http:
+          path: "{proxy+}"
+          method: any
+
+# Serverless Plugins
+plugins:
+  - serverless-offline
+  - serverless-plugin-optimize
+  - serverless-dotenv-plugin
+  - serverless-domain-manager
+
+# Resources (Infrastructure as Code)
+resources:
+  Resources:
+    CloudWatchLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: /aws/lambda/serverless-app-function
+        RetentionInDays: 7
+
+    DynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: serverless-app-dynamodb-table
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TimeToLiveSpecification:
+          AttributeName: expires_at
+          Enabled: true
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true

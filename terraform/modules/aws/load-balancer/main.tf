@@ -2,20 +2,6 @@ resource "aws_security_group" "lb-security-group" {
   name   = var.load-balancer-properties.lb-security-group-name
   vpc_id = var.vpc-id
 
-  # ingress {
-  #   from_port   = var.load-balancer-properties.lb-security-group-ingress-from-port
-  #   to_port     = var.load-balancer-properties.lb-security-group-ingress-to-port
-  #   protocol    = var.load-balancer-properties.lb-security-group-ingress-protocol
-  #   cidr_blocks = var.load-balancer-properties.lb-security-group-ingress-cidr-blocks
-  # }
-
-  # egress {
-  #   from_port   = var.load-balancer-properties.lb-security-group-egress-from-port
-  #   to_port     = var.load-balancer-properties.lb-security-group-egress-to-port
-  #   protocol    = var.load-balancer-properties.lb-security-group-egress-protocol
-  #   cidr_blocks = var.load-balancer-properties.lb-security-group-egress-cidr-blocks
-  # }
-
   tags = {
     Name = var.load-balancer-properties.lb-security-group-tags-Name
   }
@@ -65,11 +51,13 @@ resource "aws_lb_target_group" "lb-target-group" {
 }
 
 resource "aws_lb_listener" "lb-https-listener" {
+  count = var.load-balancer-properties.lb-https-listener-count
+
   load_balancer_arn = aws_lb.lb.arn
   port              = var.load-balancer-properties.lb-https-listener-port
   protocol          = var.load-balancer-properties.lb-https-listener-protocol
 
-  certificate_arn = var.acm-certificate-arn
+  certificate_arn = var.load-balancer-properties.lb-https-listener-certificate-arn
   ssl_policy      = "ELBSecurityPolicy-2016-08"
 
   default_action {
@@ -82,7 +70,35 @@ resource "aws_lb_listener" "lb-https-listener" {
   ]
 }
 
-resource "aws_lb_listener" "lb-http-listener" {
+resource "aws_lb_listener" "lb-forward-http-listener" {
+  count = var.load-balancer-properties.lb-https-listener-count == 0 ? 1 : 0
+
+  load_balancer_arn = aws_lb.lb.arn
+  port              = var.load-balancer-properties.lb-http-listener-port
+  protocol          = var.load-balancer-properties.lb-http-listener-protocol
+
+  # default_action {
+  #   type = "redirect"
+  #   redirect {
+  #     port        = var.load-balancer-properties.lb-https-listener-port
+  #     protocol    = var.load-balancer-properties.lb-https-listener-protocol
+  #     status_code = "HTTP_301"
+  #   }
+  # }
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.lb-target-group.arn
+  }
+
+  depends_on = [
+    aws_lb_listener.lb-https-listener
+  ]
+}
+
+resource "aws_lb_listener" "lb-redirect-http-listener" {
+  count = var.load-balancer-properties.lb-https-listener-count
+
   load_balancer_arn = aws_lb.lb.arn
   port              = var.load-balancer-properties.lb-http-listener-port
   protocol          = var.load-balancer-properties.lb-http-listener-protocol

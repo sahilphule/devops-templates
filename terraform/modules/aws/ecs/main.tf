@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "ecs-task-definition" {
   requires_compatibilities = var.ecs-properties.ecs-task-definition-requires-compatibilities
   cpu                      = var.ecs-properties.ecs-task-definition-cpu
   memory                   = var.ecs-properties.ecs-task-definition-memory
-  container_definitions    = var.ecs-container-definition
+  container_definitions    = jsonencode(var.ecs-container-definitions)
   execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
 }
 

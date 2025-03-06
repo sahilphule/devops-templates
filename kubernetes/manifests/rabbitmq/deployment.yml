@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  namespace: user-analytics
+  labels:
+    deployment: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: rabbitmq
+  template:
+    metadata:
+      labels:
+        pod: rabbitmq
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: rabbitmq-container
+        image: rabbitmq
+        ports:
+        - containerPort: 5672

@@ -8,8 +8,8 @@ locals {
     ]
     vpc-cidr-block = "10.0.0.0/16"
     vpc-subnet-count = {
-      "public"  = 1,
-      "private" = 2
+      "public"  = 2, # Two subnets necessary for load balancer, eks
+      "private" = 2  # Two subnets necessary for rds
     }
     vpc-public-subnet-cidr-blocks = [
       "10.0.1.0/24",

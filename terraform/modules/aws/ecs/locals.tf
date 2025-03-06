@@ -10,7 +10,7 @@ locals {
 
     ecs-task-execution-role-name = "ecs-task-execution-role"
 
-    ecs-task-definition-family                   = "ecs-task-family"
+    ecs-task-definition-family                   = "ecs-task-definition-family"
     ecs-task-definition-network-mode             = "awsvpc"
     ecs-task-definition-requires-compatibilities = ["FARGATE"]
     ecs-task-definition-cpu                      = 512
@@ -23,39 +23,46 @@ locals {
     ecs-service-launch-type   = "FARGATE"
     ecs-service-desired-count = 1
 
-    ecs-container-name = ""
-    ecs-container-port = ""
+    ecs-container-name = "nginx-container"
+    ecs-container-port = 80
   }
 
-  ecs-container-image = ""
-  s3-config-bucket    = ""
+  # ecs-container-image = local.ecr-repository-url
+  # s3-config-bucket    = local.s3-properties.s3-bucket-name
   s3-config-path      = ""
 
-  ecs-container-definition = <<DEFINITION
-    [
-      {
-        "name": "${local.ecs-properties.ecs-container-name}",
-        "image": "${local.ecs-container-image}",
-        "cpu": 512,
-        "memory": 1024,
-        "essential": true,
-        "portMappings": [
-          {
-            "containerPort": ${local.ecs-properties.ecs-container-port},
-            "hostPort": ${local.ecs-properties.ecs-container-port}
-          }
-        ],
-        "environment": [
-          {
-            "name": "S3_CONFIG_BUCKET",
-            "value": "${local.s3-config-bucket}"
-          },
-          {
-            "name": "S3_CONFIG_PATH",
-            "value": "${local.s3-config-path}"
-          }
-        ]
+  ecs-container-definitions = [
+    {
+      name      = local.ecs-properties.ecs-container-name
+      # image     = local.ecs-container-image
+      cpu       = 256
+      memory    = 512
+      essential = true
+      portMappings = [
+        {
+          containerPort = local.ecs-properties.ecs-container-port
+          hostPort      = local.ecs-properties.ecs-container-port
+          protocol      = "tcp"
+        }
+      ]
+      environment = [
+        {
+          name  = "S3_CONFIG_BUCKET"
+          # value = local.s3-config-bucket
+        },
+        {
+          name  = "S3_CONFIG_PATH"
+          # value = local.s3-config-path
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = module.cloudwatch.cloudwatch-log-group-name[0]
+          awslogs-region        = "ap-south-1"
+          awslogs-stream-prefix = "ecs"
+        }
       }
-    ]
-    DEFINITION
+    }
+  ]
 }

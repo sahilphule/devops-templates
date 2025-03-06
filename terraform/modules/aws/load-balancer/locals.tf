@@ -9,9 +9,9 @@ locals {
     lb-security-group-tags-Name = "lb-security-group"
 
     lb-vpc-security-group-ingress-https-cidr-blocks = "0.0.0.0/0"
-    lb-vpc-security-group-ingress-https-from-port   = 443
+    lb-vpc-security-group-ingress-https-from-port   = 443 # 80, 443
     lb-vpc-security-group-ingress-https-protocol    = "tcp"
-    lb-vpc-security-group-ingress-https-to-port     = 443
+    lb-vpc-security-group-ingress-https-to-port     = 443 # 80, 443
 
     lb-vpc-security-group-egress-ipv4-cidr-blocks = "0.0.0.0/0"
     lb-vpc-security-group-egress-ipv4-protocol    = "-1"
@@ -31,8 +31,10 @@ locals {
     lb-http-listener-port     = 80
     lb-http-listener-protocol = "HTTP"
 
+    lb-https-listener-count    = 1
     lb-https-listener-port     = 443
     lb-https-listener-protocol = "HTTPS"
+    # lb-https-listener-certificate-arn = local.acm-certificate-arn
   }
 
   # lb-target-group-arn = module.load-balancer.lb-target-group-arn
