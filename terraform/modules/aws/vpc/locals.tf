@@ -6,11 +6,10 @@ locals {
       "ap-south-1b",
       "ap-south-1c"
     ]
+
     vpc-cidr-block = "10.0.0.0/16"
-    vpc-subnet-count = {
-      "public"  = 2, # Two subnets necessary for load balancer, eks
-      "private" = 2  # Two subnets necessary for rds
-    }
+
+    vpc-public-subnet-count = 1 # Two subnets necessary for load balancer, eks
     vpc-public-subnet-cidr-blocks = [
       "10.0.1.0/24",
       "10.0.2.0/24",
@@ -18,6 +17,8 @@ locals {
       "10.0.4.0/24"
     ]
     vpc-public-subnet-map-public-ip-on-launch = true
+
+    vpc-private-subnet-count = 0 # Two subnets necessary for rds
     vpc-private-subnet-cidr-blocks = [
       "10.0.101.0/24",
       "10.0.102.0/24",

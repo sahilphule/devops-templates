@@ -1,5 +1,6 @@
 #!bin/sh
-sudo apt update
+
+# Install AWS Codedeploy
 sudo apt install -y ruby
 sudo apt install -y wget
 cd /home/ec2-user

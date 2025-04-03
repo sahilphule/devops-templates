@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: hpa-deployment
   # namespace: 
   labels:
-    deployment: app
+    deployment: hpa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      pod: app
+      pod: hpa
   template:
     metadata:
       labels:
-        pod: app
+        pod: hpa
     spec:
       restartPolicy: Always
       containers:
-      - name: app-container
+      - name: hpa-container
         image: 
         imagePullPolicy: Never
         ports:

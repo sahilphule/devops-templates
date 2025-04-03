@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-express-deployment
-  namespace: follow-up
+  # namespace:
   labels:
     deployment: mongo-express
 spec:

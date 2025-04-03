@@ -77,15 +77,6 @@ resource "aws_lb_listener" "lb-forward-http-listener" {
   port              = var.load-balancer-properties.lb-http-listener-port
   protocol          = var.load-balancer-properties.lb-http-listener-protocol
 
-  # default_action {
-  #   type = "redirect"
-  #   redirect {
-  #     port        = var.load-balancer-properties.lb-https-listener-port
-  #     protocol    = var.load-balancer-properties.lb-https-listener-protocol
-  #     status_code = "HTTP_301"
-  #   }
-  # }
-
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.lb-target-group.arn

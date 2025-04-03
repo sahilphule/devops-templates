@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mongo-pv
-  namespace: follow-up
+  # namespace:
 spec:
   storageClassName: manual
   persistentVolumeReclaimPolicy: Delete
@@ -11,4 +11,4 @@ spec:
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: /home/docker/follow-up/db
+    path: /home/docker/db

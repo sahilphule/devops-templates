@@ -1,4 +1,6 @@
 #!bin/sh
+
+# Install Nginx
 sudo yum install -y nginx
 sudo cp nginx/default.conf /etc/nginx/conf.d/default.conf
 sudo systemctl restart nginx

@@ -40,7 +40,12 @@ resource "aws_instance" "ec2-instance" {
   key_name                    = aws_key_pair.ec2-key-pair.id
   user_data                   = file(var.ec2-properties.ec2-instance-user-data)
   associate_public_ip_address = var.ec2-properties.ec2-instance-associate-public-ip-address
-  subnet_id                   = var.vpc-public-subnets[0].id
+  subnet_id                   = var.vpc-public-subnets[0]
+
+  root_block_device {
+    volume_size = var.ec2-properties.ec2-instance-root-block-device-volume-size
+    volume_type = var.ec2-properties.ec2-instance-root-block-device-volume-type
+  }
 
   vpc_security_group_ids = [
     aws_security_group.ec2-security-group.id

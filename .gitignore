@@ -4,4 +4,9 @@ venv/
 **/__pycache__/
 *.pyc
 
+.env
 values.py
+
+api-gateway
+cognito
+k3s

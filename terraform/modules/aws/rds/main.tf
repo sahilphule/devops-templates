@@ -3,8 +3,22 @@ resource "aws_db_subnet_group" "rds-db-subnet-group" {
   description = var.rds-properties.rds-db-subnet-group-description
 
   subnet_ids = [
-    for subnet in var.vpc-private-subnets : subnet.id
+    for subnet-id in var.vpc-private-subnets : subnet-id
   ]
+}
+
+resource "aws_db_parameter_group" "rds-db-parameter-group" {
+  count = var.rds-properties.rds-db-instance-engine[0] == "postgres" ? 1 : 0
+
+  name        = "rds-postgres-db-parameter-group"
+  family      = "postgres17"
+  description = "Custom parameter group for PostgreSQL"
+
+  parameter {
+    name         = "rds.force_ssl"
+    value        = "0" # Disables SSL enforcement
+    apply_method = "immediate"
+  }
 }
 
 resource "aws_security_group" "rds-security-group" {
@@ -49,6 +63,7 @@ resource "aws_db_instance" "db-instance" {
   password = var.rds-properties.rds-db-instance-password[count.index]
 
   db_subnet_group_name = aws_db_subnet_group.rds-db-subnet-group.name
+  parameter_group_name = var.rds-properties.rds-db-instance-engine[count.index] == "postgres" ? aws_db_parameter_group.rds-db-parameter-group[0].name : null
 
   vpc_security_group_ids = [
     aws_security_group.rds-security-group.id

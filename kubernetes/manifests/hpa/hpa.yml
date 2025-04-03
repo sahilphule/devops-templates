@@ -1,13 +1,13 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
- name: shala-app-hpa
-#  namespace: shala
+  name: hpa
+  # namespace:
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: shala-app-deployment
+    name: hpa-deployment
   minReplicas: 1
   maxReplicas: 10
   metrics:

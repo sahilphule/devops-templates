@@ -29,11 +29,11 @@ locals {
 
   # ecs-container-image = local.ecr-repository-url
   # s3-config-bucket    = local.s3-properties.s3-bucket-name
-  s3-config-path      = ""
+  s3-config-path = ""
 
   ecs-container-definitions = [
     {
-      name      = local.ecs-properties.ecs-container-name
+      name = local.ecs-properties.ecs-container-name
       # image     = local.ecs-container-image
       cpu       = 256
       memory    = 512
@@ -47,11 +47,11 @@ locals {
       ]
       environment = [
         {
-          name  = "S3_CONFIG_BUCKET"
+          name = "S3_CONFIG_BUCKET"
           # value = local.s3-config-bucket
         },
         {
-          name  = "S3_CONFIG_PATH"
+          name = "S3_CONFIG_PATH"
           # value = local.s3-config-path
         }
       ]

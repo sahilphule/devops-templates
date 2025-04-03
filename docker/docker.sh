@@ -16,9 +16,16 @@ docker login -u <username> -p <password>
 docker push <username>/<new-image-name>:<new-image-tag>
 docker pull <username>/<image-name>:<image-tag>
 
+docker create volume <volume-name>
 docker volume ls
 docker volume rm <volume-name>
 docker volume prune
+
+docker exec -it <container-name> sh
+docker exec -it <source-container-name> ping <destination-container-name>
+
+docker network ls
+docker network inspect <network-name>
 
 sudo rm -r shared
 

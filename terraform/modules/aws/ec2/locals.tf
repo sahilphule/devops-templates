@@ -1,8 +1,8 @@
 locals {
   # ec2 properties
   ec2-properties = {
-    ec2-ami-owners = ["137112412989"]
-    ec2-ami-value  = ["al2023-ami-2023.6.20241212.0-kernel-6.1-x86_64"]
+    ec2-ami-owners = "137112412989"
+    ec2-ami-value  = "al2023-ami-2023.6.20241212.0-kernel-6.1-x86_64"
 
     ec2-security-group-name      = "ec2-instance-security-group"
     ec2-security-group-tags-Name = "ec2-instance-security-group"
@@ -22,9 +22,11 @@ locals {
     ec2-key-pair-name = "ec2-instance-ssh-key-pair"
     ec2-public-key    = "~/desktop/aws/ssh-keys/ec2-instance-ssh-key-pair.pub"
 
-    ec2-instance-type                        = "t2.micro"
-    ec2-instance-user-data                   = "../../aws/linux-user-data.tpl"
-    ec2-instance-associate-public-ip-address = true
-    ec2-instance-tags-Name                   = "ec2-instance"
+    ec2-instance-type                          = "t2.micro"
+    ec2-instance-user-data                     = "./aws/linux-user-data.tpl"
+    ec2-instance-associate-public-ip-address   = true
+    ec2-instance-root-block-device-volume-size = 8
+    ec2-instance-root-block-device-volume-type = "gp3"
+    ec2-instance-tags-Name                     = "ec2-instance"
   }
 }

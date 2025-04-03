@@ -9,7 +9,7 @@ resource "aws_vpc" "vpc" {
 }
 
 resource "aws_subnet" "vpc-public-subnet" {
-  count = var.vpc-properties.vpc-subnet-count.public
+  count = var.vpc-properties.vpc-public-subnet-count
 
   cidr_block              = var.vpc-properties.vpc-public-subnet-cidr-blocks[count.index]
   availability_zone       = var.vpc-properties.availability-zones[count.index]
@@ -22,7 +22,7 @@ resource "aws_subnet" "vpc-public-subnet" {
 }
 
 resource "aws_subnet" "vpc-private-subnet" {
-  count = var.vpc-properties.vpc-subnet-count.private
+  count = var.vpc-properties.vpc-private-subnet-count
 
   cidr_block        = var.vpc-properties.vpc-private-subnet-cidr-blocks[count.index]
   availability_zone = var.vpc-properties.availability-zones[count.index]
@@ -56,7 +56,7 @@ resource "aws_route" "vpc-default-route" {
 }
 
 resource "aws_route_table_association" "vpc-public-rtb-assoc" {
-  count = var.vpc-properties.vpc-subnet-count.public
+  count = var.vpc-properties.vpc-public-subnet-count
 
   route_table_id = aws_route_table.vpc-public-rtb.id
   subnet_id      = aws_subnet.vpc-public-subnet[count.index].id
@@ -71,7 +71,7 @@ resource "aws_route_table" "vpc-private-rtb" {
 }
 
 resource "aws_route_table_association" "vpc-private-rtb-assoc" {
-  count = var.vpc-properties.vpc-subnet-count.private
+  count = var.vpc-properties.vpc-private-subnet-count
 
   route_table_id = aws_route_table.vpc-private-rtb.id
   subnet_id      = aws_subnet.vpc-private-subnet[count.index].id

@@ -1,5 +1,6 @@
 #!bin/sh
-sudo yum update
+
+# Install AWS Codedeploy
 sudo yum install -y ruby
 sudo yum install -y wget
 cd /home/ec2-user

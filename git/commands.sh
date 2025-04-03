@@ -5,6 +5,7 @@ git add *
 git add .
 git commit -m <commit-message>
 git push -u origin <branch-name> --force
+git merge <feature-branch>
 
 git stash
 git stash apply

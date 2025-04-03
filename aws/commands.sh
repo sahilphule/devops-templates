@@ -1,6 +1,8 @@
 aws configure
 aws configure sso
 
+df -h
+
 aws eks --region <region-name> update-kubeconfig --name <cluster-name>
 
 aws sns publish --topic-arn <sns-topic-arn> --message 'Hello, this is a test sms, email from SNS!'

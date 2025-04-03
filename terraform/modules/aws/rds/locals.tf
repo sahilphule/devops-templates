@@ -27,7 +27,7 @@ locals {
 
     rds-db-instance-class               = ["db.t3.micro"]
     rds-db-instance-engine              = ["mysql"]  # mysql, postgres
-    rds-db-instance-engine-version      = ["8.0.35"] # 8.0.35, 17.2
+    rds-db-instance-engine-version      = ["8.0.35"] # 8.0.35, 17.4
     rds-db-instance-allocated-storage   = [20]
     rds-db-instance-storage-type        = ["gp2"]
     rds-db-instance-publicly-accessible = [false]
@@ -42,8 +42,8 @@ locals {
   bastion-host-properties = {
     bastion-host-count = 1
 
-    bastion-host-ami-owners = ["137112412989"]
-    bastion-host-ami-value  = ["al2023-ami-2023.6.20241121.0-kernel-6.1-x86_64"]
+    bastion-host-ami-owners = "137112412989"
+    bastion-host-ami-value  = "al2023-ami-2023.6.20241121.0-kernel-6.1-x86_64"
 
     bastion-host-security-group-name      = "bastion-host-security-group"
     bastion-host-security-group-tags-Name = "bastion-host-security-group"

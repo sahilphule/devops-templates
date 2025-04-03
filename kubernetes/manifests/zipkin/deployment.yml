@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zipkin-deployment
-  namespace: user-analytics
+  # namespace:
   labels:
     deployment: zipkin
 spec:

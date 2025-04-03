@@ -49,25 +49,31 @@ kubectl taint nodes --all node.cloudprovider.kubernetes.io/uninitialized-
 docker context user default
 kubectl config current-context
 
-minikube start --driver=docker
+# For Windows/Powershell
+minikube start --driver=docker --listen-address=0.0.0.0
 minikube docker-env | Invoke-Expression
-minikube stop
+[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin"))
+[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("YWRtaW4="))
 
+# For Linux/Shell
+minikube start — vm-driver=virtualbox
+eval $(minikube docker-env)
+echo -n <text> | base64
+echo <encoded-text> | base64 --decode
+
+# Common
+minikube stop
+minikube delete
 minikube ssh
+minikube image rm <image-name:tag>
 minikube cp <src-path> <dest-path>
 minikube mount <src-path>:<dest-path>
 minikube tunnel
 minikube service <service-name> -n <namespace-name>
 minikube dashboard
 minikube addons list
-minikube addons enable ingress
 minikube addons configure registry-creds
 minikube addons enable registry-creds
-
-minikube start — vm-driver=virtualbox
-eval $(minikube docker-env)
-
-echo <text> | base64
-echo <encoded-text> | base64 --decode
+minikube addons enable ingress
 
 kompose convert

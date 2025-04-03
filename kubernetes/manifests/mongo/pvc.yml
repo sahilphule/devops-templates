@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pvc
-  namespace: follow-up
+  # namespace:
 spec:
   storageClassName: manual
   accessModes:
