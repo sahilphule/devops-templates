@@ -1,12 +1,17 @@
-helm create <helm-name>
-helm install <custom-name> <helm-name>
-helm list -a
-helm upgrade <custom-name> <helm-name>
-helm rollback <custom-name> <revision-name>
-helm install <custom-name> --debug --dry-run <helm-name>
-helm template <helm-name>
-helm lint <helm-name>
-helm uninstall <custom-name>
+# for powershell
+[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin"))
+[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("YWRtaW4="))
+powershell -ExecutionPolicy bypass ./apply.ps1
+
+# for linux
+echo -n <text> | base64
+echo <encoded-text> | base64 --decode
+bash apply.sh
+
+# Install kubens
+choco install -y kubens kubectx
+kubens
+kubens <namespace>
 
 kubectl apply -f <file-name>
 kubectl delete <*>
@@ -29,8 +34,6 @@ kubectl create configmap <config-name> --from-file=<file-path>
 kubectl get configmaps
 kubectl get secrets
 
-kubens
-kubens <namespace>
 kubectl create namespace <namespace-name>
 kubectl port-forward service/<service-name> <desired-port>:<service-port>
 
@@ -48,32 +51,5 @@ kubectl taint nodes --all node.cloudprovider.kubernetes.io/uninitialized-
 
 docker context user default
 kubectl config current-context
-
-# For Windows/Powershell
-minikube start --driver=docker --listen-address=0.0.0.0
-minikube docker-env | Invoke-Expression
-[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("admin"))
-[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("YWRtaW4="))
-
-# For Linux/Shell
-minikube start — vm-driver=virtualbox
-eval $(minikube docker-env)
-echo -n <text> | base64
-echo <encoded-text> | base64 --decode
-
-# Common
-minikube stop
-minikube delete
-minikube ssh
-minikube image rm <image-name:tag>
-minikube cp <src-path> <dest-path>
-minikube mount <src-path>:<dest-path>
-minikube tunnel
-minikube service <service-name> -n <namespace-name>
-minikube dashboard
-minikube addons list
-minikube addons configure registry-creds
-minikube addons enable registry-creds
-minikube addons enable ingress
 
 kompose convert

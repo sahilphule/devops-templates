@@ -30,6 +30,7 @@ resource "aws_vpc_security_group_egress_rule" "ec2-ipv6-vpc-security-group-egres
 }
 
 resource "aws_key_pair" "ec2-key-pair" {
+  count      = var.ec2-properties.ec2-key-pair-count == 1 ? 1 : 0
   key_name   = var.ec2-properties.ec2-key-pair-name
   public_key = file(var.ec2-properties.ec2-public-key)
 }
@@ -37,7 +38,7 @@ resource "aws_key_pair" "ec2-key-pair" {
 resource "aws_instance" "ec2-instance" {
   ami                         = data.aws_ami.ec2-ami.id
   instance_type               = var.ec2-properties.ec2-instance-type
-  key_name                    = aws_key_pair.ec2-key-pair.id
+  key_name                    = var.ec2-properties.ec2-key-pair-count == 1 ? aws_key_pair.ec2-key-pair[0].id : var.ec2-properties.ec2-key-pair-name
   user_data                   = file(var.ec2-properties.ec2-instance-user-data)
   associate_public_ip_address = var.ec2-properties.ec2-instance-associate-public-ip-address
   subnet_id                   = var.vpc-public-subnets[0]
