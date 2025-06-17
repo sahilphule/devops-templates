@@ -21,7 +21,7 @@
         - aws.ec2.RouteTable()
         - aws.ec2.Subnet()
         - aws.ec2.RouteTableAssociation()
-4. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/vpc/main.py) for reference.
+4. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/vpc/main.py) for reference.
 5. Now we have completed defining the **VPC Module**.
 
 ---
@@ -38,7 +38,7 @@
 7. Inside *s3* class, define the *__init__* constructor & inside it call the following functions:
     - aws.s3.BucketV2()
     - aws.s3.BucketVersioningV2()
-8. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/s3/main.py) for reference.
+8. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/s3/main.py) for reference.
 9. Now we have completed defining the **S3 Module**.
 
 ---
@@ -52,7 +52,7 @@
     - import pulumi_aws as aws
 5. Call the following function:
     - aws.ec2.get_ami()
-6. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/rds/data.py) for reference.
+6. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/rds/data.py) for reference.
 6. Now, inside *rds* folder create *main.py* file.
 7. Import the following:
     - pulumi
@@ -75,7 +75,7 @@
 10. Export the following outputs:
     - DB_HOST
     - bastion-host-ip
-11. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/rds/main.py) for reference.
+11. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/rds/main.py) for reference.
 12. Now we have completed defining the **RDS Module**.
 
 ---
@@ -97,7 +97,7 @@
     - aws.lb.Listener()
 8. Export the following output:
     - url
-9. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/load_balancer/main.py) for reference.
+9. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/load_balancer/main.py) for reference.
 10. Now we have completed defining the **Load Balancer Module**.
 
 ---
@@ -111,7 +111,7 @@
     - import pulumi_aws as aws
 5. Define the following:
     - ecs_task_role_policy_document
-6. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/ecs/data.py) for reference.
+6. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/ecs/data.py) for reference.
 6. Now, inside *ecs* folder create *main.py* file.
 7. Import the following:
     - pulumi
@@ -125,7 +125,7 @@
     - aws.iam.RolePolicyAttachment()
     - aws.ecs.TaskDefinition()
     - aws.ecs.Service()
-10. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/ecs/main.py) for reference.
+10. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/ecs/main.py) for reference.
 11. Now we have completed defining the **ECS Module**.
 
 ---
@@ -140,7 +140,7 @@
 5. Define the following:
     - eks_cluster_role_policy_document
     - eks_node_group_role_policy_document
-6. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/eks/data.py) for reference.
+6. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/eks/data.py) for reference.
 6. Now, inside *eks* folder create *main.py* file.
 7. Import the following:
     - pulumi_aws as aws
@@ -162,7 +162,7 @@
         - aws.iam.RolePolicyAttachment()
         - aws.eks.NodeGroup()
         - aws.eks.NodeGroupScalingConfigArgs()
-10. Click [code](https://github.com/sahilphule/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/eks/main.py) for reference.
+10. Click [code](https://github.com/inflection-sahil/pulumi/blob/master/src/inflection_zone_pulumi/modules/aws/eks/main.py) for reference.
 11. Now we have completed defining the **EKS Module**.
 
 ---

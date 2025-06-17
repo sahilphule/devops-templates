@@ -1,4 +1,5 @@
 terraform init -upgrade
+terraform init -reconfigure
 terraform init -migrate-state
 
 terraform fmt -recursive
@@ -17,6 +18,7 @@ terraform apply -refresh-only
 terraform apply -replace <resource-name/module-name>
 
 terraform refresh
+terraform force-unlock <lock-id>
 
 terraform state list
 terraform state show <name>
@@ -42,3 +44,6 @@ ssh-keygen -t rsa -b 4096
 ssh-keygen -t dsa 
 ssh-keygen -t ecdsa -b 521
 ssh-keygen -t ed25519
+
+zip -r <dest-path> <source-path> #for folder
+zip <dest-path.zip> <source-path.py> #for specific file

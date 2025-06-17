@@ -10,8 +10,8 @@
 ---
 
 1. An AWS account with an IAM user having sufficient permissions.
-2. AWS CLI installed and configured with the IAM user.
-3. Pulumi Installed.
+2. AWS CLI installed *([link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html))* and configured with the IAM user.
+3. Pulumi Installed *([link](https://www.pulumi.com/docs/iac/download-install/))*.
 
 ---
 ## Write Pulumi Configuration files
@@ -28,7 +28,7 @@ First, we will initiate and edit Pulumi configuration files for AWS resources us
 6. This will generate some Pulumi files in this directory.
 7. Now we will install predefined Pulumi modules.
 8. Activate the **`venv`** by running **`venv\Scripts\activate`**.
-9. Run **`pip install git+https://github.com/sahilphule/pulumi.git`** to install the modules.
+9. Run **`pip install git+https://github.com/inflection-sahil/pulumi.git`** to install the modules.
 10. Deactivate the **`venv`** by running **`deactivate`**.
 11. Now open the directory in the preferred IDE.
 12. Create *commons* folder

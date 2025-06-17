@@ -34,6 +34,9 @@ kubectl create configmap <config-name> --from-file=<file-path>
 kubectl get configmaps
 kubectl get secrets
 
+kubectl get roles
+kubectl get rolebindings
+
 kubectl create namespace <namespace-name>
 kubectl port-forward service/<service-name> <desired-port>:<service-port>
 
@@ -50,6 +53,12 @@ kubectl cp <src-path> <namespace-name>/${pod}:<dest-path>
 kubectl taint nodes --all node.cloudprovider.kubernetes.io/uninitialized-
 
 docker context user default
+kubectl config view
+kubectl config get-contexts
 kubectl config current-context
+kubectl config use-context <context-name>
+
+kubectl api-versions
+kubectl api-resources
 
 kompose convert

@@ -3,7 +3,7 @@ git remote add origin <git-repository-url>
 git status
 git add *
 git add .
-git commit -m <commit-message>
+git commit -m <"commit-message">
 git push -u origin <branch-name> --force
 git merge <feature-branch>
 
@@ -25,6 +25,9 @@ git reset --hard HEAD~1
 
 git remote remove origin
 
+# count lines in repository
+git ls-files | xargs wc -l
+
 git config -l
 git config credential.username <username>
 git config --global user.name <username>
@@ -36,3 +39,7 @@ git log
 git rebase -i <commit-id>~1
 git commit --amend
 git rebase --continue
+
+# git commands for pre-commits
+git commit -m <"commit message"> -n # skips all pre-commits checks
+SKIP=ggshield git commit -m <"commit message"> # skips ggshield pre-commit checks

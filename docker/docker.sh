@@ -2,6 +2,7 @@ docker images
 docker rmi <image-name>
 docker rmi -f $(docker images -aq)
 
+docker stats
 docker ps -a
 docker run -d <image-name>
 docker restart <container-name>

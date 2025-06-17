@@ -13,7 +13,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   role_arn = aws_iam_role.eks-cluster-iam-role.arn
 
   vpc_config {
-    subnet_ids = [for subnet in var.vpc-public-subnets : subnet.id]
+    subnet_ids = var.vpc-public-subnets
   }
 
   depends_on = [
@@ -50,7 +50,7 @@ resource "aws_eks_node_group" "eks-node-group" {
   instance_types  = [var.eks-properties.eks-node-group-instance-types[count.index]]
   node_role_arn   = aws_iam_role.eks-node-group-iam-role.arn
 
-  subnet_ids = [for subnet in var.vpc-public-subnets : subnet.id]
+  subnet_ids = var.vpc-public-subnets
 
   scaling_config {
     desired_size = var.eks-properties.eks-node-group-scaling-config-desired-size

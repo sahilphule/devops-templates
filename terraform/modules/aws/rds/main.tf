@@ -108,7 +108,7 @@ resource "aws_instance" "bastion-host" {
   ami           = data.aws_ami.bastion-host-ami.id
   instance_type = var.bastion-host-properties.bastion-host-instance-type
   key_name      = aws_key_pair.bastion-host-key-pair[count.index].id
-  subnet_id     = var.vpc-public-subnets[0].id
+  subnet_id     = var.vpc-public-subnets[0]
 
   vpc_security_group_ids = [
     aws_security_group.bastion-host-security-group[count.index].id

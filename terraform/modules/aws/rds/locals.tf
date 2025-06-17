@@ -43,13 +43,13 @@ locals {
     bastion-host-count = 1
 
     bastion-host-ami-owners = "137112412989"
-    bastion-host-ami-value  = "al2023-ami-2023.6.20241121.0-kernel-6.1-x86_64"
+    bastion-host-ami-value  = "al2023-ami-2023.7.20250609.0-kernel-6.1-x86_64"
 
     bastion-host-security-group-name      = "bastion-host-security-group"
     bastion-host-security-group-tags-Name = "bastion-host-security-group"
 
     bastion-host-key-pair-name = "bastion-host-ssh-key-pair"
-    bastion-host-public-key    = "~/.ssh/bastion-host-ssh-key-pair.pub"
+    bastion-host-public-key    = "~/desktop/aws/ssh-keys/bastion-host-ssh-key-pair.pub"
 
     bastion-host-instance-type = "t2.micro"
     bastion-host-tags-Name     = "bastion-host"

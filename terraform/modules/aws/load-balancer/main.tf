@@ -37,9 +37,7 @@ resource "aws_lb" "lb" {
     aws_security_group.lb-security-group.id
   ]
 
-  subnets = [
-    for subnet in var.vpc-public-subnets : subnet.id
-  ]
+  subnets = var.vpc-public-subnets
 }
 
 resource "aws_lb_target_group" "lb-target-group" {

@@ -45,11 +45,19 @@ locals {
       }
     ]
 
+    lambda-vpc-config                            = 0
+    lambda-vpc-security-group-name               = "lambda-security-group"
+    lambda-vpc-security-group-description        = "lambda security group"
+    lambda-vpc-security-group-egress-from-port   = 0
+    lambda-vpc-security-group-egress-to-port     = 0
+    lambda-vpc-security-group-egress-protocol    = "-1"
+    lambda-vpc-security-group-egress-cidr-blocks = ["0.0.0.0/0"]
+
     lambda-function-count    = 1
     lambda-function-name     = ["ec2-lambda-function", "ecs-lambda-function"]
     lambda-function-filename = ["./lambda-functions/ec2-lambda-function.zip", "./lambda-function/ecs-lambda-function.zip"]
     lambda-function-handler  = ["ec2-lambda-function.lambda_handler", "ecs-lambda-function.lambda_handler"]
-    lambda-function-runtime  = ["python3.8", "python3.8"]
+    lambda-function-runtime  = ["python3.13", "python3.13"]
     lambda-function-timeout  = [30, 30]
 
     lambda-function-environment-variables = [
