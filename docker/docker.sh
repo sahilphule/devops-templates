@@ -12,6 +12,7 @@ docker rm <container-name>
 docker rm -v <container-name>
 
 docker build -t <image-name>:<image-tag> .
+docker build --build-arg GITHUB_PAT=<pat-token> -t <image-name>:<image-tag> .
 docker tag <image-name>:<image-tag> <username>/<new-image-name>:<new-image-tag>
 docker login -u <username> -p <password>
 docker push <username>/<new-image-name>:<new-image-tag>

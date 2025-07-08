@@ -19,10 +19,18 @@ git branch -d <local-branch-name>
 git push origin --delete <remote-branch-name>
 git remote prune origin 
 
+# Clone repository
+# <--depth=1> for cloning only latest commit
+# -b <branch-name> for cloning specific branch
+# <$GITHUB_PAT> for cloning private repository
+git clone --depth=1 -b <branch-name> https://$GITHUB_PAT@github.com/<user/org-name>/<repo-name>.git
+
+git restore --staged <path>
 git rm <filename>
 git rm --cached <filename>
 git reset --hard HEAD~1
 
+git remote show origin
 git remote remove origin
 
 # count lines in repository
@@ -32,6 +40,7 @@ git config -l
 git config credential.username <username>
 git config --global user.name <username>
 git config --global user.email <email>
+git config --global core.autocrlf input    # This tells Git to keep LF in repo
 
 git commit --amend --all
 

@@ -15,6 +15,8 @@ minikube addons enable ingress
 # For Windows/Powershell
 minikube start --driver=docker --listen-address=0.0.0.0
 minikube docker-env | Invoke-Expression
+choco upgrade minikube
+minikube version
 
 # For Linux/Shell
 minikube start — vm-driver=virtualbox

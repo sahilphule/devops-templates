@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  # namespace:
+  labels:
+    deployment: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: app
+  template:
+    metadata:
+      labels:
+        pod: app
+    spec:
+      restartPolicy: Always
+      # imagePullSecrets:
+      # - name: docker-secret
+      containers:
+      - name: app-container
+        image: app:latest
+        imagePullPolicy: Never
+        envFrom:
+        - configMapRef:
+            name: app-configmap
+        - secretRef:
+            name: app-secrets
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: app-volume
+          mountPath: /app/staticfiles/
+      volumes:
+      - name: app-volume
+        persistentVolumeClaim:
+          claimName: app-pvc

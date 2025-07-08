@@ -23,9 +23,9 @@ spec:
         - containerPort: 27017
         envFrom:
         - configMapRef:
-            name: follow-up-configmap
+            name: mongo-configmap
         - secretRef:
-            name: follow-up-secrets
+            name: mongo-secrets
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
