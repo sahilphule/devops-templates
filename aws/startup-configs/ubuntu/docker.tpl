@@ -2,7 +2,7 @@
 
 # Install Docker
 sudo apt install -y docker.io
-sudo usermod -a -G docker ubuntu
+sudo usermod -aG docker ubuntu
 newgrp docker
 sudo systemctl start docker.service
 
