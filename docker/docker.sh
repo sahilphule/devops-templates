@@ -4,7 +4,7 @@ docker rmi -f $(docker images -aq)
 
 docker stats
 docker ps -a
-docker run -d <image-name>
+docker run -d --name <container-name> -p <port>:<port> <image-name>
 docker restart <container-name>
 docker stop <container-name>
 docker logs <container-name> --follow

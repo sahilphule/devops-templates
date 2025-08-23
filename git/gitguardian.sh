@@ -62,16 +62,21 @@ ggshield secret scan path </path/to/code>
 # Scan directory
 ggshield secret scan path --recursive </path/to/code>
 
-# Scan your entire commited Git repo
+# Scan the entire commited Git repo
 ggshield secret scan repo .
 
-# Scan your staged files
+# Scan the entire Git History
+ggshield scan repo --all-policies --verbose
+
+# Scan the staged files
 ggshield secret scan pre-commit
 
 # Ignore the warning
 ggshield secret ignore --last-found
 
-$env:SKIP="ggshield"; git commit -m "your message" # not recommended
+# Skipping detected secret and pushing
+SKIP=ggshield git commit -m "testing gitguardian" # for ubuntu
+$env:SKIP="ggshield"; git commit -m "your message" # for windows
 
 # pre-commit scanning through docker image
 docker run -e GITGUARDIAN_API_KEY -v $(pwd):/data --rm gitguardian/ggshield ggshield secret scan pre-commit

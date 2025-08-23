@@ -1,0 +1,42 @@
+name: Cleanup old workflow runs
+
+on:
+  schedule:
+    # ┌──────────── minute (0 - 59)
+    # │ ┌────────── hour (0 - 23, UTC time)
+    # │ │ ┌──────── day of month (1 - 31)
+    # │ │ │ ┌────── month (1 - 12)
+    # │ │ │ │ ┌──── day of week (0 - 6, Sunday=0)
+    # │ │ │ │ │
+    # 0 2 * * 0
+    # Runs every Saturday at 02:00 AM IST
+    - cron: '30 20 * * 5' # Cron is to be set in UTC Format
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Delete old workflow runs
+        run: |
+          OLDER_THAN_DAYS=10
+          cutoff_date=$(date -u -d "$OLDER_THAN_DAYS days ago" +%Y-%m-%dT%H:%M:%SZ)
+          REPO="${{ github.repository }}"
+
+          workflows=$(gh workflow list --repo "$REPO" --json id,name --jq '.[] | @base64')
+          for wf in $workflows; do
+            _jq() { echo ${wf} | base64 --decode | jq -r ${1}; }
+            workflow_id=$(_jq '.id')
+            workflow_name=$(_jq '.name')
+
+            echo "Processing $workflow_name (ID: $workflow_id)"
+            for run_id in $(gh run list --repo "$REPO" --workflow="$workflow_id" --limit 100 \
+              --json databaseId,createdAt \
+              --jq ".[] | select(.createdAt < \"$cutoff_date\") | .databaseId"); do
+              echo "Deleting run $run_id from $workflow_name"
+              gh run delete "$run_id" --repo "$REPO"
+            done
+          done

@@ -1,3 +1,7 @@
+choco install terraform -y
+choco upgrade terraform
+terraform -v
+
 terraform init -upgrade
 terraform init -reconfigure
 terraform init -migrate-state

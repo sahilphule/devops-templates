@@ -5,7 +5,11 @@ git add *
 git add .
 git commit -m <"commit-message">
 git push -u origin <branch-name> --force
-git merge <feature-branch>
+
+git checkout <base-branch>
+git pull origin <base-branch>       # make sure your base branch is up to date
+git fetch origin
+git merge origin/<compare-branch>     # merge latest compare-branch into base-branch
 
 git stash
 git stash apply
