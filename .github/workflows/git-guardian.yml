@@ -1,10 +1,12 @@
+# Required secrets
+# GITGUARDIAN_API_KEY
+
 name: GitGuardian Secrets Scan
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
-      - develop
+      - master
 
 jobs:
   scan:
@@ -15,8 +17,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 1  # required to scan only latest commit
-          # fetch-depth: 0  # required to scan full history
+          fetch-depth: 0  # required to scan full history
 
       - name: Run GitGuardian Scan
         uses: GitGuardian/ggshield/actions/secret@v1.41.0  # latest version
