@@ -44,6 +44,9 @@ terraform workspace new <name>
 terraform workspace select <name>
 terraform workspace delete <name>
 
+terraform import <resource-address> <resource-id>
+terraform state rm -state=<tfstate-file> <resource-address>
+
 ssh-keygen -t rsa -b 4096
 ssh-keygen -t dsa 
 ssh-keygen -t ecdsa -b 521

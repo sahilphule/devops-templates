@@ -1,11 +1,13 @@
 sudo apt install postgresql-client-common
 
 psql -h <host> -U <user> -d <dbname>
-docker run -it --rm postgres psql -h <hostname> -p 5432 -U <user> -d <db-name>
+docker run -it --rm postgres psql -h <host> -p 5432 -U <user> -d <db-name>
 
 docker exec -t <container-name> pg_dump -U <user> -d <db-name> -Fc -f /tmp/db.dump
 docker cp <container-name>:/tmp/db.dump ./db.dump
-pg_restore -h <hostname> -U <user> -d <db-name> -Fc --no-owner --role=<user> db.dump
+
+pg_dump -h <host> -U <user> -d <db-name> -Fc -f db.dump
+pg_restore -h <host> -U <user> -d <db-name> -Fc --no-owner --role=<user> db.dump
 
 \l List all databases
 \c dbname	Connect to another database

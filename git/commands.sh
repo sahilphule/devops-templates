@@ -1,3 +1,5 @@
+git remote set-url origin git@github.com-work:org/repo.git
+
 git init
 git remote add origin <git-repository-url>
 git status
@@ -13,6 +15,8 @@ git merge origin/<compare-branch>     # merge latest compare-branch into base-br
 
 git stash
 git stash apply
+
+git log --all --oneline -l          # check latest commit
 
 git branch -a
 git branch <branch-name>

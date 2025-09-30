@@ -3,14 +3,8 @@
 [webservers]
 10.0.2.15
 webserver1.example.com
-<public-ip> ansible_user=<ec2-user/ubuntu/root> ansible_ssh_private_key_file=~/.ssh/<private-key-file>.pem
+<public-ip> ansible_port=<ssh-port> ansible_user=<ssh-user> ansible_ssh_private_key_file=~/.ssh/<private-key-file> ansible_become=true ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [databases]
 database1.example.com
 database2.example.com
-
-[linux]
-<public-ip> ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/<private-key-file>.pem
-
-[ubuntu]
-<public-ip> ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/<private-key-file>.pem

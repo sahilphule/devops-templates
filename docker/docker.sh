@@ -1,5 +1,6 @@
 docker images
 docker rmi <image-name>
+docker image prune -af
 docker rmi -f $(docker images -aq)
 
 docker stats
