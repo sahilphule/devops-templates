@@ -4,10 +4,16 @@ sudo apt update
 # Install K3s
 curl -sfL https://get.k3s.io | sh -
 
-sudo mkdir -p ~/.kube
+# Setup kubeconfig
+mkdir -p ~/.kube
 sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
 sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
+# Install kubectx/kubens
+sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 
 # Install AWS CLI
 sudo apt install unzip curl -y
