@@ -70,3 +70,8 @@ git rebase --continue
 # git commands for pre-commits
 git commit -m <"commit message"> -n # skips all pre-commits checks
 SKIP=ggshield git commit -m <"commit message"> # skips ggshield pre-commit checks
+
+# detect file changes on disk migration
+git diff --word-diff --ignore-cr-at-eol origin/$(git branch --show-current)
+git diff --ignore-cr-at-eol --quiet origin/$(git branch --show-current) || \
+git diff --ignore-cr-at-eol --name-only origin/$(git branch --show-current)
