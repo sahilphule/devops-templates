@@ -1,11 +1,24 @@
 #!bin/sh
 
 # Install Azure CLI
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[azure-cli]
-name=Azure CLI
-baseurl=https://packages.microsoft.com/yumrepos/azure-cli
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/apt.repos.d/azure-cli.repo'
+sudo apt update
+sudo apt install -y ca-certificates curl apt-transport-https lsb-release gnupg
+
+sudo mkdir -p /etc/apt/keyrings
+
+curl -sLS https://packages.microsoft.com/keys/microsoft.asc \
+| sudo gpg --dearmor \
+| sudo tee /etc/apt/keyrings/microsoft.gpg > /dev/null
+
+sudo chmod go+r /etc/apt/keyrings/microsoft.gpg
+
+AZ_REPO=$(lsb_release -cs)
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] \
+https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" \
+| sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+sudo apt update
 sudo apt install -y azure-cli
+
+az version
