@@ -1,0 +1,14 @@
+deploy_ec2:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh rsync
+    - mkdir -p ~/.ssh
+    - echo "$EC2_SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+  script:
+    - rsync -avz . $EC2_USER@$EC2_HOST:/opt/app
+    - ssh $EC2_USER@$EC2_HOST "cd /opt/app && docker compose up -d --build"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'

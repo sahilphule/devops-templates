@@ -1,5 +1,6 @@
 git remote set-url origin git@github.com-work:org/repo.git
 
+# initialize new repository
 git init
 git remote add origin <git-repository-url>
 git status
@@ -8,13 +9,22 @@ git add .
 git commit -m <"commit-message">
 git push -u origin <branch-name> --force
 
+# merge branches using git cli
 git checkout <base-branch>
 git pull origin <base-branch>       # make sure your base branch is up to date
 git fetch origin
 git merge origin/<compare-branch>     # merge latest compare-branch into base-branch
 
+# cherry-pick changes using git cli
+git cherry-pick <commit-hash>
+git cherry-pick --continue
+git cherry-pick -n <commit-hash>       # don’t auto commit (edit before commit)
+git cherry-pick --abort
+
 git stash
 git stash apply
+
+git pull --rebase
 
 git log --all --oneline -l          # check latest commit
 
@@ -53,7 +63,7 @@ git config --global core.autocrlf input    # This tells Git to keep LF in repo
 git commit --amend --all
 
 git log
-git rebase -i <commit-id>~1
+git rebase -i <commit-hash>~1
 git commit --amend
 git rebase --continue
 
